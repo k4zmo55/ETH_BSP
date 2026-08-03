@@ -23,6 +23,37 @@ static float g_temperature_c = 0.0f;
 static float g_supply_voltage = 0.0f;
 static uint32_t g_uptime_s = 0U;
 
+/* --- (a2) I2C sensorden okunan deger: SHT3x ornegi (nem, %RH) ---
+ * I2C okuma islemi tamamen kullanicinin donanimina ait; BSP I2C'ye
+ * dokunmaz. Okunan deger asagidaki var_humidity ile arayuze acilir. */
+#define SHT3X_I2C_ADDR      (0x44U << 1)   /* ADDR pini GND */
+#define SHT3X_CMD_MEASURE_HI 0x2C
+#define SHT3X_CMD_MEASURE_LO 0x06
+
+extern I2C_HandleTypeDef hi2c1;   /* CubeMX tarafindan uretilir (i2c.c) */
+
+static float g_humidity_rh = 0.0f;
+
+static float ReadI2CHumiditySensor(void)
+{
+    uint8_t cmd[2]  = { SHT3X_CMD_MEASURE_HI, SHT3X_CMD_MEASURE_LO };
+    uint8_t raw[6]  = { 0 };
+
+    if (HAL_I2C_Master_Transmit(&hi2c1, SHT3X_I2C_ADDR, cmd, sizeof(cmd), 10) != HAL_OK) {
+        return g_humidity_rh;   /* iletisim hatasi: son bilinen degeri koru */
+    }
+
+    HAL_Delay(15);  /* SHT3x olcum suresi (~15 ms, yuksek tekrarlanabilirlik) */
+
+    if (HAL_I2C_Master_Receive(&hi2c1, SHT3X_I2C_ADDR, raw, sizeof(raw), 10) != HAL_OK) {
+        return g_humidity_rh;
+    }
+
+    /* raw[3..4] = nem (CRC raw[5] burada kontrol edilmiyor, ornek amacli) */
+    uint16_t raw_rh = ((uint16_t)raw[3] << 8) | raw[4];
+    return 100.0f * ((float)raw_rh / 65535.0f);
+}
+
 /* --- (b) LED: yazma islemi GPIO'ya dokunmali, o yuzden fonksiyon --- */
 static float led_get(void)
 {
@@ -51,6 +82,11 @@ static const ETH_Var_t var_uptime = {
     .writable = false, .ptr = &g_uptime_s
 };
 
+static const ETH_Var_t var_humidity = {
+    .name = "nem", .unit = "%RH", .type = ETH_VAR_F32,
+    .writable = false, .ptr = &g_humidity_rh
+};
+
 static const ETH_Var_t var_led = {
     .name = "led", .unit = NULL, .type = ETH_VAR_U8,
     .writable = true, .ptr = NULL,
@@ -67,6 +103,7 @@ int main(void)
     SystemClock_Config();     /* 50 MHz RMII referans saati aktif olmali! */
     MX_GPIO_Init();
     MX_ADC1_Init();           /* Sicaklik/besleme olcumu icin (ornek) */
+    MX_I2C1_Init();           /* SHT3x nem sensoru icin (ornek) */
 
     ETH_Status_t st = ETH_BSP_Init();
 
@@ -88,6 +125,7 @@ int main(void)
     (void)ETH_BSP_RegisterVar(&var_vbat);
     (void)ETH_BSP_RegisterVar(&var_uptime);
     (void)ETH_BSP_RegisterVar(&var_led);
+    (void)ETH_BSP_RegisterVar(&var_humidity);
 
     uint32_t last_sample = 0U;
 
@@ -106,6 +144,7 @@ int main(void)
             g_temperature_c  = ReadTemperatureSensor();
             g_supply_voltage = ReadSupplyVoltage();
             g_uptime_s       = now / 1000U;
+            g_humidity_rh    = ReadI2CHumiditySensor();   /* I2C -> arayuz */
         }
     }
 }
