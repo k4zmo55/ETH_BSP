@@ -141,7 +141,7 @@ E-AETIS is a desktop testing and telemetric inspection interface designed to val
 ## User Interface
 
 <p align="center">
-  <img src="docs/gui.png" alt="E-AETIS GUI" width="100%">
+  <img src="Docs/gui.png" alt="E-AETIS GUI" width="100%">
 </p>
 
 ### Key Features
