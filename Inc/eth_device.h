@@ -102,7 +102,9 @@
 /* Descriptor + buffer'larin ayrilan bolgeye sigdigini derleme aninda dogrula */
 #define ETH_DESC_FOOTPRINT_ ( (ETH_RX_DESC_COUNT + ETH_TX_DESC_COUNT) * 32U + \
                               (ETH_RX_DESC_COUNT + ETH_TX_DESC_COUNT) * ETH_BUFFER_SIZE )
-#if ETH_DESC_FOOTPRINT_ > ETH_DESC_REGION_SIZE
+
+/* Buradaki ETH_DESC_FOOTPRINT değeri 32KB'den büyük olmamalı */
+#if ETH_DESC_FOOTPRINT_ > ETH_DESC_REGION_SIZE      
   #error "Descriptor+buffer toplami ETH_DESC_REGION_SIZE'i asiyor."
 #endif
 
