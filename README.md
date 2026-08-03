@@ -132,3 +132,20 @@ SMI zamanlaması — hepsi doğrudur. Geri kalan her şey bunun üzerine kurulur
 - IAP'de kimlik doğrulama yok, yalnızca CRC32 bütünlük kontrolü
 - Polling tabanlı; kesme desteği yok (`ProcessEvents` çağrı sıklığına bağımlı)
 # ETH_BSP
+
+
+# E-AETIS - EHSİİM Advanced Ethernet Testing & Inspection System
+
+E-AETIS is a desktop testing and telemetric inspection interface designed to validate Ethernet BSP performance, execute ping/ICMP tests, monitor variables in real-time, and handle IAP bootloader tasks.
+
+## User Interface
+
+<p align="center">
+  <img src="docs/gui.png" alt="E-AETIS GUI" width="100%">
+</p>
+
+### Key Features
+* **Board I/O & Telemetry:** Automatic variable discovery and real-time monitoring.
+* **Network Testing:** Ping (ICMP) testing, UDP console logging, and performance/jitter analysis.
+* **Diagnostics:** PHY / DMA diagnostics and error injection modules.
+* **Firmware Update:** Integrated Bootloader (IAP) management.
