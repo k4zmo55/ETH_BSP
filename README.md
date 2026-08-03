@@ -236,6 +236,4 @@ Register bit konumları ilgili referans kılavuzundan (RM) **doğrulanmalıdır.
 - IAP'de kimlik doğrulama yok, yalnızca CRC32 bütünlük kontrolü
 - Polling tabanlı; kesme desteği yok (`ProcessEvents` çağrı sıklığına bağımlı)
 
-## Bilinen Depo Sorunları
 
-- `Src/port/eth_port_eqos (1).c` ve `Src/phy/eth_phy_lan87xx (1).c` dosya adlarında boşluk ve `(1)` soneki var (muhtemelen GitHub web arayüzünden yeniden yükleme sırasında oluşan bir isim çakışması artığı). Mimari şemasında ve build sistemlerinde bu dosyalar `eth_port_eqos.c` / `eth_phy_lan87xx.c` olarak referans veriliyor; gerçek dosya adları bununla eşleşmediği için doğrudan bu isimlerle include eden bir build betiği dosyayı bulamaz. Kullanmadan önce dosyaların yeniden adlandırılması önerilir.
