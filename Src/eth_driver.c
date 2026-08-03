@@ -1,290 +1,413 @@
 /**
   ******************************************************************************
-  * @file    eth_port_gmac.c
-  * @brief   Klasik ST/Synopsys 3.x MAC portu (STM32F4, STM32F7).
+  * @file    eth_driver.c
+  * @brief   Aileden bagimsiz surucu cekirdegi: ring, PHY, istatistik.
   *
-  * EQOS'tan temel farki: ring, descriptor'lar arasi NEXT-POINTER zinciri
-  * ile kurulur (TCH/RCH bitleri) ve "kick" islemi tail pointer yerine
-  * poll demand register'ina yazmaktir.
+  * Bu dosyada TEK BIR register erisimi yoktur. Donanima dokunan her sey
+  * ETH_Port_* sozlesmesi uzerinden port dosyalarina delege edilir.
   ******************************************************************************
   */
 
-#include "eth_device.h"
-
-#if ETH_PORT_GMAC
-
+#include "eth_driver.h"
 #include "eth_port.h"
+#include "eth_phy.h"
 #include <string.h>
 
-/* ===== MACCR ===== */
-#define GMAC_MACCR_RE          (1UL << 2)
-#define GMAC_MACCR_TE          (1UL << 3)
-#define GMAC_MACCR_DM          (1UL << 11)
-#define GMAC_MACCR_FES         (1UL << 14)
-#define GMAC_MACCR_IPCO        (1UL << 10)
+/* ===== Statik bellek =================================================== */
 
-/* ===== MACFFR (frame filter) ===== */
-#define GMAC_MACFFR_BFD        (1UL << 5)   /* Broadcast Frames Disable */
-#define GMAC_MACFFR_PM         (1UL << 0)   /* Promiscuous */
+static ETH_Desc_t rx_desc[ETH_RX_DESC_COUNT]
+    __attribute__((section(ETH_DESC_SECTION), aligned(32)));
+static ETH_Desc_t tx_desc[ETH_TX_DESC_COUNT]
+    __attribute__((section(ETH_DESC_SECTION), aligned(32)));
 
-/* ===== MACMIIAR ===== */
-#define GMAC_MIIAR_MB          (1UL << 0)
-#define GMAC_MIIAR_MW          (1UL << 1)
-#define GMAC_MIIAR_CR_Pos      2U
-#define GMAC_MIIAR_MR_Pos      6U
-#define GMAC_MIIAR_PA_Pos      11U
+static uint8_t rx_buf[ETH_RX_DESC_COUNT][ETH_BUFFER_SIZE]
+    __attribute__((section(ETH_DESC_SECTION), aligned(4)));
+static uint8_t tx_buf[ETH_TX_DESC_COUNT][ETH_BUFFER_SIZE]
+    __attribute__((section(ETH_DESC_SECTION), aligned(4)));
 
-/* ===== DMABMR / DMAOMR ===== */
-#define GMAC_DMABMR_SR         (1UL << 0)   /* Software Reset */
-#define GMAC_DMAOMR_SR         (1UL << 1)   /* Start Receive  */
-#define GMAC_DMAOMR_ST         (1UL << 13)  /* Start Transmit */
-#define GMAC_DMAOMR_TSF        (1UL << 21)
-#define GMAC_DMAOMR_RSF        (1UL << 25)
-#define GMAC_DMAOMR_FTF        (1UL << 20)
+#define RX_MASK (ETH_RX_DESC_COUNT - 1U)
+#define TX_MASK (ETH_TX_DESC_COUNT - 1U)
 
-/* ===== DMASR ===== */
-#define GMAC_DMASR_FBES        (1UL << 13)
-#define GMAC_DMASR_RBUS        (1UL << 7)
-#define GMAC_DMASR_TBUS        (1UL << 2)
+static volatile uint32_t rx_idx;
+static volatile uint32_t tx_idx;
+static bool        rx_held;        /* ReceiveFrame verildi, Release bekliyor */
+static bool        tx_claimed;     /* ClaimTxBuffer verildi, Commit bekliyor */
+static bool        driver_ready;
+static ETH_Stats_t stats;
 
-/* ===== Descriptor bitleri (legacy normal format) ===== */
-#define GMAC_DESC_OWN          (1UL << 31)
-#define GMAC_TDES0_IC          (1UL << 30)
-#define GMAC_TDES0_LS          (1UL << 29)
-#define GMAC_TDES0_FS          (1UL << 28)
-#define GMAC_TDES0_TCH         (1UL << 20)  /* Second Address Chained */
-#define GMAC_TDES1_TBS1_MASK   (0x1FFFUL)
-#define GMAC_RDES0_ES          (1UL << 15)
-#define GMAC_RDES0_LS          (1UL << 8)
-#define GMAC_RDES0_FL_Pos      16U
-#define GMAC_RDES0_FL_MASK     (0x3FFFUL)
-#define GMAC_RDES1_RCH         (1UL << 14)
-#define GMAC_RDES1_RBS1_MASK   (0x1FFFUL)
+/* ===== Zaman tabani ==================================================== */
 
-#define GMAC_SMI_TIMEOUT_MS    100U
-#define GMAC_RESET_TIMEOUT_MS  500U
-
-static ETH_Desc_t *rx_ring_base;
-static ETH_Desc_t *tx_ring_base;
-static uint32_t    mdio_cr_value;
-
-/* ===== Donanim getirme ================================================= */
-
-ETH_Status_t ETH_Port_SelectRMII(void)
+__attribute__((weak)) uint32_t ETH_GetTick(void)
 {
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-    (void)RCC->APB2ENR;
-    SYSCFG->PMC |= SYSCFG_PMC_MII_RMII_SEL;
-    return ETH_OK;
+    /* Varsayilan: HAL SysTick. HAL kullanmiyorsaniz kendi projenizde
+     * bu fonksiyonu tekrar tanimlayin (weak, override edilebilir). */
+    extern uint32_t HAL_GetTick(void);
+    return HAL_GetTick();
 }
 
-ETH_Status_t ETH_Port_EnableClocks(void)
+/* ===== MPU: descriptor bolgesini non-cacheable yap ===================== */
+
+#if ETH_HAS_DCACHE && ETH_USE_MPU_NONCACHEABLE
+
+static void eth_mpu_config(void)
 {
-    RCC->AHB1ENR |= RCC_AHB1ENR_ETHMACEN | RCC_AHB1ENR_ETHMACTXEN
-                  | RCC_AHB1ENR_ETHMACRXEN;
-    (void)RCC->AHB1ENR;
-    return ETH_OK;
-}
-
-ETH_Status_t ETH_Port_ResetCore(void)
-{
-    uint32_t start;
-
-    ETH->DMABMR |= GMAC_DMABMR_SR;
-
-    start = ETH_GetTick();
-    while (ETH->DMABMR & GMAC_DMABMR_SR) {
-        if ((ETH_GetTick() - start) > GMAC_RESET_TIMEOUT_MS) return ETH_ERR_TIMEOUT;
-    }
-    return ETH_OK;
-}
-
-void ETH_Port_Shutdown(void)
-{
-    ETH->MACCR  &= ~(GMAC_MACCR_TE | GMAC_MACCR_RE);
-    ETH->DMAOMR &= ~(GMAC_DMAOMR_ST | GMAC_DMAOMR_SR);
-    RCC->AHB1ENR &= ~(RCC_AHB1ENR_ETHMACEN | RCC_AHB1ENR_ETHMACTXEN
-                    | RCC_AHB1ENR_ETHMACRXEN);
-}
-
-/* ===== MAC konfigurasyonu ============================================== */
-
-void ETH_Port_SetMACAddress(const uint8_t mac[6])
-{
-    ETH->MACA0HR = (1UL << 31)
-                 | ((uint32_t)mac[5] << 8) | (uint32_t)mac[4];
-    ETH->MACA0LR = ((uint32_t)mac[3] << 24) | ((uint32_t)mac[2] << 16)
-                 | ((uint32_t)mac[1] << 8)  | (uint32_t)mac[0];
-}
-
-void ETH_Port_SetSpeedDuplex(uint16_t speed_mbps, bool full_duplex)
-{
-    uint32_t cr = ETH->MACCR & ~(GMAC_MACCR_FES | GMAC_MACCR_DM);
-    if (speed_mbps == 100U) cr |= GMAC_MACCR_FES;
-    if (full_duplex)        cr |= GMAC_MACCR_DM;
-    ETH->MACCR = cr;
-}
-
-void ETH_Port_ConfigureFilters(void)
-{
-    /* BFD (Broadcast Frames Disable) TEMIZ kalmali - discovery broadcast. */
-    ETH->MACFFR = 0U;
-
-    ETH->DMAOMR |= GMAC_DMAOMR_TSF | GMAC_DMAOMR_RSF;
-}
-
-void ETH_Port_Start(void)
-{
-    ETH->MACCR  |= GMAC_MACCR_TE | GMAC_MACCR_RE;
-    ETH->DMAOMR |= GMAC_DMAOMR_FTF;
-    ETH->DMAOMR |= GMAC_DMAOMR_ST | GMAC_DMAOMR_SR;
-}
-
-/* ===== SMI ============================================================= */
-
-void ETH_Port_ConfigureMDCClock(uint32_t hclk_hz)
-{
-    if      (hclk_hz <  35000000UL) mdio_cr_value = 2UL;  /* /16  */
-    else if (hclk_hz <  60000000UL) mdio_cr_value = 3UL;  /* /26  */
-    else if (hclk_hz < 100000000UL) mdio_cr_value = 0UL;  /* /42  */
-    else if (hclk_hz < 150000000UL) mdio_cr_value = 1UL;  /* /62  */
-    else                            mdio_cr_value = 4UL;  /* /102 */
-}
-
-static ETH_Status_t gmac_smi_wait(void)
-{
-    uint32_t start = ETH_GetTick();
-    while (ETH->MACMIIAR & GMAC_MIIAR_MB) {
-        if ((ETH_GetTick() - start) > GMAC_SMI_TIMEOUT_MS) return ETH_ERR_TIMEOUT;
-    }
-    return ETH_OK;
-}
-
-ETH_Status_t ETH_Port_SMI_Read(uint8_t phy_addr, uint8_t reg, uint16_t *val)
-{
-    if (gmac_smi_wait() != ETH_OK) return ETH_ERR_TIMEOUT;
-
-    ETH->MACMIIAR = ((uint32_t)phy_addr << GMAC_MIIAR_PA_Pos)
-                  | ((uint32_t)reg      << GMAC_MIIAR_MR_Pos)
-                  | (mdio_cr_value      << GMAC_MIIAR_CR_Pos)
-                  | GMAC_MIIAR_MB;                    /* MW=0 -> read */
-
-    if (gmac_smi_wait() != ETH_OK) return ETH_ERR_TIMEOUT;
-
-    *val = (uint16_t)(ETH->MACMIIDR & 0xFFFFU);
-    return ETH_OK;
-}
-
-ETH_Status_t ETH_Port_SMI_Write(uint8_t phy_addr, uint8_t reg, uint16_t val)
-{
-    if (gmac_smi_wait() != ETH_OK) return ETH_ERR_TIMEOUT;
-
-    ETH->MACMIIDR = (uint32_t)val;
-    ETH->MACMIIAR = ((uint32_t)phy_addr << GMAC_MIIAR_PA_Pos)
-                  | ((uint32_t)reg      << GMAC_MIIAR_MR_Pos)
-                  | (mdio_cr_value      << GMAC_MIIAR_CR_Pos)
-                  | GMAC_MIIAR_MW | GMAC_MIIAR_MB;
-
-    return gmac_smi_wait();
-}
-
-/* ===== Descriptor soyutlamasi ========================================== */
-
-void ETH_Port_SetupRings(ETH_Desc_t *rx, uint32_t rx_count,
-                         ETH_Desc_t *tx, uint32_t tx_count)
-{
-    rx_ring_base = rx;
-    tx_ring_base = tx;
-
-    /* Legacy MAC'te ring, DES3'teki next-pointer ile ZINCIRLENIR. */
-    for (uint32_t i = 0U; i < rx_count; i++) {
-        rx[i].DES1 = GMAC_RDES1_RCH | (ETH_BUFFER_SIZE & GMAC_RDES1_RBS1_MASK);
-        rx[i].DES3 = (uint32_t)(uintptr_t)&rx[(i + 1U) % rx_count];
-    }
-    for (uint32_t i = 0U; i < tx_count; i++) {
-        tx[i].DES0 = GMAC_TDES0_TCH;
-        tx[i].DES3 = (uint32_t)(uintptr_t)&tx[(i + 1U) % tx_count];
-    }
-
-    ETH->DMARDLAR = (uint32_t)(uintptr_t)rx;
-    ETH->DMATDLAR = (uint32_t)(uintptr_t)tx;
-}
-
-bool ETH_Port_DescIsOwnedByCPU(const ETH_Desc_t *d)
-{
-    return (d->DES0 & GMAC_DESC_OWN) == 0U;   /* Legacy'de OWN, DES0'da */
-}
-
-bool ETH_Port_DescRxHasError(const ETH_Desc_t *d)
-{
-    if ((d->DES0 & GMAC_RDES0_LS) == 0U) return true;
-    return (d->DES0 & GMAC_RDES0_ES) != 0U;
-}
-
-uint16_t ETH_Port_DescGetRxLength(const ETH_Desc_t *d)
-{
-    uint16_t fl = (uint16_t)((d->DES0 >> GMAC_RDES0_FL_Pos) & GMAC_RDES0_FL_MASK);
-    /* Legacy MAC uzunluga 4 baytlik CRC'yi dahil eder; cikariyoruz. */
-    return (fl > 4U) ? (uint16_t)(fl - 4U) : 0U;
-}
-
-void ETH_Port_DescArmRx(ETH_Desc_t *d, uint8_t *buf)
-{
-    d->DES2 = (uint32_t)(uintptr_t)buf;
-    d->DES1 = GMAC_RDES1_RCH | (ETH_BUFFER_SIZE & GMAC_RDES1_RBS1_MASK);
     __DMB();
-    d->DES0 = GMAC_DESC_OWN;
-    __DMB();
+    MPU->CTRL = 0U;
+
+#if (__ARM_ARCH_8M_MAIN__ == 1) || (__ARM_ARCH_8M_BASE__ == 1) || defined(ETH_TARGET_STM32H563)
+    /* --- ARMv8-M (Cortex-M33 / STM32H5) --- */
+    /* MAIR attribute 0 = Normal, Outer/Inner Non-cacheable */
+    MPU->MAIR0 = (MPU->MAIR0 & ~0xFFUL) | 0x44UL;
+
+    MPU->RNR = ETH_MPU_REGION_NUMBER;
+    /* RBAR: BASE | SH(inner shareable=0b01<<3) | AP(RW any priv=0b01<<1) | XN(1) */
+    MPU->RBAR = (ETH_DESC_REGION_BASE & 0xFFFFFFE0UL)
+              | (1UL << 3)      /* SH  = Outer shareable degil, non-shareable=0 */
+              | (1UL << 1)      /* AP  = RW, priv+unpriv */
+              | (1UL << 0);     /* XN  = execute never */
+    /* RLAR: LIMIT | AttrIndx(0) | EN */
+    MPU->RLAR = ((ETH_DESC_REGION_BASE + ETH_DESC_REGION_SIZE - 1UL) & 0xFFFFFFE0UL)
+              | (0UL << 1)      /* AttrIndx = 0 */
+              | (1UL << 0);     /* Enable */
+#else
+    /* --- ARMv7-M (Cortex-M7 / STM32H7, F7) --- */
+    /* Boyut kodu: log2(size) - 1 */
+    uint32_t size_code = 0U;
+    uint32_t s = ETH_DESC_REGION_SIZE;
+    while (s > 1U) { s >>= 1U; size_code++; }
+    size_code -= 1U;
+
+    MPU->RNR  = ETH_MPU_REGION_NUMBER;
+    MPU->RBAR = ETH_DESC_REGION_BASE;
+    MPU->RASR = (1UL << 28)             /* XN  */
+              | (3UL << 24)             /* AP  = full access */
+              | (1UL << 19)             /* TEX = 001 */
+              | (0UL << 18)             /* S   = 0 */
+              | (0UL << 17)             /* C   = 0 -> non-cacheable */
+              | (0UL << 16)             /* B   = 0 */
+              | (size_code << 1)
+              | (1UL << 0);             /* Enable */
+#endif
+
+    MPU->CTRL = (1UL << 2) | (1UL << 0);   /* PRIVDEFENA | ENABLE */
+    __DSB();
+    __ISB();
 }
 
-void ETH_Port_DescArmTx(ETH_Desc_t *d, uint8_t *buf, uint16_t len)
-{
-    d->DES2 = (uint32_t)(uintptr_t)buf;
-    d->DES1 = (uint32_t)len & GMAC_TDES1_TBS1_MASK;
-    __DMB();
-    d->DES0 = GMAC_DESC_OWN | GMAC_TDES0_IC | GMAC_TDES0_FS
-            | GMAC_TDES0_LS | GMAC_TDES0_TCH;
-    __DMB();
-}
+#else
+static void eth_mpu_config(void) { }
+#endif
 
-void ETH_Port_KickRx(uint32_t next_index)
+/* ===== GPIO: RMII pinleri ============================================== */
+
+static void eth_gpio_init_af(GPIO_TypeDef *port, uint32_t pin)
 {
-    (void)next_index;
-    /* Legacy'de tail pointer yok: RBUS bayragini temizleyip poll demand yaz. */
-    if (ETH->DMASR & GMAC_DMASR_RBUS) {
-        ETH->DMASR   = GMAC_DMASR_RBUS;
-        ETH->DMARPDR = 0U;
+    const uint32_t p2 = pin * 2U;
+
+    port->MODER   = (port->MODER   & ~(3UL << p2)) | (2UL << p2);  /* AF     */
+    port->OTYPER &= ~(1UL << pin);                                 /* PP     */
+    port->OSPEEDR = (port->OSPEEDR & ~(3UL << p2)) | (3UL << p2);  /* V.High */
+    port->PUPDR  &= ~(3UL << p2);                                  /* NoPull */
+
+    if (pin < 8U) {
+        port->AFR[0] = (port->AFR[0] & ~(0xFUL << (pin * 4U)))
+                     | ((uint32_t)ETH_AF_NUMBER << (pin * 4U));
+    } else {
+        const uint32_t s = (pin - 8U) * 4U;
+        port->AFR[1] = (port->AFR[1] & ~(0xFUL << s))
+                     | ((uint32_t)ETH_AF_NUMBER << s);
     }
 }
 
-void ETH_Port_KickTx(uint32_t next_index)
+static void eth_gpio_init(void)
 {
-    (void)next_index;
-    if (ETH->DMASR & GMAC_DMASR_TBUS) {
-        ETH->DMASR   = GMAC_DMASR_TBUS;
-        ETH->DMATPDR = 0U;
+    ETH_GPIO_RCC_REG |= ETH_GPIO_CLOCK_MASK;
+    (void)ETH_GPIO_RCC_REG;   /* Yazma-okuma gecikmesi icin */
+
+    eth_gpio_init_af(ETH_PIN_REF_CLK_PORT, ETH_PIN_REF_CLK_NUM);
+    eth_gpio_init_af(ETH_PIN_MDIO_PORT,    ETH_PIN_MDIO_NUM);
+    eth_gpio_init_af(ETH_PIN_CRS_DV_PORT,  ETH_PIN_CRS_DV_NUM);
+    eth_gpio_init_af(ETH_PIN_MDC_PORT,     ETH_PIN_MDC_NUM);
+    eth_gpio_init_af(ETH_PIN_RXD0_PORT,    ETH_PIN_RXD0_NUM);
+    eth_gpio_init_af(ETH_PIN_RXD1_PORT,    ETH_PIN_RXD1_NUM);
+    eth_gpio_init_af(ETH_PIN_TX_EN_PORT,   ETH_PIN_TX_EN_NUM);
+    eth_gpio_init_af(ETH_PIN_TXD0_PORT,    ETH_PIN_TXD0_NUM);
+    eth_gpio_init_af(ETH_PIN_TXD1_PORT,    ETH_PIN_TXD1_NUM);
+}
+
+/* ===== PHY erisimi (porta delege) ====================================== */
+
+ETH_Status_t ETH_PHY_Read(uint8_t phy_addr, uint8_t reg, uint16_t *value)
+{
+    if (value == NULL || phy_addr > 31U || reg > 31U) return ETH_ERR_PARAM;
+    return ETH_Port_SMI_Read(phy_addr, reg, value);
+}
+
+ETH_Status_t ETH_PHY_Write(uint8_t phy_addr, uint8_t reg, uint16_t value)
+{
+    if (phy_addr > 31U || reg > 31U) return ETH_ERR_PARAM;
+    return ETH_Port_SMI_Write(phy_addr, reg, value);
+}
+
+ETH_Status_t ETH_PHY_ScanAddress(uint8_t *found_addr)
+{
+    if (found_addr == NULL) return ETH_ERR_PARAM;
+
+    for (uint8_t a = 0U; a < 32U; a++) {
+        uint16_t id1 = 0U;
+        if (ETH_Port_SMI_Read(a, PHY_REG_PHYID1, &id1) != ETH_OK) continue;
+        /* Bos bus 0x0000 veya 0xFFFF verir; ikisi de gecersiz PHY ID. */
+        if (id1 != 0x0000U && id1 != 0xFFFFU) {
+            *found_addr = a;
+            return ETH_OK;
+        }
     }
+    return ETH_ERR_PHY;
 }
 
-/* ===== Olcum =========================================================== */
-
-uint32_t ETH_Port_GetMissedFrames(void)
+ETH_Status_t ETH_GetLinkState(ETH_LinkState_t *state)
 {
-    uint32_t v = ETH->DMAMFBOCR;   /* Okundugunda temizlenir */
-    return v & 0xFFFFUL;
+    if (state == NULL) return ETH_ERR_PARAM;
+
+    uint16_t bmcr = 0U, bmsr = 0U;
+    if (ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMCR, &bmcr) != ETH_OK) return ETH_ERR_PHY;
+
+    /* BMSR'nin link biti "latching low": dusmus link'i yakalamak icin
+     * iki kez okunur. Ilki gecmisi, ikincisi anlik durumu verir. */
+    (void)ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMSR, &bmsr);
+    if (ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMSR, &bmsr) != ETH_OK) return ETH_ERR_PHY;
+
+    state->bcr          = bmcr;
+    state->bsr          = bmsr;
+    state->link_up      = (bmsr & PHY_BMSR_LINK_UP) != 0U;
+    state->autoneg_done = (bmsr & PHY_BMSR_AUTONEG_DONE) != 0U;
+    state->speed_mbps   = 10U;
+    state->full_duplex  = false;
+
+    if (state->link_up) {
+        uint16_t sp = 10U; bool fd = false;
+        if (ETH_PHY_GetSpeedDuplex(PHY_ADDRESS, &sp, &fd) == ETH_OK) {
+            state->speed_mbps  = sp;
+            state->full_duplex = fd;
+        }
+    }
+    return ETH_OK;
 }
 
-uint32_t ETH_Port_GetAndClearDMAErrors(void)
+/* ===== Ring kurulumu =================================================== */
+
+static void eth_rings_init(void)
 {
-    uint32_t sr  = ETH->DMASR;
-    uint32_t err = sr & (GMAC_DMASR_FBES | GMAC_DMASR_RBUS | GMAC_DMASR_TBUS);
-    ETH->DMASR = err;
+    memset((void *)rx_desc, 0, sizeof(rx_desc));
+    memset((void *)tx_desc, 0, sizeof(tx_desc));
 
-    uint32_t c = 0U;
-    if (err & GMAC_DMASR_FBES) c++;
-    if (err & GMAC_DMASR_RBUS) c++;
-    if (err & GMAC_DMASR_TBUS) c++;
-    return c;
+    ETH_Port_SetupRings(rx_desc, ETH_RX_DESC_COUNT, tx_desc, ETH_TX_DESC_COUNT);
+
+    for (uint32_t i = 0U; i < ETH_RX_DESC_COUNT; i++) {
+        ETH_Port_DescArmRx(&rx_desc[i], &rx_buf[i][0]);
+    }
+
+    rx_idx = 0U;
+    tx_idx = 0U;
+    rx_held = false;
+    tx_claimed = false;
 }
 
-#endif /* ETH_PORT_GMAC */
+/* ===== Baslatma ======================================================== */
+
+ETH_Status_t ETH_Driver_Init(void)
+{
+    ETH_Status_t st;
+
+    memset(&stats, 0, sizeof(stats));
+    driver_ready = false;
+
+    /* Sira kritik: RMII secimi MAC clock'lari acilmadan once yapilmali,
+     * yoksa MAC yanlis arayuzle reset'ten cikar. */
+    eth_mpu_config();
+    eth_gpio_init();
+
+    st = ETH_Port_SelectRMII();
+    if (st != ETH_OK) return st;
+
+    st = ETH_Port_EnableClocks();
+    if (st != ETH_OK) return st;
+
+    /* Bu adim takilirsa neredeyse her zaman 50 MHz RMII referans saati yoktur. */
+    st = ETH_Port_ResetCore();
+    if (st != ETH_OK) return st;
+
+    ETH_Port_ConfigureMDCClock(ETH_HCLK_HZ);
+
+    st = ETH_PHY_Bringup(PHY_ADDRESS);
+    if (st != ETH_OK) return st;
+
+    ETH_LinkState_t link;
+    st = ETH_GetLinkState(&link);
+    if (st != ETH_OK) return st;
+    if (!link.link_up) return ETH_ERR_LINK_DOWN;
+
+    ETH_Port_SetSpeedDuplex(link.speed_mbps, link.full_duplex);
+
+    const uint8_t mac[6] = { ETH_MAC_ADDR0, ETH_MAC_ADDR1, ETH_MAC_ADDR2,
+                             ETH_MAC_ADDR3, ETH_MAC_ADDR4, ETH_MAC_ADDR5 };
+    ETH_Port_SetMACAddress(mac);
+    ETH_Port_ConfigureFilters();
+
+    eth_rings_init();
+    ETH_Port_Start();
+
+    driver_ready = true;
+    return ETH_OK;
+}
+
+void ETH_Driver_DeInit(void)
+{
+    ETH_Port_Shutdown();
+    driver_ready = false;
+}
+
+bool ETH_Driver_IsReady(void) { return driver_ready; }
+
+/* ===== Gonderme ======================================================== */
+
+ETH_Status_t ETH_ClaimTxBuffer(uint8_t **buf)
+{
+    if (!driver_ready)  return ETH_ERR_DMA;
+    if (buf == NULL)    return ETH_ERR_PARAM;
+    if (tx_claimed)     return ETH_ERR_PARAM;
+
+    if (!ETH_Port_DescIsOwnedByCPU(&tx_desc[tx_idx])) {
+#if ETH_ENABLE_STATS
+        stats.tx_no_desc++;
+#endif
+        return ETH_ERR_NO_TX_DESC;
+    }
+
+    *buf = &tx_buf[tx_idx][0];
+    tx_claimed = true;
+    return ETH_OK;
+}
+
+ETH_Status_t ETH_CommitTxBuffer(uint16_t len)
+{
+    if (!tx_claimed)            return ETH_ERR_PARAM;
+    if (len == 0U)              { tx_claimed = false; return ETH_ERR_PARAM; }
+    if (len > ETH_BUFFER_SIZE)  { tx_claimed = false; return ETH_ERR_TOO_LARGE; }
+
+    /* Ethernet minimum frame 60 bayt (FCS haric). Kisa frame'i sifirla doldur;
+     * MAC padding yapsa da acikca yapmak fuzzing testinde belirsizligi kaldirir. */
+    uint16_t tx_len = len;
+    if (tx_len < 60U) {
+        memset(&tx_buf[tx_idx][tx_len], 0, 60U - tx_len);
+        tx_len = 60U;
+    }
+
+    ETH_Port_DescArmTx(&tx_desc[tx_idx], &tx_buf[tx_idx][0], tx_len);
+
+    tx_idx = (tx_idx + 1U) & TX_MASK;
+    ETH_Port_KickTx(tx_idx);
+    tx_claimed = false;
+
+#if ETH_ENABLE_STATS
+    stats.tx_frames++;
+    stats.tx_bytes += tx_len;
+#endif
+    return ETH_OK;
+}
+
+ETH_Status_t ETH_SendFrame(const uint8_t *data, uint16_t len)
+{
+    uint8_t *buf = NULL;
+
+    if (data == NULL || len == 0U) return ETH_ERR_PARAM;
+    if (len > ETH_BUFFER_SIZE)     return ETH_ERR_TOO_LARGE;
+
+    ETH_Status_t st = ETH_ClaimTxBuffer(&buf);
+    if (st != ETH_OK) return st;
+
+    memcpy(buf, data, len);
+    return ETH_CommitTxBuffer(len);
+}
+
+/* ===== Alma (zero-copy) ================================================ */
+
+ETH_Status_t ETH_ReceiveFrame(uint8_t **data, uint16_t *len)
+{
+    if (!driver_ready)               return ETH_ERR_DMA;
+    if (data == NULL || len == NULL) return ETH_ERR_PARAM;
+    if (rx_held)                     return ETH_ERR_PARAM;
+
+    ETH_Desc_t *d = &rx_desc[rx_idx];
+
+    if (!ETH_Port_DescIsOwnedByCPU(d)) return ETH_ERR_NO_DATA;
+
+    __DMB();
+
+    /* Hatali frame'i uygulamaya vermiyoruz: sayaci artir, descriptor'i iade et. */
+    if (ETH_Port_DescRxHasError(d)) {
+#if ETH_ENABLE_STATS
+        stats.rx_crc_errors++;
+#endif
+        ETH_Port_DescArmRx(d, &rx_buf[rx_idx][0]);
+        rx_idx = (rx_idx + 1U) & RX_MASK;
+        ETH_Port_KickRx(rx_idx);
+        return ETH_ERR_NO_DATA;
+    }
+
+    uint16_t flen = ETH_Port_DescGetRxLength(d);
+
+    if (flen < 14U || flen > ETH_BUFFER_SIZE) {
+        /* Fuzzing testinde bu yol sik tetiklenecek. Uygulamaya hicbir sey verme. */
+#if ETH_ENABLE_STATS
+        stats.rx_dropped++;
+#endif
+        ETH_Port_DescArmRx(d, &rx_buf[rx_idx][0]);
+        rx_idx = (rx_idx + 1U) & RX_MASK;
+        ETH_Port_KickRx(rx_idx);
+        return ETH_ERR_NO_DATA;
+    }
+
+    *data = &rx_buf[rx_idx][0];
+    *len  = flen;
+    rx_held = true;
+
+#if ETH_ENABLE_STATS
+    stats.rx_frames++;
+    stats.rx_bytes += flen;
+#endif
+    return ETH_OK;
+}
+
+void ETH_ReleaseRxFrame(void)
+{
+    if (!rx_held) return;
+
+    ETH_Port_DescArmRx(&rx_desc[rx_idx], &rx_buf[rx_idx][0]);
+    rx_idx = (rx_idx + 1U) & RX_MASK;
+    rx_held = false;
+
+    /* Tail pointer ilerletilmezse DMA bu descriptor'i gormez ve
+     * ring bir tur sonra kalici olarak tikanir. */
+    ETH_Port_KickRx(rx_idx);
+}
+
+/* ===== Istatistikler =================================================== */
+
+void ETH_GetStats(ETH_Stats_t *s)
+{
+    if (s == NULL) return;
+#if ETH_ENABLE_STATS
+    /* Donanim sayaclari okundugunda temizlenir; biriktirerek tutuyoruz. */
+    stats.rx_missed_hw += ETH_Port_GetMissedFrames();
+    stats.dma_errors   += ETH_Port_GetAndClearDMAErrors();
+#endif
+    *s = stats;
+}
+
+void ETH_ResetStats(void)
+{
+    (void)ETH_Port_GetMissedFrames();
+    (void)ETH_Port_GetAndClearDMAErrors();
+    memset(&stats, 0, sizeof(stats));
+}
