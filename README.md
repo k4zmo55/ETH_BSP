@@ -55,7 +55,8 @@ ETH_BSP/
 │   ├── eth_device.h       # MCU → MAC ailesi + yetenek eşlemesi (dokunulmaz)
 │   ├── eth_driver.h       # Ortak tipler (ETH_Status_t, ETH_Stats_t...) ve çekirdek driver API'si
 │   ├── eth_port.h          # MAC ailesi port sözleşmesi — 21 fonksiyon (dokunulmaz)
-│   └── eth_phy.h           # PHY sözleşmesi — 4 fonksiyon (dokunulmaz)
+│   ├── eth_phy.h           # PHY sözleşmesi — 4 fonksiyon (dokunulmaz)
+│   └── eth_iap.h           # IAP bootloader sözleşmesi — 4 fonksiyon (opsiyonel, dokunulmaz)
 ├── Src/
 │   ├── eth_driver.c        # Ring yönetimi, sahiplik protokolü, istatistik — register erişimi yok
 │   ├── eth_app.c           # ARP / ICMP / UDP / E-AETIS komut işleyicisi

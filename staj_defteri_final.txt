@@ -1,0 +1,317 @@
+20 Temmuz 2026 Pazartesi – Staj 1. Gün
+
+Staj sürecinin ilk günü, İş Sağlığı ve Güvenliği eğitimi ile başladı. Ardından İnsan Kaynakları birimi tarafından şirket tanıtımı yapıldı; şirket bünyesinde geliştirilen projeler ve savunma sanayii alanında çalışma prensipleri hakkında bilgi verildi. Aynı toplantıda İnsan Kaynakları, staj süreci boyunca izlenecek adımlar hakkında da bilgilendirme yaptı. Öğleden sonra ise stajyerler görev alacakları birimlere yönlendirildi. Ben Sistem ve Test Mühendisliği biriminde göreve başladım. Birimden sorumlu mentörümle tanıştım; mentörüm, CV'imi ve akademik transkriptimi inceleyerek staj boyunca hangi tür projeler üzerinde çalışabileceğimizi değerlendirdi.
+
+
+21 Temmuz 2026 Salı – Staj 2. Gün
+
+Staj kapsamında "Sistem ve Test Mühendisliği Nedir" başlıklı, toplam 12 videodan oluşan bir eğitim serisi izlenmeye başlandı. Günün sonunda serinin ilk 6 videosu tamamlandı ve sistem mühendisliği konusuna ilişkin gerekli notlar tutuldu.
+
+
+22 Temmuz 2026 Çarşamba – Staj 3. Gün
+
+Bir önceki gün yarıda kalan eğitim serisinin geri kalan videoları izlenerek tamamlandı ve konuyla ilgili notlar alındı. Ayrıca perşembe günü gerçekleştirilecek olan sunuma hazırlık amacıyla, sunumda ele alınacak başlıklar üzerine mentörümle birlikte değerlendirme yapıldı.
+
+
+23 Temmuz 2026 Perşembe – Staj 4. Gün
+
+Bu gün, cuma günü yapılacak sunuma yönelik hazırlık çalışmalarına devam edildi. İzlenen eğitim serisinden edinilen bilgiler doğrultusunda "Mehmet Akif Seçkin Sunum" adlı bir sunum dosyası hazırlandı. Sunum içeriği özetle şu başlıklardan oluşmaktadır:
+
+- Sistem Mühendisliği Nedir ve Neden Gereklidir: Sistem mühendisliğinin, karmaşık sistemlerin yaşam döngüsü boyunca tasarlanması, entegre edilmesi ve yönetilmesini sağlayan disiplinlerarası bir yaklaşım olduğu; artan karmaşıklığın yönetimi, maliyet/risk azaltımı ve paydaş hizalaması açısından neden gerekli olduğu anlatıldı.
+- INCOSE ve System Engineering Handbook: Sistem mühendisliği disiplinini standartlaştıran uluslararası kuruluş INCOSE ve bu kuruluşun ISO/IEC/IEEE 15288 standardına dayanan referans kılavuzu tanıtıldı.
+- Sistem Mühendisliğinin Uygulama Alanları: Havacılık ve savunma, otomotiv ve mobilite, sağlık ve biyotıp gibi sektörlerde sistem mühendisliğinin kritik önemi örneklerle açıklandı.
+- Sistemler Sistemi (System of Systems - SoS): Bağımsız çalışan birden fazla karmaşık sistemin ortak bir amaç doğrultusunda bir araya gelmesiyle oluşan yapılar; bağımsız operasyon, birlikte çalışabilirlik ve evrimsel gelişim gibi dikkat edilmesi gereken hususlarla birlikte ele alındı.
+- Sistem Ömür Yaşam Döngüsü Süreçleri: Planlama, analiz, tasarım, uygulama, test/entegrasyon ve bakım aşamalarından oluşan yaşam döngüsü süreçleri özetlendi.
+- Sistem Geliştirme Modelleri: Şelale (Waterfall), Spiral (Sarmal) ve V Model geliştirme modelleri; her birinin avantajları, dezavantajları ve kullanım örnekleriyle karşılaştırmalı olarak sunuldu. V Model özelinde, geliştirme (SDLC) ve test (STLC) süreçlerinin paralel yürütüldüğü sol ve sağ bacak yapısı, erken test planlaması ve doğrulama mantığı detaylı biçimde işlendi.
+- Model Tabanlı Sistem Mühendisliği (MBSE): Sistemin tüm yaşam döngüsünün kağıt tabanlı belgeler yerine tek bir dijital ve görsel model üzerinden yönetilmesi yaklaşımı anlatıldı.
+- Modelleme Dilleri (UML ve SysML): Yazılım sistemlerini tasarlamak için kullanılan UML dili ile bunun genişletilmiş hali olan ve yazılım, donanım, mekanik ve süreç gibi bileşenleri bütünsel olarak modelleyebilen SysML dili karşılaştırıldı.
+- Gereksinim Mühendisliği ve Yönetimi: İyi bir gereksinimin taşıması gereken özellikler (net, ölçülebilir, anlaşılır, tutarlı, gerçekleştirilebilir ve doğrulanabilir olması), gereksinim tipleri (fonksiyonel, fonksiyonel olmayan, arayüz gereksinimleri, kısıtlar), gereksinim geliştirme adımları (toplama, analiz, şartnameleştirme, doğrulama) ve izlenebilirlik matrisleri aracılığıyla gereksinim yönetimi konuları ele alındı.
+
+
+24 Temmuz 2026 Cuma – Staj 5. Gün
+
+Saat 10:00'da mentörlerimize, bir önceki gün hazırladığımız sunumları sırayla anlattık. Sunumun ardından mentörlerimiz, sistem ve test mühendisliğinin sektörde nasıl uygulandığı, V-Model'in sağladığı faydalar ve hangi geliştirme modelinin hangi proje koşullarında tercih edilmesi gerektiği konularında bize geri bildirimde bulunarak konuyu pekiştirdiler.
+
+
+27 Temmuz 2026 Pazartesi – Staj 6. Gün
+
+Hafta başında mentörümle birlikte staj boyunca üzerinde çalışacağım asıl proje hakkında bir değerlendirme toplantısı yapıldı. CV'imde yer alan gömülü sistemler ve C programlama ağırlıklı geçmişim göz önünde bulundurularak, bana gömülü yazılım alanında bir proje verilmesine karar verildi. Yapılan görüşme sonucunda, proje konusu olarak STM32 mikrodenetleyici ailesi üzerinde çalışacak, taşınabilir (portable) bir Ethernet sürücü kütüphanesi (Board Support Package) geliştirmem uygun görüldü. Bu kararla birlikte, projenin kapsamının ve hangi aşamalardan geçeceğinin sonraki günlerde netleştirilmesi planlandı.
+
+
+28 Temmuz 2026 Salı – Staj 7. Gün
+
+Projeye başlamadan önce ön araştırma günü olarak geçti. Öncelikle STM32 platformunda ST tarafından sunulan hazır Ethernet sürücü kütüphanelerinin (HAL tabanlı ETH sürücüsü ve bunun üzerine kurulan LwIP ağ yığını) genel çalışma mantığını inceledim; bu hazır çözümlerin hangi katmanlardan oluştuğunu ve MCU ile PHY çipi arasındaki veri akışını nasıl yönettiğini kavramaya çalıştım. Ardından, kendi geliştireceğim kütüphaneyi nasıl daha sade, modüler ve donanımdan bağımsız bir yapıda kurgulayabileceğim üzerine notlar aldım; amaç, RTOS ve LwIP gibi hazır yazılım katmanlarına ihtiyaç duymadan, doğrudan register erişimiyle çalışan bir yapı tasarlamaktı. Daha önce Ethernet donanımıyla doğrudan çalışmadığım için, bu alandaki eksikliğimi gidermek amacıyla Ethernet sürücüsünün temel yapı taşları (MAC/PHY ayrımı, fiziksel arayüz, yönetim protokolü, veri transfer mekanizması) hakkında genel bir literatür araştırması yaptım; bu araştırma bir sonraki günün konusuna zemin hazırladı.
+
+
+29 Temmuz 2026 Çarşamba – Staj 8. Gün
+
+Bugün itibarıyla, staj boyunca geliştireceğim projenin çalışma alanı olan "Ethernet_BSP" klasörünü oluşturdum. Proje, STM32 mikrodenetleyicileri üzerinde RTOS ve hazır ağ yığını (LwIP) kullanmadan, doğrudan register erişimi ve DMA descriptor ring yönetimiyle çalışan, taşınabilir bir bare-metal Ethernet Board Support Package (BSP) geliştirmeyi hedeflemektedir. Kütüphaneye eşlik etmesi planlanan, kartla UDP üzerinden haberleşen bir masaüstü test/teşhis arayüzünün de (E-AETIS GUI) ileride bu proje kapsamında yer alması öngörülüyor.
+
+Kodlama aşamasına geçmeden önce, günün büyük bölümünü geliştirme ortamının kurulumuna ayırdım. Kurduğum programlar ve tercih sebepleri şu şekildedir:
+
+- arm-none-eabi-gcc: STM32'nin temelini oluşturan ARM Cortex-M mimarisi için kod üretebilen bir çapraz derleyicidir (cross-compiler). Bilgisayarımın işlemcisinden farklı bir mimariye derleme yapılacağı için standart bir derleyici yerine bu araç gereklidir.
+- CMake ve Ninja: Projenin derleme sürecini yönetmek için kullandım. CMake, derleme adımlarını platformdan bağımsız şekilde tanımlamamı sağlarken, Ninja bu adımları hızlı bir şekilde çalıştıran derleme sistemi olarak görev yapıyor.
+- Visual Studio Code: Projenin geliştirileceği ana kod düzenleyici olarak seçildi; C/C++ ve Cortex-Debug gibi eklentilerle hem kod yazımı hem de kart üzerinde donanımsal hata ayıklama (debug) yapılmasına imkan tanıyor.
+- STM32CubeMX: STM32CubeMX'i, kartın pin bağlantılarını, saat ağacını (clock tree) ve çevre birimlerini (peripheral) görsel bir arayüz üzerinden yapılandırmak ve buna karşılık gelen başlangıç HAL kodunu otomatik üretmek amacıyla kurdum. Ethernet gibi çok sayıda pin ve saat ayarı gerektiren bir çevre biriminde bu ayarları elle yapmak yerine CubeMX kullanmak, hem zaman kazandırıyor hem de yapılandırma hatalarının önüne geçiyor.
+- Git: Proje boyunca yazılan kodun versiyon kontrolünü sağlamak amacıyla kuruldu.
+
+Geliştirme ortamı hazır hale getirildikten sonra, projede kullanılacak temel Ethernet donanım elemanları hakkında araştırma yaparak kendime özet notlar hazırladım (bu notlar proje klasörü altındaki PDF dizininde de yer almaktadır). Bu elemanlar kısaca şöyle özetlenebilir:
+
+- MAC (Media Access Control): Mikrodenetleyici içine entegre, veri çerçevelerinin (frame) oluşturulması, adresleme ve DMA üzerinden bellekle veri alışverişinden sorumlu sayısal birimdir. Projede iki farklı MAC ailesi hedeflendi: H5/H7 serisinde kullanılan Synopsys DWC EQOS ve F4/F7 serisinde kullanılan klasik ST/DWC GMAC 3.x.
+- PHY (Physical Layer Transceiver): MAC'in ürettiği sayısal veriyi kablo üzerinden gönderilebilecek elektriksel sinyale çeviren, MCU dışında yer alan harici bir çiptir. Projede LAN8720A, LAN8742A ve KSZ8081 PHY çipleri desteklenecek şekilde planlandı.
+- RMII (Reduced Media Independent Interface): MAC ile PHY arasındaki veri hattıdır; 50 MHz'lik bir referans saat sinyaline ihtiyaç duyar ve klasik MII arayüzüne göre daha az pin kullanarak bağlantıyı sadeleştirir.
+- MDIO/SMI (Management Data Input/Output - Serial Management Interface): MAC'in, PHY çipinin iç register'larına (bağlantı durumu, hız, duplex modu gibi bilgileri okumak/yazmak için) erişebildiği, iki hatlı (MDIO/MDC) seri bir yönetim protokolüdür.
+- DMA Descriptor Ring: Gelen ve giden Ethernet çerçevelerinin CPU'yu meşgul etmeden, DMA denetleyicisi aracılığıyla bellekteki tampon bölgelere (buffer) aktarılmasını sağlayan, halka (ring) şeklinde birbirine bağlı tanımlayıcı (descriptor) yapılardır; her descriptor'ın CPU'ya mı yoksa DMA'ya mı ait olduğunu belirten bir sahiplik (ownership) biti bulunur.
+- RJ45 Konnektör ve Magnetics (Trafo): Ethernet kablosunun fiziksel olarak karta bağlandığı konnektör ile PHY çıkışını hat empedansına ve galvanik izolasyona uygun hale getiren trafo (magnetics) devresidir.
+
+Bu temel kavramların netleşmesiyle birlikte, bir sonraki aşamada projenin klasör yapısının oluşturulmasına ve ilk kaynak dosyalarının yazılmasına geçilecek.
+
+
+30 Temmuz 2026 Perşembe – Staj 9. Gün
+
+Bugün projenin klasör iskeletini oluşturdum: `Inc/` altında başlık (header) dosyaları, `Src/` altında kaynak dosyaları, bunun içinde de MAC ailesine özgü kodlar için `port/` ve PHY çiplerine özgü kodlar için `phy/` alt klasörleri; ayrıca örnek kullanım için `Examples/`, dokümantasyon için `Docs/` ve referans datasheet'ler için `PDF/` klasörlerini açtım. Kütüphaneyi tasarlarken en başından benimsediğim ilke, kullanıcının (yani kütüphaneyi kendi projesine entegre edecek geliştiricinin) elle dokunacağı dosya sayısını mümkün olduğunca azaltmaktı.
+
+Bu doğrultuda ilk yazdığım dosya `eth_config.h` oldu; kütüphanenin "tek elle düzenlenen dosyası" olması planlanan bu başlığı sekiz mantıksal gruba ayırdım: hedef işlemci seçimi (STM32H563/H743/F407/F767), PHY çipi seçimi (LAN8720A/LAN8742A/KSZ8081), ağ kimliği (MAC adresi, IP, netmask, gateway), PHY ayarları (adres, donanımsal reset pini, auto-negotiation süresi), RMII pin haritası, DMA/bellek ayarları (descriptor sayıları, buffer boyutu, descriptor bölgesinin adresi), özellik anahtarları (ARP/ICMP/UDP/istatistik gibi modüllerin açılıp kapatılması) ve son olarak hata ayıklama anahtarı. Varsayılan pin haritasını elimdeki NUCLEO-H563ZI geliştirme kartının şemasına göre doldurdum.
+
+Ardından `eth_device.h` dosyasını yazdım. Bu dosyanın görevi, `eth_config.h`'de seçilen hedef MCU'yu doğru MAC ailesine (EQOS veya GMAC) eşlemek ve derleme zamanında bir dizi güvenlik kontrolü yapmaktır: tam olarak bir hedef MCU ve bir PHY seçildiğinden emin olunması (aksi halde `#error` ile derleme durduruluyor), descriptor sayılarının 2'nin kuvveti olması gerekliliği, buffer boyutunun en az 1524 bayt ve 4'ün katı olması, descriptor ile buffer alanlarının toplamının ayrılan sabit bölgeye (tipik 32 KB) sığması ve D-Cache'li hedeflerde MPU non-cacheable ayarının açık olup olmadığının kontrolü. Bu tür hataları çalışma zamanında değil, derleme anında yakalatmanın entegrasyon sürecinde çok zaman kazandıracağını düşündüm. Ayrıca STM32H7 hedefi için, Ethernet DMA'nın erişemediği DTCM bölgesinin (0x20000000) descriptor alanı olarak seçilmesini engelleyen özel bir kontrol de bu dosyaya eklendi; bunun yerine D2 domain SRAM (0x30000000) kullanılması zorunlu kılındı.
+
+
+31 Temmuz 2026 Cuma – Staj 10. Gün
+
+Bugünün odağı, kütüphanenin geri kalanının üzerine oturacağı mimariyi tasarlamaktı. Amacım, yeni bir mikrodenetleyici, yeni bir MAC ailesi ya da yeni bir PHY çipi eklenmek istendiğinde, mevcut dosyaların hiçbirine dokunulmasına gerek kalmayan, birbirinden bağımsız üç eksenli bir yapı kurmaktı. Bu tasarımı önce kağıt üzerinde şemalaştırdım, ardından üç sözleşme (contract) başlığı olarak kodladım.
+
+İlk olarak `eth_driver.h` dosyasında, MAC ailesinden tamamen bağımsız ortak tipleri tanımladım: `ETH_Status_t` (ETH_OK, ETH_ERR_TIMEOUT, ETH_ERR_LINK_DOWN gibi durum kodları), 32 bayta hizalanmış `ETH_Desc_t` DMA descriptor yapısı, bağlantı durumunu tutan `ETH_LinkState_t` ve istatistikleri tutan `ETH_Stats_t`. Bu dosyada ayrıca çekirdek sürücünün dışa açacağı fonksiyon imzalarını (ETH_Driver_Init, ETH_SendFrame, zero-copy alım için ETH_ReceiveFrame/ETH_ReleaseRxFrame gibi) belirledim.
+
+Sonrasında `eth_port.h` dosyasını yazarak "port sözleşmesi" adını verdiğim, tam olarak 21 fonksiyondan oluşan bir arayüz tanımladım: donanımı ayağa kaldırma (RMII seçimi, saat açma, çekirdek reset), MAC yapılandırma (adres, hız/duplex, filtre), MDIO/SMI okuma-yazma ve descriptor soyutlaması (ring kurulumu, sahiplik kontrolü, RX/TX descriptor'larını "kurma" ve "tetikleme"). Bu sözleşmeyi uygulayan iki dosyanın (EQOS ve GMAC portları) ileride yazılacağını, ama `eth_driver.c`'nin bu fonksiyonların içeriğiyle hiç ilgilenmeyeceğini planladım.
+
+Son olarak `eth_phy.h` dosyasında, PHY çiplerinin MAC ailesinden bağımsız bir eksen olduğunu netleştirmek için yalnızca 4 fonksiyonluk çok daha dar bir sözleşme tanımladım: `ETH_PHY_Bringup`, `ETH_PHY_GetSpeedDuplex`, `ETH_PHY_SetLoopback`, `ETH_PHY_GetName`. Bu dosyaya ayrıca IEEE 802.3 Clause 22 standardında tüm PHY çiplerinde ortak olan register adreslerini (BMCR, BMSR, PHYID1/2, ANAR, ANLPAR) ve bunların bit tanımlarını da ekledim; böylece her PHY sürücüsü bu ortak sabitleri tekrar tanımlamak zorunda kalmayacak.
+
+Günün sonunda mimariyi mentörümle gözden geçirdim; üç eksenin (config → device → port/phy/driver) birbirinden nasıl ayrıştığını ve yeni donanım eklemenin neden sadece yeni bir dosya yazmak anlamına geleceğini anlattım.
+
+
+3 Ağustos 2026 Pazartesi – Staj 11. Gün
+
+Sözleşmeler netleştikten sonra, MAC ailesinden bağımsız çekirdek sürücü dosyası olan `eth_driver.c`'yi yazmaya başladım. Bu dosyanın en önemli kuralı, hiçbir donanım register'ına doğrudan erişmemesiydi; donanıma dokunan her işlem `ETH_Port_*` fonksiyonları üzerinden port dosyasına devredilecekti.
+
+İlk yazdığım bölüm, DMA'nın erişeceği descriptor ve buffer alanlarını CPU önbelleğinden (cache) tutarsızlık yaşanmayacak şekilde işaretleyen MPU yapılandırma fonksiyonu oldu. D-Cache'li hedeflerde (H5, H7, F7) CPU ile DMA'nın aynı belleği farklı görebilmesi riskine karşı, descriptor bölgesini "non-cacheable" olarak işaretleyen bir bölge tanımladım. Cortex-M33 tabanlı H5'te ARMv8-M MPU register'larını (MAIR0, RBAR, RLAR), Cortex-M7 tabanlı H7/F7'de ise ARMv7-M MPU register'larını (RBAR, RASR) kullanan iki ayrı kod yolu yazmam gerekti; iki mimari arasında MPU'nun register yerleşimi tamamen farklı olduğu için bunu tek bir fonksiyon içinde `#if` bloklarıyla ayırdım.
+
+Ardından RMII pinlerinin GPIO alternatif fonksiyon (AF) olarak yapılandırılmasını yazdım: `eth_config.h`'deki pin haritasını okuyup her pin için MODER/OTYPER/OSPEEDR/PUPDR ve AFR register'larını ayarlayan genel bir yardımcı fonksiyon kurdum, böylece 9 farklı RMII sinyali (REF_CLK, MDIO, CRS_DV, MDC, RXD0/1, TX_EN, TXD0/1) için kod tekrarı yapmama gerek kalmadı.
+
+Sürücünün başlatma sırasını (`ETH_Driver_Init`) tasarlarken en dikkat ettiğim nokta adımların sırası oldu: önce RMII arayüz seçimi, sonra MAC saatlerinin açılması, sonra çekirdek reset — bu sıra bozulursa MAC'in yanlış arayüzle reset'ten çıktığını ve donanımın hiç çalışmadığını öğrendim. Bu sırayı bozan bir deneme sırasında karşılaştığım "PHY hiç cevap vermiyor" problemini not aldım; kaynağının çoğunlukla eksik 50 MHz RMII referans saati olduğunu gördüm. Günün son bölümünde `ETH_PHY_ScanAddress` (bus üzerindeki tüm adresleri tarayarak PHY'yi bulan fonksiyon) ve `ETH_GetLinkState` fonksiyonlarını yazdım; BMSR register'ının bağlantı (link) bitinin "latching low" davranışı sebebiyle (yani düşen bir bağlantıyı yakalayabilmek için) art arda iki kez okunması gerektiğini kod içinde yorum satırıyla da belirttim.
+
+
+4 Ağustos 2026 Salı – Staj 12. Gün
+
+`eth_driver.c` üzerindeki çalışmama devam ederek, ring başlatma ve frame gönderme/alma fonksiyonlarını tamamladım. Gönderim tarafında iki farklı kullanım biçimi sundum: `ETH_SendFrame`, verilen veriyi otomatik olarak bir TX tamponuna kopyalayıp gönderen basit yol; `ETH_ClaimTxBuffer`/`ETH_CommitTxBuffer` ise uygulamanın veriyi doğrudan DMA tamponuna yazarak gereksiz bir `memcpy` işleminden kaçınmasını sağlayan "zero-copy" yol. Ethernet standardının minimum çerçeve uzunluğu olan 60 baytın altındaki verileri sıfırla doldurup (padding) 60 bayta tamamlamayı da bu aşamada ekledim; MAC bu işlemi zaten kendiliğinden yapsa da, bunu açıkça kodda yapmanın ilerideki hata enjeksiyonu (fault injection) testlerinde belirsizliği ortadan kaldıracağını düşündüm.
+
+Alım tarafında da benzer bir zero-copy yaklaşım kurguladım: `ETH_ReceiveFrame` gelen veriye doğrudan bir işaretçi döndürüyor, uygulama işini bitirdiğinde `ETH_ReleaseRxFrame` çağırarak descriptor'ı DMA'ya geri veriyor. Bu akışta iki savunma mekanizması ekledim: descriptor'da donanımsal hata biti (CRC hatası vb.) işaretliyse veya çerçeve uzunluğu makul bir aralığın (14 bayt ile buffer boyutu arasında) dışındaysa, veriyi uygulamaya hiç iletmeden sessizce reddedip istatistik sayacını artırıyorum. Bu ikinci kontrolün, ilerideki hata enjeksiyonu testlerinde sıkça tetikleneceğini öngörerek özellikle önemsedim.
+
+Günün sonunda istatistik toplama fonksiyonlarını (`ETH_GetStats`, `ETH_ResetStats`) yazdım; RX/TX çerçeve ve bayt sayaçlarının yanında, donanımın kendi "missed frame" ve DMA hata sayaçlarının okunduğunda otomatik sıfırlandığını fark ettim, bu yüzden bu değerleri her okuduğumda yazılım tarafında biriktirerek tutan bir mantık kurdum; aksi halde art arda yapılan sorgularda sayaçlar gerçek değeri yansıtmayacaktı.
+
+
+5 Ağustos 2026 Çarşamba – Staj 13. Gün
+
+Çekirdek sürücü tamamlandıktan sonra, `eth_port.h` sözleşmesinin ilk somut uygulaması olarak STM32H5 ve STM32H7 ailesinde kullanılan Synopsys DWC EQOS MAC birimi için `eth_port_eqos.c` dosyasını yazmaya başladım. Öncelikle CMSIS'in sağladığı register tanımlarının H5 ile H7 arasında küçük isim farklılıkları gösterebildiğini fark ettim; bu yüzden kullandığım tüm bitleri (MACCR, MACPFR, MACA0HR, MACMDIOAR, DMAMR, DMACTXCR/DMACRXCR, MTL register'ları) dosyanın başında kendi sabitlerim olarak açıkça tanımlayarak bu dosyayı "tek doğruluk kaynağı" haline getirdim.
+
+RMII arayüz seçiminin H5'te SBS bloğu, H7'de ise SYSCFG bloğu üzerinden farklı register'larla (sırasıyla `SBS->PMCR` ve `SYSCFG->PMCR`) yapıldığını gördüm ve bunu `#if defined(...)` blokları ile ayırdım. MDIO saatinin donanım kısıtı gereği 2,5 MHz'i aşmaması gerektiğini öğrendim; bu yüzden `ETH_HCLK_HZ` değerine göre doğru bölücüyü (clock range) hesaplayan bir tablo mantığı kurdum — yanlış bir bölücü seçilmesi durumunda PHY'nin SMI üzerinden hiç cevap vermeyeceğini test ederek gördüm.
+
+Descriptor ring kurulumunda EQOS'un, daha eski nesil MAC'lerden farklı olarak next-pointer zinciri yerine taban adres + uzunluk + tail pointer mantığıyla çalıştığını fark ettim (`DMACTXDLAR`, `DMACTXRLR`, `DMACTXDTPR`). "Kick" fonksiyonlarını yazarken tail pointer'ın "buraya kadar işle" anlamına geldiğini, yani DMA'nın tail pointer'ın işaret ettiği descriptor'a as la ulaşmadığını, bu yüzden serbest bıraktığım descriptor'ın bir öncesini göstermem gerektiğini anlamam biraz zaman aldı; bunu koda da yorum olarak ekledim. Descriptor'ların OWN bitini en son yazmam gerektiğini, aradaki `__DMB()` bariyeri olmadan DMA'nın descriptor'ı yarım okuyabileceğini öğrenmem de günün önemli çıkarımlarından biri oldu.
+
+
+6 Ağustos 2026 Perşembe – Staj 14. Gün
+
+EQOS portu tamamlandıktan sonra, `eth_port.h` sözleşmesinin ikinci uygulaması olarak STM32F407 ve STM32F767 ailesinde bulunan klasik ST/Synopsys 3.x GMAC birimi için `eth_port_gmac.c` dosyasını yazdım. Bu port, bir önceki günkü EQOS portuna göre daha eski nesil bir tasarıma sahip olduğu için, aynı sözleşmeyi uygularken içeride oldukça farklı bir donanım mantığıyla karşılaştım.
+
+En belirgin fark descriptor ring yapısındaydı: EQOS'ta taban adres + uzunluk + tail pointer ile kurulan ring, GMAC'te her descriptor'ın DES3 alanında bir sonraki descriptor'ın adresini tutan klasik bir "next-pointer zinciri" (TCH biti ile işaretlenen) olarak kuruluyor. Bu farkı `ETH_Port_SetupRings` içinde döngüyle her descriptor'ı bir sonrakine bağlayarak uyguladım. "Kick" mantığı da EQOS'takinden tamamen farklıydı: GMAC'te tail pointer register'ı yok, bunun yerine DMA durum register'ındaki "buffer unavailable" bayrağı temizlenip bir "poll demand" register'ına herhangi bir değer yazılarak DMA'nın ring'e tekrar bakması sağlanıyor.
+
+Bir diğer önemli fark, alınan çerçevenin uzunluğunun okunma şeklindeydi: GMAC'in RDES0 alanındaki uzunluk bilgisi, EQOS'un aksine 4 baytlık Ethernet CRC alanını da içeriyordu; bunu fark etmeden ilk testlerimde uygulamaya 4 bayt fazla veri gittiğini gördüm, `ETH_Port_DescGetRxLength` fonksiyonunda bu 4 baytı çıkararak düzelttim. MDIO register adlarının da (MACMIIAR/MACMIIDR) EQOS'takinden (MACMDIOAR/MACMDIODR) farklı olduğunu, ama MDC saat bölücüsü hesaplama mantığının hemen hemen aynı kaldığını gördüm; bu ortak mantığı ayrı bir yardımcı fonksiyona çıkarmak yerine, iki port dosyasının birbirinden tamamen bağımsız kalması gerektiğini hatırlayarak bilinçli olarak tekrar yazdım.
+
+
+7 Ağustos 2026 Cuma – Staj 15. Gün
+
+Bugün `eth_phy.h` sözleşmesinin somut uygulamaları olan iki PHY sürücüsünü yazdım: Microchip LAN8720A/LAN8742A için `eth_phy_lan87xx.c` ve Microchip KSZ8081 için `eth_phy_ksz80xx.c`. Her iki çip de IEEE 802.3 Clause 22 standart register setini paylaştığı için (`eth_phy.h`'de tanımladığım BMCR/BMSR/PHYID gibi ortak register'lar), iki sürücünün "ayağa kaldırma" (bringup) mantığı büyük ölçüde aynı adımları izliyor: önce donanımsal reset pini varsa (eth_config.h'deki `ETH_PHY_HW_RESET` anahtarı) aktif seviyeye göre darbe uygulanıyor, ardından PHYID register'ı okunarak PHY'nin gerçekten orada olup olmadığı doğrulanıyor (0x0000 veya 0xFFFF gelmesi boş SMI hattı anlamına geliyor), sonra yazılımsal reset yapılıp bitmesi bekleniyor, son olarak da auto-negotiation başlatılıp tamamlanması bekleniyor (ya da `ETH_AUTONEG_TIMEOUT_MS` sıfırsa doğrudan 100 Mbps/Full-Duplex zorlanıyor).
+
+İki sürücü arasındaki asıl fark, anlaşılan hız ve duplex modunun okunduğu register'da ortaya çıktı: standart BMSR bu bilgiyi vermiyor, her üretici kendi "vendor-specific" register'ında farklı bir yerde tutuyor. LAN8720A/8742A'da bu, register 0x1F'teki "Special Control/Status Register" içinde 3 bitlik bir mod alanı; KSZ8081'de ise register 0x1E'deki "PHY Control 1" içinde benzer ama farklı bit kodlamasına sahip bir alan. Bu register haritalarını ilgili datasheet'lerden çıkarıp `eth_phy_lan87xx.c` ve `eth_phy_ksz80xx.c` içine ayrı ayrı yazdım. Günün sonunda, PHY'nin MAC ailesinden tamamen bağımsız bir eksen olarak tasarlanmasının ne işe yaradığını daha somut gördüm: EQOS ile de GMAC ile de çalışan bu iki PHY dosyası, hangi MAC portunun aktif olduğuyla hiç ilgilenmiyor.
+
+
+10 Ağustos 2026 Pazartesi – Staj 16. Gün
+
+Donanım katmanları (port ve PHY) tamamlandıktan sonra, kullanıcı uygulamasının dokunacağı tek başlık olan `eth_app.h`'yi tasarlamaya başladım. Buradaki amacım, kütüphaneyi kendi projesine entegre edecek bir geliştiricinin, `eth_app.h`'yi include ettikten sonra iç mimariyle (ring, descriptor, register) hiç karşılaşmaması gerektiğiydi.
+
+API'yi tasarlarken en çok kafa yorduğum nokta, kartın kendi donanımına özgü değişkenleri (sıcaklık sensörü, LED durumu vb.) masaüstü arayüze nasıl açacağıydı; çünkü BSP'nin kullanıcının donanımı hakkında hiçbir bilgisi olamazdı. Bunun için `ETH_Var_t` adında bir yapı tasarladım: her değişken bir isim, birim, tip (u8/i32/u32/f32) ve yazılabilir olup olmadığı bilgisiyle tanımlanıyor; erişim ise iki biçimde olabiliyor — doğrudan bir işaretçi (`ptr`) üzerinden ya da bir `getter`/`setter` fonksiyon çifti üzerinden (GPIO gibi yan etkisi olan işlemler için). `ETH_BSP_RegisterVar()` ile kaydedilen bu değişkenler, arayüzün `GET_VARS` komutuyla otomatik keşfedebileceği şekilde tasarlandı; böylece yeni bir değişken eklemek GUI tarafında hiçbir değişiklik gerektirmiyor.
+
+İkinci önemli tasarım kararı, telemetri için iki farklı model sunmaktı: "pull" modeli (arayüz sorar, kart `ETH_BSP_RegisterVar` ile kayıtlı değeri cevaplar) ve "push" modeli (kart, arayüz `TELEMETRY_SUB` ile abone olduktan sonra, kendi istediği an `ETH_BSP_SendTelemetry()` ile veri basar). Bunların olay tabanlı veriler (örneğin bir eşik aşıldığında) ile sabit periyotlu ölçümler arasındaki farkı karşılayabilmek için ikisinin de aynı anda kullanılabilir olması gerektiğine karar verdim. Son olarak, BSP'nin tanımadığı komutları (LED aç/kapa gibi) kullanıcının kendi donanımına yönlendirebilmesi için `ETH_BSP_RegisterCommandHandler()` mekanizmasını tasarladım; bu sayede çekirdek dosyalara hiç dokunmadan, E-AETIS protokolü kullanıcı tanımlı komutlarla genişletilebiliyor.
+
+
+11 Ağustos 2026 Salı – Staj 17. Gün
+
+API tasarımı netleştikten sonra, bu API'yi gerçekleyen `eth_app.c` dosyasının ARP/ICMP/UDP kısmını yazmaya başladım. Bu dosyayı yazarken benimsediğim en temel ilke, gelen her paketin tamamen düşmanca olabileceğini varsaymaktı; çünkü ileride bu katmanı bir "fuzzing" (bozuk/rastgele paket) testine tabi tutmayı planlıyorduk. Bu yüzden her ayrıştırma fonksiyonunda, bir baytı okumadan önce mutlaka paketin o baytı içerecek kadar uzun olup olmadığını kontrol ettim.
+
+Önce ARP isteği/cevabı üretimini ve işlenmesini yazdım: küçük, sabit boyutlu bir ARP çözümleme önbelleği (`arp_cache`) tuttum; önbellek dolduğunda en eski girdiyi silen basit bir LRU benzeri mantık kurdum. Ardından ICMP echo (ping) isteklerine cevap veren `icmp_handle` fonksiyonunu, ve tek bir yardımcı fonksiyon (`udp_send_to_mac`) üzerinden hem doğrudan UDP gönderimini (`ETH_BSP_SendUDP`) hem de son gelen pakete cevap gönderimini (`ETH_BSP_ReplyUDP`) besleyecek şekilde tasarladım. `ETH_BSP_SendUDP`'de hedef IP'nin MAC adresi önbellekte yoksa, fonksiyonun paketi kaybetmek yerine bir ARP isteği başlatıp `ETH_ERR_NO_DATA` döndürdüğünü ve çağıranın birkaç milisaniye sonra tekrar denemesi gerektiğini belirledim.
+
+IPv4 paketlerini ayrıştırırken karşılaştığım ilginç bir tasarım kararı, parçalanmış (fragmented) paketlerle ilgiliydi: BSP'nin IP fragment reassembly (parçaları birleştirme) desteği olmayacağına baştan karar verildiği için, `ipv4_handle` fonksiyonunda "more fragments" bayrağı veya sıfırdan farklı bir fragment offset'i taşıyan her paketi sessizce düşürdüm. Bunun ileride yapılacak hata enjeksiyonu testinde (2048 baytlık bir test paketinin IP katmanında parçalanacağı senaryoda) beklenen ve doğru bir davranış olacağını, IP başlığındaki checksum, toplam uzunluk ve başlık uzunluğu alanlarını da her adımda ayrıca doğrulayarak not aldım.
+
+
+12 Ağustos 2026 Çarşamba – Staj 18. Gün
+
+Günün ilk bölümünde `eth_app.c`'nin E-AETIS komut işleyicisini (`eaetis_handle`) yazdım. Bu fonksiyon, masaüstü arayüzden `ETH_EAETIS_PORT` (varsayılan 5000) üzerine gelen metin tabanlı komutları ayrıştırıyor: kart keşfi (`DISCOVER_STM32_REQ`), PHY/DMA istatistikleri (`GET_PHY_DMA_STATS`, `GET_STATS`), performans testi için echo (`PERF_TEST_...`), ham PHY register erişimi (`PHY_READ`/`PHY_WRITE`/`PHY_SCAN`), dahili loopback testi (`LOOPBACK`) ve `ETH_BSP_RegisterVar` ile kaydedilen değişkenler üzerinde `GET_VARS`/`READ_ALL`/`READ`/`WRITE` komutları. Sayısal ve metinsel argümanları ayrıştırmak için `strtof`/`sscanf` gibi standart kütüphane fonksiyonlarını kullanmak yerine, sınır dışına asla taşmayan kendi küçük ayrıştırıcı fonksiyonlarımı (`eaetis_parse_uint`, `eaetis_parse_float`, `eaetis_parse_str`) yazdım; bunun, güvenilmeyen girdiyle çalışırken daha öngörülebilir olduğunu düşündüm. `WRITE|VAR:ad|VAL:sayı` komutunda, değeri yazdıktan sonra geri okuyup arayüze donanımda fiilen oluşan değeri döndürecek şekilde tasarladım; böylece arayüz, kendi gönderdiği değeri değil kartın gerçekten uyguladığı değeri görüyor.
+
+Günün ikinci bölümünde IAP (firmware güncelleme) komut yolunu yazdım: `START_IAP|SIZE:n|CRC:0x..` ile yeni bir yükleme başlatılıyor, `FW_DATA|SEQ:i|LEN:n|<binary>` ile parça parça ham veri gönderiliyor, `END_IAP` ile de yükleme kapatılıp CRC32 doğrulaması sonrası yeni uygulamaya atlanıyor. `FW_DATA` komutunu ayrıştırırken başlıktaki `SEQ:`/`LEN:` alanlarını metin olarak, bundan sonraki ham binary veriyi ise hiçbir string fonksiyonuna (strlen, strcmp vb.) sokmadan bayt bayt işleyecek şekilde yazmaya özellikle dikkat ettim; aksi halde veri içinde rastgele bir sıfır bayt (`\0`) gelmesi durumunda ayrıştırma yanlış yerde kesilebilirdi. Bu üç komutu, gerçek flash yazma işini yapacak `ETH_IAP_Begin`/`ETH_IAP_WriteChunk`/`ETH_IAP_Finish`/`ETH_IAP_JumpToApplication` fonksiyonlarına devredecek şekilde kurguladım; bu fonksiyonların sözleşmesini `Inc/eth_iap.h` içinde tanımladım.
+
+`Src/eth_iap.c` dosyasında ise bu dört fonksiyonun iskeletini oluşturdum: `ETH_IAP_Begin`, gelecek toplam boyutu `ETH_IAP_MAX_SIZE` sınırına karşı kontrol edip yükleme durumunu sıfırlıyor; `ETH_IAP_WriteChunk`, gelen parçanın toplam beklenen boyutu aşıp aşmadığını kontrol ediyor. Flash'a asıl yazma işlemini (STM32H5'in `FLASH_NSCR` register'ı üzerinden sektör silme/yazma) ve `ETH_IAP_Finish`'teki CRC32 bütünlük doğrulamasını, bunları donanım üzerinde adım adım doğrulamadan yazmak istemediğim için şimdilik TODO olarak işaretledim; bu yüzden dosyanın tamamı `ETH_ENABLE_IAP` özellik anahtarının arkasına alınmış durumda ve varsayılan yapılandırmada derlemeye hiç girmiyor. Flash yazma ve CRC doğrulama mantığını donanım üzerinde tek tek test ederek tamamlamayı staj boyunca üzerinde çalışacağım bir sonraki başlık olarak not ettim.
+
+
+13 Ağustos 2026 Perşembe – Staj 19. Gün
+
+Yazılım tarafındaki temel dosyalar tamamlandığı için bugün elimdeki NUCLEO-H563ZI kartını devreye almaya çalıştım. Önce `Docs/linker_snippet.ld` adıyla bir linker script eklentisi hazırladım: bu dosyada, `eth_driver.c`'de `__attribute__((section(".eth_desc")))` ile işaretlediğim descriptor ve buffer dizilerinin, MPU tarafından non-cacheable ilan edilen özel bir bellek bölgesine (`RAM_DESC`, 0x20000000, 32 KB) nasıl yerleştirileceğini örnekledim; STM32H7 için de aynı bölgenin neden DTCM'de değil D2 domain SRAM'de (0x30000000) olması gerektiğini tekrar vurgulayan ayrı bir örnek ekledim. Kendi kartımın linker script'ine bu `.eth_desc` section'ını ekleyip `eth_config.h`'deki `ETH_DESC_REGION_BASE` değeriyle eşleştirdim.
+
+Ardından STM32CubeMX ile saat ağacını (250 MHz civarı bir PLL yapılandırması) ve RMII pinlerini oluşturup, projeyi CMake ile derledim. İlk denememde `ETH_BSP_Init()` `ETH_ERR_PHY` hatasıyla döndü; README'de de önerildiği gibi ilk doğrulama adımı olarak `ETH_PHY_ScanAddress()` fonksiyonunu çağırdım ve PHY'nin `eth_config.h`'de yazdığım adresten farklı bir adreste yanıt verdiğini gördüm. `PHY_ADDRESS` değerini bulduğum adresle güncelleyip tekrar denediğimde `ETH_BSP_Init()` `ETH_OK` döndürdü ve bağlantı UP olarak raporlandı — projenin ilk uçtan uca çalışan anı buydu. Bunu, README'de de belirtildiği gibi, geri kalan her şeyin üzerine kurulduğu ilk doğrulama testi olarak kabul ettim: RMII saati, GPIO AF ayarları, clock enable ve SMI zamanlamasının hepsinin doğru olduğunun kanıtıydı.
+
+
+14 Ağustos 2026 Cuma – Staj 20. Gün
+
+Kütüphanenin donanım üzerinde çalıştığını doğruladıktan sonra, `Examples/main.c` dosyasında uçtan uca bir entegrasyon örneği hazırladım. Amacım, kütüphaneyi ilk kez kullanacak bir geliştiricinin `eth_app.h`'yi nasıl kullanacağını tek bir dosyada görebilmesiydi. Örnekte üç tür telemetri değişkeni kurguladım: doğrudan bir değişken işaretçisiyle (`ptr`) arayüze açılan basit sensör değerleri (sıcaklık, besleme gerilimi, çalışma süresi), I2C üzerinden bir SHT3x nem sensöründen okunan ve yine `ptr` ile açılan bir değer, ve GPIO'ya yan etkisi olduğu için `getter`/`setter` fonksiyon çifti üzerinden tanımlanan bir LED değişkeni.
+
+Ana döngüyü yazarken iki kritik noktaya dikkat ettim: `ETH_BSP_ProcessEvents()`'in bloklamadığı için her turda çağrılması, ve sensör okumalarının kendi 100 ms'lik periyoduyla, paket işleme döngüsünü hiç yavaşlatmadan ayrı bir zamanlama mantığıyla yapılması. `ETH_BSP_Init()` başarısız olduğunda dönen hata koduna göre olası nedenleri (saat sorunuysa timeout, PHY adresi yanlışsa `ETH_ERR_PHY`, kablo takılı değilse `ETH_ERR_LINK_DOWN`) ayırt eden ve `ETH_ERR_PHY` durumunda otomatik olarak `ETH_PHY_ScanAddress()`'i çağırıp doğru adresi bulan bir hata işleme bloğu ekledim; bunu bir önceki gün kendi kartımda yaşadığım deneyimden yola çıkarak yazdım.
+
+
+17 Ağustos 2026 Pazartesi – Staj 21. Gün
+
+Gömülü taraf kararlı hale geldikten sonra, projenin masaüstü bileşeni olan E-AETIS GUI aracını (`ethernet_test_gui.py`) yazmaya başladım. PyQt5'i seçtim çünkü hem çoklu iş parçacığı (thread) desteği hem de tablo/grafik gibi hazır arayüz bileşenleri sunuyordu; isteğe bağlı olarak `pyqtgraph` kütüphanesini de gerçek zamanlı grafik çizimi için ekledim.
+
+Önce tüm soket işlemlerinin tek bir yerden geçmesini sağlayan bir `Protocol` sınıfı yazdım; arayüzün geri kalanı hiçbir zaman doğrudan `socket` kullanmayacak, her şey bu sınıf üzerinden yürüyecekti. Bu sınıfa düşük seviyeli `request()` (tek istek/yanıt, zaman aşımı destekli) ve `fire()` (yanıt beklemeden gönderim, ileride fuzzing testinde kullanmak üzere) fonksiyonlarını, ardından bunların üzerine inşa edilen yüksek seviyeli komutları (`discover`, `get_phy_stats`, `get_vars`, `read_var`, `write_var` vb.) ekledim. Yanıt ayrıştırma fonksiyonunu (`parse`) yazarken, kart tarafından gelebilecek bozuk bir yanıtın arayüzü çökertmemesi için `split` yerine `partition` kullandım ve boş/eksik alanlara karşı savunmacı bir yaklaşım benimsedim. `discover()` fonksiyonunda broadcast soketi açıp `DISCOVER_STM32_REQ` gönderdim ve gelen `STM32_ACK` yanıtlarını süre dolana kadar topladım.
+
+Günün ikinci yarısında ana pencereyi (`EAETISWindow`) ve sekmeli (tab) yapıyı kurdum: "Kart G/Ç (Telemetri)", "Ping (ICMP)", "UDP Konsol", "PHY / DMA Teşhis", "Performans & Jitter", "Hata Enjeksiyonu" ve "Bootloader (IAP)" sekmelerini planladım. Her sekmenin arkasında, arayüzü donmadan uzun süren ağ işlemlerini yürütecek ayrı bir `QThread` alt sınıfı (worker) olacağına baştan karar verdim; bu yüzden bugün önce `DiscoveryWorker` ve `TelemetryWorker` sınıflarının iskeletini kurdum, sinyal (`pyqtSignal`) tabanlı bir günlükleme (log) ve veri akışı deseni oluşturdum.
+
+
+18 Ağustos 2026 Salı – Staj 22. Gün
+
+Bugün ölçüme dayalı iki sekmeyi tamamladım. `PingWorker` sınıfını, ICMP yerine E-AETIS'in kendi `PERF_TEST_` echo komutunu kullanarak gecikme ölçen basit bir versiyon olarak yazdım; ardından bunu genişleterek asıl performans/jitter test motorunu, `BenchmarkWorker` sınıfını oluşturdum. Bu sınıfta göndermeden önce kart tarafındaki istatistik sayaçlarını sıfırlayıp (`RESET_STATS`), testin sonunda hem yazılım tarafında ölçülen gecikmelerden (min/ortalama/p95/maksimum ve jitter olarak varyansın karekökü) hem de kartın kendi donanım sayaçlarından (`GET_STATS`) bir özet çıkardım. Yazılım tarafında ölçülen paket kaybı ile donanımın bildirdiği "missed frame" sayacını ayrı ayrı raporlamamın nedeni, birinin ağdan kaynaklanan gerçek bir kayıp mı yoksa masaüstü tarafında `ProcessEvents`'in geç çağrılmasından kaynaklanan bir gecikme mi olduğunu ayırt edebilmekti; ikisini birbirine karıştırmanın yanlış teşhise yol açabileceğini düşündüm.
+
+Ardından "PHY / DMA Teşhis" sekmesi için gerekli altyapıyı kurdum: standart IEEE 802.3 register'larının (BMCR, BMSR, PHYID1/2, ANAR, ANLPAR, ANER) yanında, kullanılan PHY çipine özgü vendor register'ını da (LAN87xx için 0x1F, KSZ8081 için 0x1E) listeleyen bir tablo tanımladım, böylece arayüzden `PHY_READ`/`PHY_WRITE` komutlarıyla bu register'lara tek tek erişilebiliyor. Bu sekmeye ayrıca dahili loopback testini tetikleyen bir kontrol ekledim; bunun, kabloya ve karşı uca ihtiyaç duymadan TX/RX yolunun çalıştığını doğrulamak için kullanışlı olduğunu düşündüm.
+
+
+19 Ağustos 2026 Çarşamba – Staj 23. Gün
+
+Günün ilk bölümünde "Hata Enjeksiyonu" sekmesinin arkasındaki `FaultInjectionWorker` sınıfını yazdım. Buradaki amaç, kartın kötü niyetli veya bozuk girdi karşısında hiçbir zaman çökmediğini (HardFault almadığını) doğrulamaktı. Üç farklı senaryo kurguladım: 2048 baytlık aşırı büyük bir paket göndererek IP katmanında parçalanmayı tetiklemek (bunun BSP tarafında sessizce düşürülmesinin beklenen, doğru davranış olduğunu arayüzde de açıkça belirttim), eksik/tutarsız başlıklı elle hazırlanmış birkaç "kötü" paket göndermek (örneğin `SIZE`/`CRC` alanı eksik bir `START_IAP`, geçersiz bir PHY register numarası vb.), ve son olarak tamamen rastgele baytlardan oluşan çok sayıda "fuzz" paketi göndermek. Her senaryodan önce ve sonra kartın hâlâ `GET_PHY_DMA_STATS` komutuna cevap verip vermediğini kontrol ederek basit ama etkili bir "canlılık" (aliveness) ölçütü tanımladım.
+
+Günün ikinci bölümünde "Bootloader (IAP)" sekmesi için `FirmwareUpdateWorker` sınıfını yazdım: seçilen `.bin` dosyasının boyutunu ve CRC32'sini (Python'ın `zlib` kütüphanesiyle) hesaplayıp `START_IAP|SIZE:n|CRC:0x..` isteğini gönderiyor, ardından dosyayı 512 baytlık parçalara bölüp her birini `FW_DATA|SEQ:i|LEN:n|<binary>` olarak yolluyor ve her parça için en fazla 3 deneme hakkı tanıyan bir onay (ACK) mekanizması kuruyor, son olarak `END_IAP` ile yüklemeyi kapatıp kartın CRC doğrulamasını bekliyor. Bu sekmeyi yazarken, masaüstü tarafının protokolü eksiksiz uyguladığını ama kart tarafında `ETH_ENABLE_IAP` şu an kapalı olduğu ve flash yazma mantığı henüz tamamlanmadığı için gerçek bir yüklemeyi uçtan uca deneyemeyeceğimi göz önünde bulundurdum; bu yüzden bu sekmeyi, `eth_iap.c`'deki flash yazma ve CRC doğrulama mantığını tamamladığımda üzerinde test edeceğim hazır bir alt yapı olarak bıraktım.
+
+
+20 Ağustos 2026 Perşembe – Staj 24. Gün
+
+Bugün gömülü tarafla masaüstü tarafını ilk kez birlikte, uçtan uca çalıştırdım. Kartı Ethernet kablosuyla aynı ağ segmentindeki bilgisayarıma bağlayıp `ethernet_test_gui.py`'yi başlattım; "Kart G/Ç (Telemetri)" sekmesinden `DISCOVER_STM32_REQ` broadcast'i gönderdiğimde kartın `STM32_ACK|DEV:STM32H563|PHY:LAN8720A` yanıtıyla ağda göründüğünü gördüm. Ardından `GET_VARS` komutuyla, `Examples/main.c` içinde tanımladığım sıcaklık, besleme gerilimi, çalışma süresi, nem ve LED değişkenlerinin arayüz tarafından otomatik keşfedildiğini doğruladım; herhangi bir GUI değişikliği yapmadan yeni bir değişkenin listede belirdiğini görmek, `ETH_Var_t` mekanizmasının amacına ulaştığını gösterdi.
+
+LED değişkenini arayüzden yazılabilir (rw) olarak işaretli görüp `WRITE|VAR:led|VAL:1` komutunu gönderdiğimde kart üzerindeki LED'in yandığını ve arayüze geri okunan değerin "1" olarak döndüğünü gördüm. "Ping (ICMP)" sekmesinden birkaç deneme pingi attım, "PHY / DMA Teşhis" sekmesinden `GET_PHY_DMA_STATS` ile bağlantının 100 Mbps/Full-Duplex olarak raporlandığını teyit ettim. Bu ilk uçtan uca test sırasında aldığım bir ekran görüntüsünü `Docs/gui.png` olarak kaydettim; bu görüntüyü README'ye eklemeyi planladım.
+
+
+21 Ağustos 2026 Cuma – Staj 25. Gün
+
+Bugünün odağı "Performans & Jitter" ve "Hata Enjeksiyonu" sekmelerini gerçek donanım üzerinde test etmekti. Önce `BenchmarkWorker` ile kart sayaçlarını sıfırlayıp art arda `PERF_TEST_` paketleri gönderdim; gecikme (min/ortalama/p95/maksimum), jitter ve yaklaşık bant genişliği değerlerini kaydettim. Yazılım tarafında ölçülen kayıpla kartın kendi "missed frame" sayacını karşılaştırdığımda ikisinin de sıfır olduğunu, yani kaybın ne ağdan ne de `ProcessEvents`'in geç çağrılmasından kaynaklandığını doğruladım.
+
+Ardından "Hata Enjeksiyonu" sekmesini ilk kez gerçek kart üzerinde çalıştırdım. Önce 2048 baytlık aşırı büyük paketi gönderdim; beklediğim gibi kart bunu sessizce düşürdü ve `GET_PHY_DMA_STATS` ile hâlâ yanıt verdiğini doğruladım. Ardından eksik/tutarsız başlıklı elle hazırlanmış paketleri (SIZE/CRC alanı eksik `START_IAP`, geçersiz PHY register numarası, aşırı sayıda `|` karakteri vb.) gönderdim; kartın hiçbirinde çökmediğini, `eth_app.c`'deki uzunluk kontrollerinin işe yaradığını gördüm. Son olarak yüzlerce tamamen rastgele bayt dizisinden oluşan fuzz paketlerini gönderdim ve testin sonunda kartın hâlâ canlı olduğunu, `RX_DROP` sayacının arttığını ama hiçbir HardFault yaşanmadığını doğruladım. Bu test bana, "girdinin tamamen düşmanca olduğunu varsay" ilkesiyle yazdığım ayrıştırma kodunun pratikte de işe yaradığını gösterdi.
+
+
+24 Ağustos 2026 Pazartesi – Staj 26. Gün
+
+Bugün, staj başında öğrendiğim gereksinim mühendisliği bilgisini kendi projeme uygulayarak `Sistem_Gereksinimleri_Raporu.md` adlı belgeyi hazırladım. Raporu, INCOSE'un önerdiği yapıya benzer şekilde bölümlere ayırdım: giriş ve amaç, kapsam, donanım gereksinimleri (hedef kart/MCU, Ethernet donanımı, programlama/debug donanımı, test ortamı), yazılım ve geliştirme ortamı gereksinimleri (gömülü taraf ve masaüstü GUI tarafı için ayrı tablolar), fonksiyonel gereksinimler (FR1-FR8, örneğin "kart ARP isteklerine otomatik yanıt vermeli" veya "kart tanımadığı komutları kullanıcı işleyicisine yönlendirebilmeli"), fonksiyonel olmayan gereksinimler (taşınabilirlik, sınırlı bellek içinde çalışma, bloklamayan çalışma, bellek tutarlılığı, kullanım kolaylığı, güvenlik sınırı), gerekli bilgi/beceri alanları, test ve doğrulama gereksinimleri, ve son olarak bilinen kısıt/riskler.
+
+Bu raporu yazarken en çok zorlandığım kısım fonksiyonel olmayan gereksinimleri (NFR) somutlaştırmaktı; her birinin sadece "ne" olduğunu değil, "neden" gerekli olduğunu da yazmaya çalıştım — örneğin bellek tutarlılığı gereksiniminin D-Cache'li hedeflerde CPU ile DMA'nın aynı belleği farklı görmesini önlemek için var olduğunu, ya da IAP'de kimlik doğrulama olmamasının bilinçli ve kabul edilmiş bir kısıt olduğunu açıkça belirttim. Bu raporun, projenin sadece bir kod yığını değil, baştan tanımlanmış gereksinimlere dayanan bir mühendislik çalışması olduğunu göstermesini amaçladım.
+
+
+25 Ağustos 2026 Salı – Staj 27. Gün
+
+Günün tamamını `README.md` dosyasını yeniden düzenlemeye ayırdım. O ana kadar dosya dağınık notlar hâlindeydi; bunu, projeye ilk kez bakacak birinin sırayla okuyabileceği bir yapıya kavuşturdum: genel bakış ve E-AETIS'in ne işe yaradığı, desteklenen donanım tablosu (MCU/PHY/port katmanı eşlemesi), proje klasör yapısının ağaç görünümü, üç adımlı entegrasyon rehberi (klasörü kopyala, `eth_config.h`'yi düzenle, `eth_app.h` ile başlat), `eth_config.h`'deki sekiz ayar grubunu özetleyen bir tablo, `eth_app.h`'deki kullanıcı API'sini fonksiyon/amaç şeklinde listeleyen bir tablo, üç eksenli mimariyi gösteren bir ASCII şema, yeni MCU/MAC ailesi/PHY eklemenin nasıl yapılacağını anlatan bir bölüm, E-AETIS UDP protokolünün istek/yanıt tablosu, GUI aracının kurulumu, karta yüklemeden önce doğrulanması gereken register'ların öncelik sıralı bir listesi, ve son olarak bilinen sınırların maddeler hâlinde özeti.
+
+Tabloları hazırlarken en çok dikkat ettiğim şey, her satırın kod tabanındaki gerçek bir isimle (fonksiyon adı, register adı, define) birebir eşleşmesiydi; böylece README zamanla kodla birlikte güncel kalmayan ayrı bir belge olmak yerine, kod tabanının doğrudan bir haritası gibi işlev görecekti. "Karta Yüklemeden Önce Doğrulama Listesi" bölümünü yazarken, daha önceki günlerde kendi kartımda yaşadığım entegrasyon sürecini (önce `MACMDIOAR` alan yerleşimini, sonra RMII seçim register'ını, sonra tail pointer semantiğini doğrulamak gibi) bir öncelik sırası hâline getirdim; bunun, kütüphaneyi yeni bir karta taşıyacak birinin en sık karşılaşacağı hatalardan başlayarak ilerlemesini sağlayacağını düşündüm.
+
+
+26 Ağustos 2026 Çarşamba – Staj 28. Gün
+
+Bugün mentörümle projenin o ana kadarki hâli üzerine bir ara değerlendirme toplantısı yaptık. Kartı ve E-AETIS GUI'yi mentörüme canlı olarak gösterdim: kart keşfi, telemetri değişkenlerinin otomatik listelenmesi, LED'in arayüzden kontrolü, ping/performans testleri ve hata enjeksiyonu senaryolarının hepsini birlikte çalıştırdık. README ve Sistem Gereksinimleri Raporu üzerinden projenin mimarisini (üç eksenli config/port/phy ayrımı) ve şu ana kadar hangi MCU/PHY kombinasyonlarını fiilen kendi kartımda test edebildiğimi (STM32H563 + LAN8720A) anlattım.
+
+Mentörüm, GMAC ailesini (F407/F767) ve diğer PHY sürücülerini şu an sadece kod seviyesinde yazmış olup donanım üzerinde doğrulayamadığımı, ayrıca IAP bootloader'ın flash yazma kısmının hâlâ TODO olarak durduğunu değerlendirdi. Görüşme sonucunda, staj programının kalan günlerinde farklı bir projeye geçmek yerine bu projeyi derinleştirmemin daha faydalı olacağına karar verdik: öncelikli olarak IAP'nin flash yazma ve CRC doğrulama mantığının tamamlanıp donanım üzerinde test edilmesi, ardından imkân bulunursa GMAC ailesi için ikinci bir kartta doğrulama yapılması gündeme alındı. Böylece daha önce mentöruma danışmam gerektiğini not ettiğim "kalan günler için başka bir proje mi, yoksa aynı projede derinleşme mi" sorusu bu şekilde netleşmiş oldu.
+
+
+27 Ağustos 2026 Perşembe – Staj 29. Gün
+
+IAP'nin flash yazma kısmına başlamadan önce, STM32H563'ün flash denetleyicisini (referans kılavuzundaki FLASH bloğunu) inceleyerek güne başladım. Öğrendiklerimi özetlersem: H563 tek banka ve 8 KB'lık sektörlerden oluşuyor, kilidi açmak için `FLASH->NSKEYR` register'ına art arda iki sabit anahtar değeri yazmak gerekiyor, silme işlemi `NSCR` register'ındaki sektör numarası alanı (`SNB`) ile sektör silme bitinin (`SER`) birlikte ayarlanıp `STRT` ile tetiklenmesiyle başlıyor, ve asıl programlama F4 gibi eski ailelerden farklı olarak yalnızca 128 bit'lik (quad-word, 16 bayt) bloklar hâlinde yapılabiliyor.
+
+Bu bilgilerle `Src/eth_iap.c` içinde donanıma dokunan yardımcı fonksiyonları yazdım: `flash_unlock`/`flash_lock` (anahtar dizisiyle kilit açma/kapama), `flash_wait_ready` (işlem bitene kadar `NSSR.BSY` bitini bekleyip, hata bayraklarını `NSCCR` üzerinden temizleyen fonksiyon) ve `flash_erase_sector` (tek bir sektörü silen fonksiyon). Bu dosyayı şimdilik yalnızca STM32H563 için yazdığımı, başka bir hedefte `ETH_ENABLE_IAP` açılırsa derlemenin `#error` ile duracağını açıkça belirttim; çünkü diğer ailelerin flash denetleyicisi (özellikle F4/F7'nin klasik, 128 bit zorunluluğu olmayan sektörlü yapısı) oldukça farklı ve bunu doğru yazmadan derlemeye dahil etmek istemedim.
+
+
+28 Ağustos 2026 Cuma – Staj 30. Gün
+
+Bugün flash yazma zincirinin geri kalanını tamamladım. Önce Python tarafındaki `zlib.crc32` ile aynı sonucu üretecek bir CRC32 fonksiyonu yazdım (IEEE 802.3 polinomu, 0xEDB88320); bunu masaüstü GUI'nin `.bin` dosyası için hesapladığı değerle bire bir eşleşmesi gerektiği için ayrıca dikkatle test ettim. Ardından `ETH_IAP_Begin`'i, gelen toplam boyuta göre kaç sektör silinmesi gerektiğini hesaplayıp bunları sırayla silecek şekile getirdim; `ETH_IAP_WriteChunk`'ı da gelen veriyi 16 baytlık bir ara tampanda biriktirip tampon dolduğunda `flash_program_quadword` ile flash'a yazacak şekilde tasarladım, çünkü E-AETIS protokolündeki 512 baytlık parçalar flash'ın zorunlu kıldığı 16 baytlık yazma birimiyle her zaman aynı hizada gelmeyebiliyordu.
+
+İlk test denemesinde, bir önceki başarısız denemeden (yanlış sektör numarasıyla yaptığım bir ilk deneme) kalan hata bayrağı hâlâ `NSSR` üzerinde işaretli olduğu için yeni bir programlama isteğim `PGSERR` (programlama sıra hatası) ile reddedildi ve fonksiyon sürekli `ETH_ERR_FLASH` döndürdü. Sorunun kaynağının, bir önceki hatalı işlemin durum bayrağının temizlenmeden bırakılması olduğunu anladım; `flash_wait_ready` içine, işlem başında bekleyen hata bayraklarını (`WRPERR`, `PGSERR`, `STRBERR`, `EOP`) `NSCCR` üzerinden temizleyen kodu ekleyerek bunu çözdüm. Bu düzeltmeden sonra art arda birkaç sektörü silip küçük bir test verisini flash'a yazabildiğimi, yazılan veriyi debugger'dan bellek görüntüleyicisiyle karşılaştırarak doğruladım.
+
+
+31 Ağustos 2026 Pazartesi – Staj 31. Gün
+
+Flash yazma tarafı çalıştığına göre, günü `ETH_IAP_JumpToApplication` fonksiyonuna, yani yeni yüklenen firmware'e atlama mekanizmasına ayırdım. Mantığı basitti: yeni uygulamanın vektör tablosunun başındaki ilk iki kelimeyi (ana yığın işaretçisi ve reset vektörü) okuyup, `SCB->VTOR`'u yeni uygulamanın adresine taşıyıp, yığın işaretçisini (MSP) güncelleyip reset fonksiyonuna atlıyordum.
+
+İlk denemede kart atlama anında hemen HardFault'a düştü. Bir süre debugger ile uğraştıktan sonra, atlama anında hâlâ çalışmakta olan Ethernet DMA'sının ve SysTick zamanlayıcısının kesmelerinin devrede kalmasının sorunun kaynağı olduğunu fark ettim: yeni uygulama kendi çevre birimi başlatmasını henüz yapmamışken, eski yapılandırmadan kalan bir kesme tetiklendiğinde işlemci artık geçerli olmayan bir vektör tablosuna bakıyordu. Bunu, atlamadan hemen önce `ETH_Driver_DeInit()` çağırıp Ethernet donanımını durdurarak, `__disable_irq()` ile tüm kesmeleri kapatıp, `SysTick->CTRL` register'ını sıfırlayarak çözdüm. Bu düzeltmeden sonra, flash'a yazdığım küçük bir test programının (yalnızca bir LED'i yakıp söndüren basit bir uygulama) başarıyla çalıştığını gördüm.
+
+
+1 Eylül 2026 Salı – Staj 32. Gün
+
+Flash yazma ve atlama mekanizmalarının ikisi de ayrı ayrı çalıştığına göre, bugün bunları E-AETIS protokolü üzerinden uçtan uca test ettim. `eth_config.h`'de `ETH_ENABLE_IAP`'i geçici olarak 1 yaptım, projeyi yeniden derleyip karta yükledim. GUI'nin "Bootloader (IAP)" sekmesinden, LED'i yakıp söndüren küçük test `.bin` dosyasını seçip yüklemeyi başlattım: arayüz dosyanın boyutunu ve CRC32'sini hesaplayıp `START_IAP` isteğini gönderdi, kart sektörleri silip `IAP_READY` ile cevap verdi, ardından 512 baytlık parçalar hâlinde gönderilen veriyi sırayla `ACK`'ledi, son olarak `END_IAP` isteğine `FLASH_SUCCESS|JUMP_OK` yanıtını verip yeni uygulamaya atladı — ve kart üzerindeki LED beklediğim gibi yanıp sönmeye başladı. Bu, projenin firmware güncelleme özelliğinin ilk uçtan uca başarılı testiydi.
+
+Testler bittikten sonra, `ETH_ENABLE_IAP`'i tekrar varsayılan değeri olan 0'a çevirdim; çünkü Sistem Gereksinimleri Raporu'nda da belirttiğim gibi bu mekanizmada herhangi bir kimlik doğrulama yok ve yalnızca izole/güvenilir bir test ağında açık tutulması gerekiyor. Kütüphanenin varsayılan hâlinin, kullanıcı bilinçli olarak açmadıkça flash'a uzaktan yazılabilir olmaması gerektiğini düşündüm.
+
+
+2 Eylül 2026 Çarşamba – Staj 33. Gün
+
+Günü, IAP mekanizmasının hatalı senaryolar karşısında ne yaptığını doğrulamaya ayırdım. `ETH_ENABLE_IAP`'i tekrar geçici olarak açıp GUI üzerinden bilerek bozuk bir CRC32 değeriyle bir yükleme denedim; kart tüm parçaları kabul edip yazdıktan sonra `END_IAP` aşamasında CRC uyuşmazlığını yakalayıp `IAP_ERR|CRC_MISMATCH` döndürdü ve yeni uygulamaya atlamadı — beklediğim tam olarak buydu. Ardından `ETH_IAP_MAX_SIZE` sınırının üzerinde bir boyut bildirerek `START_IAP` gönderdim; `ETH_IAP_Begin`'in bunu `ETH_ERR_PARAM` ile reddettiğini ve hiçbir sektörü silmeden çıktığını doğruladım. Son olarak GUI'nin "Hata Enjeksiyonu" sekmesindeki kesik/tutarsız `START_IAP`/`FW_DATA` paketlerini bu kez `ETH_ENABLE_IAP` açıkken tekrar denedim; kartın bu paketler karşısında da çökmediğini, sadece ilgili `IAP_ERR` yanıtlarını döndürdüğünü gördüm.
+
+Bu testlerin ardından Sistem Gereksinimleri Raporu'ndaki test ve doğrulama tablosunda daha önce boş bıraktığım "IAP güncelleme testi (CRC doğrulama, başarılı/başarısız yazma senaryoları)" maddesini tamamlanmış olarak işaretledim. Günün sonunda `ETH_ENABLE_IAP`'i yine varsayılan olan 0'a döndürdüm.
+
+
+3 Eylül 2026 Perşembe – Staj 34. Gün
+
+Projenin çekirdek kapsamı (STM32H563 + LAN8720A hattında sürücü, uygulama protokolü, IAP ve GUI) donanım üzerinde uçtan uca test edilmiş olduğundan, bugünü cuma günü mentörlere yapacağım sunumun hazırlığına ayırdım. Sunumu, stajın başında izlediğim sistem mühendisliği eğitim serisinden ve ilk sunumdan edindiğim düzeni örnek alarak kurguladım; bu kez konu bir teorik çerçeve değil, kendi geliştirdiğim proje olduğu için içeriği aşağıdaki başlıklar etrafında topladım:
+
+- Projenin Tanımı ve Amacı: E-AETIS / Ethernet_BSP'nin ne olduğu — STM32 üzerinde RTOS ve LwIP kullanmadan çalışan, taşınabilir bir bare-metal Ethernet BSP ile buna eşlik eden PyQt5 tabanlı masaüstü test/teşhis arayüzü.
+- Neden Bare-Metal: Hazır bir HAL+LwIP çözümü yerine doğrudan register erişimiyle kendi sürücümü yazma kararının gerekçeleri (bellek öngörülebilirliği, taşınabilirlik, öğrenme hedefi).
+- Desteklenen Donanım: MCU (H563/H743/F407/F767) ve PHY (LAN8720A/LAN8742A/KSZ8081) eşleşme tablosu.
+- Üç Eksenli Mimari: `eth_config.h` → `eth_device.h` → port/phy/driver/app ayrımının nasıl kurulduğu ve yeni donanım eklemenin neden yalnızca yeni bir dosya yazmak anlamına geldiği.
+- Temel Ethernet Kavramları: Stajın 8. gününde çıkardığım MAC/PHY ayrımı, RMII, MDIO/SMI ve DMA descriptor ring notlarının kısa bir hatırlatması.
+- E-AETIS Protokolü ve GUI: Kart keşfi, telemetri (pull/push), ping, performans/jitter testi, PHY/DMA teşhisi, hata enjeksiyonu ve IAP sekmelerinin ne işe yaradığı.
+- Test Sonuçları: Performans/jitter ölçümleri, hata enjeksiyonu testinde kartın hiç çökmemesi, ve GUI üzerinden yapılan ilk başarılı uçtan uca firmware güncellemesi.
+- Bilinen Sınırlar ve Sonraki Adımlar: GMAC ailesi ve KSZ8081'in henüz ikinci bir kartta doğrulanamamış olması, IAP'de kimlik doğrulama olmaması gibi bilinçli tasarım kısıtları.
+
+İçeriği hazırlarken elimdeki gerçek dokümanlardan (README, Sistem Gereksinimleri Raporu) doğrudan beslendim; böylece sunumdaki hiçbir iddianın kod tabanındaki gerçek durumdan farklı olmamasına özen gösterdim.
+
+
+4 Eylül 2026 Cuma – Staj 35. Gün
+
+Saat 10:00'da mentörlerime Ethernet_BSP projesini uçtan uca anlattım: mimariyi, E-AETIS protokolünü, GUI'yi canlı olarak gösterip performans/jitter ve hata enjeksiyonu testlerinden birkaçını yeniden çalıştırdım, son olarak GUI üzerinden küçük bir test firmware'ini karta yeniden yükleyerek IAP mekanizmasını da canlı gösterdim. Mentörlerim, taşınabilirlik için seçtiğim üç eksenli mimariyi ve "girdinin tamamen düşmanca olduğunu varsay" ilkesiyle yazdığım ayrıştırma kodunu olumlu buldu; IAP'de kimlik doğrulama eksikliğinin bilinçli bir kısıt olarak belgelenmiş olmasını da doğru bir yaklaşım olarak değerlendirdiler. Geri bildirim olarak, GMAC ailesi ve KSZ8081 hattının ikinci bir kartla donanım üzerinde doğrulanmasının projeyi tamamlayacak en önemli eksik olduğunu, imkân bulunursa staj sonuna kadar bunun da ele alınmasının iyi olacağını belirttiler.
+
+
+7 Eylül 2026 Pazartesi – Staj 36. Gün
+
+Mentörlere yapılan ara sunumdan farklı olarak, stajın kapanışında yapacağım asıl proje sunumunun bu kez daha geniş bir dinleyici kitlesine (yalnızca birim mentörlerime değil) ve sabit bir süreye tabi olacağını öğrendim: 10 dakikalık bir anlatım, ardından 5 dakika veya daha uzun sürebilecek bir soru-cevap bölümü. Bu kısıt beni içeriği baştan elemeye zorladı; günü, üç haftadır biriktirdiğim malzemeden (README, Sistem Gereksinimleri Raporu, günlük notlarım) 10 dakikaya sığacak bir anlatı iskeleti çıkarmaya ayırdım.
+
+İçeriği zaman bütçesine göre şu şekilde bölümledim: giriş ve motivasyon (~1,5 dk), desteklenen donanım ve mimari (~2 dk), E-AETIS protokolü ve GUI'nin canlı/örnek gösterimi (~2,5 dk), test sonuçları — performans, hata enjeksiyonu, IAP (~2,5 dk), bilinen sınırlar ve kapanış (~1,5 dk). Sunum sırasında donanımı fiilen bağlayıp canlı gösterim yapamama ihtimaline karşı (salon/projeksiyon kısıtı, ağ erişimi olmaması gibi), GUI'nin gerçek görünümünü örnek verilerle yansıtan ekran görüntülerini slaytların içine gömmeye karar verdim; böylece anlatım donanımın o an çalışıp çalışmamasına bağımlı kalmayacaktı. Olası soru-cevap sorularını da not almaya başladım: "neden LwIP kullanmadınız", "IAP güvenliği nasıl sağlanacak", "GMAC ailesi neden donanımda doğrulanamadı" gibi.
+
+
+8 Eylül 2026 Salı – Staj 37. Gün
+
+Slaytlara koyacağım GUI görüntüleri için gerçekçi örnek veriler hazırladım. Amaç, kartı fiilen bağlamadan da E-AETIS arayüzünün gerçek kullanımda nasıl göründüğünü net bir şekilde gösterebilmekti. Her sekme için önceki günlerde donanımda ölçtüğüm değerlere yakın, tutarlı örnek veri setleri oluşturdum: telemetri sekmesi için sıcaklık/besleme/çalışma süresi/nem gibi değişken değerleri, PHY/DMA teşhis sekmesi için bağlantı durumu ve BCR/BSR register değerleri, performans sekmesi için gecikme/jitter/bant genişliği özet istatistikleri, hata enjeksiyonu sekmesi için testin adım adım günlüğünü, ve IAP sekmesi için örnek bir firmware yükleme akışının (dosya boyutu, CRC32, ilerleme, `FLASH_SUCCESS|JUMP_OK` yanıtı) tamamını. Bu verileri hazırlarken tek kaygım, sayıların birbiriyle tutarlı olması ve gerçek testlerde gördüğüm değer aralıklarının dışına çıkmamasıydı; aksi hâlde sunumda bir soruya "bu rakam nereden geldi" diye cevap veremezdim.
+
+
+9 Eylül 2026 Çarşamba – Staj 38. Gün
+
+Bir önceki günün içerik planı ve örnek verileriyle sunumun taslağını oluşturdum. Her slaytı, konuşurken söyleyeceğim tek bir ana fikre indirgemeye çalıştım; slaytların kalabalık madde listeleri yerine, konuşmamı destekleyecek görsellerin (mimari şeması, GUI ekran görüntüleri, test özet tabloları) öne çıktığı bir düzen kurdum. Giriş slaytında projeyi tek cümlede özetleyen bir tanım, kapanış slaytında ise staj boyunca neler öğrendiğimi ve projenin bıraktığı yeri (GMAC/KSZ8081'in henüz donanımda doğrulanmamış olması) özetleyen bir sonuç bıraktım. Slaytları hazırlarken 10 dakikalık süreye gerçekten sığıp sığmadığını anlamak için kabaca sesli okuyarak bir ilk zamanlama denemesi yaptım; bazı bölümlerin (özellikle mimari anlatımı) beklediğimden uzun sürdüğünü görüp orayı sadeleştirdim.
+
+
+10 Eylül 2026 Perşembe – Staj 39. Gün
+
+Sunumu birkaç kez daha sesli prova ettim ve bu sefer kronometreyle süreyi ölçtüm; ilk provada 10 dakikayı biraz aştım, mimari ve test sonuçları bölümlerindeki bazı ayrıntıları çıkarıp sözlü anlatıma bıraktım, ikinci provada süre hedefin içine oturdu. Bir önceki gün not aldığım olası soruları (LwIP tercihi, IAP güvenliği, GMAC doğrulaması, hata enjeksiyonu testinin neyi kanıtladığı) tek tek yanıtlayarak kısa notlar hâline getirdim; böylece soru-cevap bölümünde hazırlıksız yakalanmamayı hedefledim. Son olarak slaytlardaki birkaç yazım ve tutarlılık hatasını (bir tabloda kalan eski bir örnek değer gibi) düzelttim ve sunumu son hâliyle kaydettim.
+
+
+11 Eylül 2026 Cuma – Staj 40. Gün
+
+Staj programının son günü, hazırladığım sunumu mentörlerime ve daha geniş bir dinleyici kitlesine sundum: projeyi 10 dakikada anlattım, ardından gelen soruları (LwIP yerine neden kendi sürücümü yazdığım, IAP'nin ağ güvenliği açısından sınırları, GMAC ailesinin neden henüz ikinci bir kartta doğrulanamadığı gibi) yanıtladım. Sunumun ardından mentörlerimden staj boyunca kaydettiğim ilerleme hakkında genel bir değerlendirme aldım; sistem mühendisliği eğitimiyle başlayıp gereksinim analizinden mimari tasarıma, donanım entegrasyonundan test/doğrulamaya uzanan sürecin bütünlüklü bir mühendislik çalışması olarak tamamlandığı yönünde geri bildirim aldım. Bununla birlikte 40 günlük staj programını tamamlamış oldum.
+

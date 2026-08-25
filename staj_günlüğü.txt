@@ -1,0 +1,24 @@
+(20 Temmuz 2026 Pazartesi)
+Staj 1.Gün: İş sağlığı ve güvenliği eğitimi verildi. İnsan Kaynakları tarafından şirket tanıtımı, ne tür projeler geliştirildiği ve savunma sanayinde nasıl çalışılır gibi konuları anlattılar. Aynı zamanda insan kaynakları staj sürecemizin nasıl işlenceğini anlattı. Öğleden sonra da çalışacağımız birimlere gönderildik. Ben sistem ve test mühendisliği biriminde görev aldım. Bu birimden görevli mentör ile tanıştık. CV'lerimize ve transkripte göre bize nasıl projeler verebileceğimizi anlattılar. 
+
+(21 Temmuz 2026 Salı)
+Staj 2.Gün: Sistem ve Test Mühendisliği nedir adlı 12 videodan oluşan bir video serisi hazırlanmış. İlk gün 6 video izlenip sistem mühendisliği hakkında gerekli notlar tutulmuştur.  
+
+(22 Temmuz 2026 Çarşamba)
+Staj 3.Gün: Bugün geriye kalan diğer videolar izlendi ve gerekli notlar tutuldu. Aynı zamanda sunuma hazırlık yapmak için sunumdan neler bahsedileceği konuşuldu. 
+
+(23 Temmuz 2026 Perşembe)
+Staj 4.Gün: Bugün cuma günü yapılacak olan sunumla ilgili hazırlıklar yapıldı. Burada staj defterinde sunumda nelerden bahsettiğini söyle. "Mehmet Akif Seçkin Sunum" adlı pptx dosyasında hazırlanmış sunum bulunmaktadır. Buradaki içeriği kısa özetler halinde staj defterinde bahset. 
+
+(24 Temmuz 2026 Cuma)
+Staj 5 Gün: Bugün saat 10 da mentörlerimize sırayla hazırladıklarımızı sunumları anlattık. Bize sistem ve test mühendisliği hakkında sektörde nasıl kullanılır , V-Model'in faydalarından , hangi geliştirme modellerinden ne zaman kullanabileceğimizden bahsettiler. 
+
+(27 Temmuz 2026 Pazartesi)
+Staj 6.Gün: Mentörüm ile birlikte yapacağımız proje hakkında konuştuk. Benim CV'deki bilgilere göre gömülü yazılım alanında bir proje verileceğine karar verdik. Proje konusu ise STM32 üzerinde çalışacak bir ethernet sürücü kütüphanesi
+geliştirmem kararı verildi.
+
+(28 Temmuz 2026 Salı)
+Staj 7.Gün: STM32 de hazır ethernet sürücü kütüphanesi nasıl çalıştığı hakkında araştırma yaptım. Kendim bu kütüphanenin basit ve modüler bir yapıda nasıl geliştirebileceğim hakkında araştırma yaptım. Daha önceden ethernet ile çalışmadığımdan önce ethernet sürücüsünün temel elemanları hakkında gerekli araştırmalar yaptım.
+
+(29 Temmuz 2026 Çarşamba)
+Staj 8.Gün: Burada "Ethernet BSP" klasörü var. Bu benim staj boyunca yapacağım proje. Senden şimdi bugün itibaren projeyi gün gün belirli konular hakkında gerekli araştırmaları ve gerekli kodları buraya yazmanı istiyorum. Proje içerisinde bahsedeceğim temel ethernet elemanları hakkında gerekli özet notlar vardı eğer yoksa senden bu proje kullanılan elemanları tek tek açıklamanı istiyorum. Ha birde gerekli programları kurduğumu kodlama aşamına geçmden once bahset. vs code ,cmake, gcc, ninja vb paketleri kurduğumu stm32cubemx gibi hazır program neden kurduğumu da anlat. Şuanlık bu dediklerimi 25 günlük staj programına yay. Ben kalan günler için başka projeler geliştirebilir miyim diye mentörüme danışmam gerek. eğer bu proje anlatımı 25 güne sığmayım daha da uzun sürer ise sıkıntı yok benim için daha iyi olur. senden şimdi 29 temmuz salı gününden itibaren bu dediklerimi yapmanı istiyorum. 
