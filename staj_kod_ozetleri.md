@@ -64,7 +64,7 @@ ETH_Status_t ETH_PHY_GetSpeedDuplex(uint8_t addr, uint16_t *speed, bool *fd);
 
 ---
 
-## 3 Ağustos 2026 – Gün 11
+## 10 Ağustos 2026 – Gün 11
 `eth_driver.c`: MPU non-cacheable bölge (M33/M7 ayrımı), RMII GPIO AF, `ETH_Driver_Init` sırası, `ETH_PHY_ScanAddress`, link durumu (latching-low okuma).
 
 ```c
@@ -96,7 +96,7 @@ if (ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMSR, &bmsr) != ETH_OK) return ETH_ER
 
 ---
 
-## 4 Ağustos 2026 – Gün 12
+## 11 Ağustos 2026 – Gün 12
 Ring init, `ETH_SendFrame` (60 bayta padding), zero-copy `Claim/Commit` ve `Receive/Release`, istatistik biriktirme.
 
 ```c
@@ -141,7 +141,7 @@ void ETH_GetStats(ETH_Stats_t *s)
 
 ---
 
-## 5 Ağustos 2026 – Gün 13
+## 12 Ağustos 2026 – Gün 13
 `eth_port_eqos.c`: register sabitleri, RMII seçimi (SBS/SYSCFG), MDC bölücü, taban+uzunluk+tail-pointer ring, `__DMB()` bariyeri.
 
 ```c
@@ -182,7 +182,7 @@ void ETH_Port_DescArmTx(ETH_Desc_t *d, uint8_t *buf, uint16_t len)
 
 ---
 
-## 6 Ağustos 2026 – Gün 14
+## 13 Ağustos 2026 – Gün 14
 `eth_port_gmac.c`: next-pointer zincir (TCH), poll-demand "kick", RX uzunluğundan 4 bayt CRC çıkarma.
 
 ```c
@@ -215,7 +215,7 @@ uint16_t ETH_Port_DescGetRxLength(const ETH_Desc_t *d)
 
 ---
 
-## 7 Ağustos 2026 – Gün 15
+## 14 Ağustos 2026 – Gün 15
 PHY sürücüleri: ortak bringup adımları, hız/duplex için farklı vendor register'ı (LAN87xx `0x1F` vs KSZ8081 `0x1E`).
 
 ```c
@@ -254,7 +254,7 @@ if (reg == 0x0000U || reg == 0xFFFFU) return ETH_ERR_PHY;   /* bos SMI hatti */
 
 ---
 
-## 10 Ağustos 2026 – Gün 16
+## 17 Ağustos 2026 – Gün 16
 `eth_app.h`: `ETH_Var_t`, `ETH_BSP_RegisterVar`, push/pull telemetri, kullanıcı komut genişletmesi.
 
 ```c
@@ -275,7 +275,7 @@ void ETH_BSP_RegisterCommandHandler(ETH_UserCmdHandler_t handler);
 
 ---
 
-## 11 Ağustos 2026 – Gün 17
+## 18 Ağustos 2026 – Gün 17
 `eth_app.c`: ARP önbelleği (LRU), `icmp_handle`, `udp_send_to_mac`, IPv4 parçalanmış paketleri düşürme.
 
 ```c
@@ -315,7 +315,7 @@ if ((frag & IP_FLAG_MF) || (frag & IP_FRAG_OFF_MASK)) return;
 
 ---
 
-## 12 Ağustos 2026 – Gün 18
+## 19 Ağustos 2026 – Gün 18
 `eaetis_handle` komut dağıtımı, kendi sınırlı `parse_uint/float/str` fonksiyonları, `START_IAP/FW_DATA/END_IAP`, `eth_iap.h`/`eth_iap.c` iskeleti.
 
 ```c
@@ -362,7 +362,7 @@ void         ETH_IAP_JumpToApplication(void);
 
 ---
 
-## 13 Ağustos 2026 – Gün 19
+## 20 Ağustos 2026 – Gün 19
 `Docs/linker_snippet.ld`: `.eth_desc` section'ının non-cacheable RAM_DESC bölgesine yerleşimi.
 
 ```ld
@@ -382,7 +382,7 @@ MEMORY
 
 ---
 
-## 14 Ağustos 2026 – Gün 20
+## 21 Ağustos 2026 – Gün 20
 `Examples/main.c`: üç telemetri değişkeni tipi (ptr sensör, ptr I2C, getter/setter LED) ve bloklamayan ana döngü.
 
 ```c
@@ -412,7 +412,7 @@ while (1) {
 
 ---
 
-## 17 Ağustos 2026 – Gün 21
+## 24 Ağustos 2026 – Gün 21
 `ethernet_test_gui.py`: tüm soketlerin geçtiği `Protocol` sınıfı — `request()`, `fire()`, `discover()`.
 
 ```python
@@ -437,7 +437,7 @@ class Protocol:
 
 ---
 
-## 18 Ağustos 2026 – Gün 22
+## 25 Ağustos 2026 – Gün 22
 `PingWorker` (echo tabanlı gecikme) ve `BenchmarkWorker` (min/ort/p95/max/jitter + donanım sayaçlarıyla karşılaştırma).
 
 ```python
@@ -461,7 +461,7 @@ class BenchmarkWorker(QThread):
 
 ---
 
-## 19 Ağustos 2026 – Gün 23
+## 26 Ağustos 2026 – Gün 23
 `FaultInjectionWorker` (3 senaryo) ve `FirmwareUpdateWorker` (512B parça + ACK döngüsü).
 
 ```python
@@ -490,7 +490,7 @@ class FirmwareUpdateWorker(QThread):
 
 ---
 
-## 27 Ağustos 2026 – Gün 29
+## 3 Eylül 2026 – Gün 29
 STM32H563 flash denetleyicisi: `flash_unlock`/`flash_wait_ready`/`flash_erase_sector`.
 
 ```c
@@ -515,7 +515,7 @@ static ETH_Status_t flash_erase_sector(uint32_t sector)
 
 ---
 
-## 28 Ağustos 2026 – Gün 30
+## 4 Eylül 2026 – Gün 30
 CRC32 (zlib ile aynı polinom), `ETH_IAP_Begin`/`ETH_IAP_WriteChunk` (16 baytlık quad-word tamponlama), eski hata bayrağının temizlenmesi düzeltmesi.
 
 ```c
@@ -549,7 +549,7 @@ static ETH_Status_t flash_wait_ready(void)
 
 ---
 
-## 31 Ağustos 2026 – Gün 31
+## 7 Eylül 2026 – Gün 31
 `ETH_IAP_JumpToApplication`: vektör tablosunu taşıma, kesmeleri kapatıp yeni uygulamaya atlama.
 
 ```c

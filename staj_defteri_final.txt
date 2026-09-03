@@ -147,6 +147,50 @@ API'yi tasarlarken en çok kafa yorduğum nokta, kartın kendi donanımına özg
 
 İkinci önemli tasarım kararı, telemetri için iki farklı model sunmaktı: "pull" modeli (arayüz sorar, kart `ETH_BSP_RegisterVar` ile kayıtlı değeri cevaplar) ve "push" modeli (kart, arayüz `TELEMETRY_SUB` ile abone olduktan sonra, kendi istediği an `ETH_BSP_SendTelemetry()` ile veri basar). Bunların olay tabanlı veriler (örneğin bir eşik aşıldığında) ile sabit periyotlu ölçümler arasındaki farkı karşılayabilmek için ikisinin de aynı anda kullanılabilir olması gerektiğine karar verdim. Son olarak, BSP'nin tanımadığı komutları (LED aç/kapa gibi) kullanıcının kendi donanımına yönlendirebilmesi için `ETH_BSP_RegisterCommandHandler()` mekanizmasını tasarladım; bu sayede çekirdek dosyalara hiç dokunmadan, E-AETIS protokolü kullanıcı tanımlı komutlarla genişletilebiliyor.
 
+Günün sonunda yazdığım yapı ve fonksiyon imzaları (Inc/eth_app.h):
+
+```c
+typedef enum {
+    ETH_VAR_U8  = 0,
+    ETH_VAR_I32 = 1,
+    ETH_VAR_U32 = 2,
+    ETH_VAR_F32 = 3
+} ETH_VarType_t;
+
+typedef struct {
+    const char   *name;       /* Arayuzde gorunen ad. '|', ':' ve bosluk YASAK */
+    const char   *unit;       /* "C", "V", "rpm"... NULL olabilir              */
+    ETH_VarType_t type;
+    bool          writable;   /* true ise arayuzden yazilabilir                */
+    void         *ptr;        /* NULL ise getter/setter kullanilir             */
+    float       (*getter)(void);
+    void        (*setter)(float value);
+} ETH_Var_t;
+
+ETH_Status_t ETH_BSP_RegisterVar(const ETH_Var_t *var);
+uint32_t     ETH_BSP_GetVarCount(void);
+
+ETH_Status_t ETH_BSP_SendTelemetry(const char *text);   /* push */
+bool         ETH_BSP_TelemetryReady(void);
+
+typedef int (*ETH_UserCmdHandler_t)(const char *cmd, const char *args,
+                                    char *resp, uint16_t resp_size);
+void ETH_BSP_RegisterCommandHandler(ETH_UserCmdHandler_t handler);
+```
+
+Kullanım örneği (header içindeki yorumda anlattığım gibi, main.c'de):
+
+```c
+static float g_temp = 0.0f;
+
+static const ETH_Var_t var_temp = {
+    .name = "sicaklik", .unit = "C", .type = ETH_VAR_F32,
+    .writable = false,  .ptr = &g_temp
+};
+
+ETH_BSP_RegisterVar(&var_temp);
+```
+
 
 18 Ağustos 2026 Salı – Staj 17. Gün
 
