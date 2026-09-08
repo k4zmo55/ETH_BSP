@@ -1,0 +1,766 @@
+<title>E-AETIS Sunum Notları</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --paper:#f5f6f3;
+  --paper-raised:#ffffff;
+  --ink:#16201c;
+  --muted:#52625a;
+  --accent:#0d6e56;
+  --accent-ink:#08402f;
+  --accent-soft:#dcece5;
+  --copper:#a8571a;
+  --copper-soft:#f3e3d3;
+  --line:#d7ded9;
+  --code-bg:#eef1ee;
+  --code-ink:#1c2a24;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1512;
+    --paper-raised:#141b17;
+    --ink:#e6ece8;
+    --muted:#93a39a;
+    --accent:#3ddba8;
+    --accent-ink:#bdf3dd;
+    --accent-soft:#12332a;
+    --copper:#e0985a;
+    --copper-soft:#2e2115;
+    --line:#26332d;
+    --code-bg:#131a16;
+    --code-ink:#d9e4de;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1512;
+  --paper-raised:#141b17;
+  --ink:#e6ece8;
+  --muted:#93a39a;
+  --accent:#3ddba8;
+  --accent-ink:#bdf3dd;
+  --accent-soft:#12332a;
+  --copper:#e0985a;
+  --copper-soft:#2e2115;
+  --line:#26332d;
+  --code-bg:#131a16;
+  --code-ink:#d9e4de;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size:17px;
+  line-height:1.62;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+h1,h2,h3,.mono,.eyebrow,.toc,code,pre,table,.tag,.meta{
+  font-family:"IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+h1,h2,h3{
+  font-family:"IBM Plex Sans", "Segoe UI", sans-serif;
+  text-wrap:balance;
+  color:var(--ink);
+  font-weight:700;
+}
+
+.sheet{max-width:760px;margin:0 auto;padding:64px 28px 120px}
+
+/* ---------- cover ---------- */
+.cover{
+  border-bottom:3px solid var(--ink);
+  padding-bottom:28px;
+  margin-bottom:44px;
+}
+.cover .kicker{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+}
+.cover h1{
+  font-size:2.5rem;
+  line-height:1.08;
+  margin:.4em 0 .2em;
+  letter-spacing:-.01em;
+}
+.cover .sub{
+  font-family:"Source Serif 4",serif;
+  font-style:italic;
+  color:var(--muted);
+  font-size:1.15rem;
+  margin:0 0 18px;
+}
+.cover .meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 22px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+.cover .meta b{color:var(--ink);font-weight:600}
+
+/* ---------- TOC ---------- */
+.toc{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:20px 24px;
+  margin-bottom:52px;
+  font-size:13.5px;
+}
+.toc-title{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.toc li{break-inside:avoid;margin-bottom:7px}
+.toc a{color:var(--ink);text-decoration:none;display:flex;gap:8px}
+.toc a:hover{color:var(--accent)}
+.toc .n{color:var(--accent);font-weight:600;min-width:1.4em}
+
+/* ---------- sections ---------- */
+section{margin-bottom:58px;page-break-inside:avoid-region}
+.eyebrow{
+  font-size:12px;
+  color:var(--accent);
+  font-weight:600;
+  letter-spacing:.1em;
+  margin-bottom:6px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+}
+.eyebrow .num{font-size:14px}
+h2{font-size:1.5rem;margin:0 0 .5em;padding-bottom:14px;border-bottom:1px solid var(--line)}
+h3{font-size:1.08rem;margin:1.6em 0 .5em;color:var(--accent-ink)}
+p{margin:0 0 1em}
+.lead{font-size:1.08rem;color:var(--muted)}
+ul,ol{padding-left:1.3em;margin:0 0 1em}
+li{margin-bottom:.35em}
+strong{color:var(--ink);font-weight:600}
+a{color:var(--accent)}
+
+/* ---------- code ---------- */
+code{
+  background:var(--code-bg);
+  color:var(--code-ink);
+  padding:.12em .38em;
+  border-radius:3px;
+  font-size:.86em;
+}
+pre{
+  background:var(--code-bg);
+  color:var(--code-ink);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:3px;
+  padding:14px 16px;
+  overflow-x:auto;
+  font-size:13px;
+  line-height:1.55;
+  margin:0 0 1.1em;
+}
+pre code{background:none;padding:0}
+
+/* ---------- callouts ---------- */
+.note, .flag{
+  border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  background:var(--accent-soft);
+  border-radius:3px;
+  padding:14px 18px;
+  margin:0 0 1.1em;
+  page-break-inside:avoid;
+}
+.note .tag, .flag .tag{
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  display:block;
+  margin-bottom:5px;
+}
+.flag{
+  border-left-color:var(--copper);
+  background:var(--copper-soft);
+}
+.flag .tag{color:var(--copper)}
+.flag p{font-family:"Source Serif 4",serif;margin:0}
+.flag .answer{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px dashed color-mix(in srgb, var(--copper) 40%, transparent);
+  font-size:.95em;
+  color:var(--muted);
+}
+.flag .answer b{color:var(--ink)}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;margin:0 0 1.1em}
+table{border-collapse:collapse;width:100%;font-size:12.8px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  border-bottom:2px solid var(--ink);
+}
+td.num, td.mono{font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+
+/* ---------- diagrams ---------- */
+.diagram{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:18px;
+  margin:0 0 1.1em;
+  overflow-x:auto;
+}
+
+/* ---------- Q&A bank ---------- */
+.qcat{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-weight:700;
+  font-size:1.02rem;
+  color:var(--accent-ink);
+  margin:1.8em 0 .8em;
+  padding-bottom:6px;
+  border-bottom:1px dashed var(--line);
+}
+.qcat:first-child{margin-top:0}
+.qa{margin-bottom:1.3em;page-break-inside:avoid}
+.qa .q{
+  font-family:"IBM Plex Sans",sans-serif;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:.3em;
+}
+.qa .q::before{content:"S — ";color:var(--copper)}
+.qa .a{color:var(--muted);margin:0;padding-left:1.4em;border-left:2px solid var(--line)}
+.qa .a::first-letter{color:var(--accent)}
+
+/* ---------- limits list ---------- */
+.limits{list-style:none;padding:0;margin:0}
+.limits li{
+  display:grid;grid-template-columns:1.6em 1fr;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--line);
+}
+.limits li::before{content:"—";color:var(--copper);font-family:"IBM Plex Mono",monospace}
+
+/* ---------- footer ---------- */
+.pagefoot{
+  margin-top:70px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);
+}
+
+@media print{
+  body{background:#fff;color:#111;font-size:12.3pt}
+  .sheet{max-width:none;padding:0 6mm}
+  section{page-break-inside:avoid}
+  h2{page-break-after:avoid}
+  .toc ol{columns:2}
+  a{color:inherit;text-decoration:none}
+  @page{margin:16mm 14mm}
+}
+</style>
+
+<div class="sheet">
+
+  <div class="cover">
+    <div class="kicker">Staj Sunumu · Hazırlık Notu</div>
+    <h1>E-AETIS / Ethernet_BSP</h1>
+    <p class="sub">Bare-metal STM32 Ethernet BSP'sinin mimarisi, kritik teknik kararları ve sunumda sorulabilecek sorular</p>
+    <div class="meta">
+      <span><b>Depo:</b> Ethernet_BSP</span>
+      <span><b>Kapsam:</b> Gömülü BSP + E-AETIS masaüstü test arayüzü</span>
+      <span><b>Amaç:</b> Pazartesi staj sunumu içerik hazırlığı</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">İçindekiler</div>
+    <ol>
+      <li><a href="#s00"><span class="n">00</span> Proje nedir, ne değildir</a></li>
+      <li><a href="#s01"><span class="n">01</span> HAL / LwIP / FreeRTOS: neden değil</a></li>
+      <li><a href="#s02"><span class="n">02</span> Mimari: üç bağımsız eksen</a></li>
+      <li><a href="#s03"><span class="n">03</span> Yapılandırma katmanı</a></li>
+      <li><a href="#s04"><span class="n">04</span> Sürücü çekirdeği</a></li>
+      <li><a href="#s05"><span class="n">05</span> Port katmanı: EQOS / GMAC</a></li>
+      <li><a href="#s06"><span class="n">06</span> PHY katmanı</a></li>
+      <li><a href="#s07"><span class="n">07</span> Uygulama protokolü</a></li>
+      <li><a href="#s08"><span class="n">08</span> IAP bootloader</a></li>
+      <li><a href="#s09"><span class="n">09</span> E-AETIS masaüstü arayüzü</a></li>
+      <li><a href="#s10"><span class="n">10</span> Bilinen sınırlar</a></li>
+      <li><a href="#s11"><span class="n">11</span> Soru bankası</a></li>
+    </ol>
+  </div>
+
+  <!-- 00 -->
+  <section id="s00">
+    <div class="eyebrow"><span class="num">§00</span> GENEL BAKIŞ</div>
+    <h2>Proje nedir, ne değildir</h2>
+    <p class="lead">E-AETIS (Advanced Ethernet Testing &amp; Inspection System), STM32 tabanlı bir kart üzerinde <strong>RTOS ve hazır ağ yığını (LwIP) kullanmadan</strong>, doğrudan register erişimiyle çalışan taşınabilir bir Ethernet Board Support Package (BSP) ve buna eşlik eden PyQt5 tabanlı masaüstü test/teşhis arayüzüdür.</p>
+    <p>İki parçadan oluşur:</p>
+    <ul>
+      <li><strong>Gömülü taraf</strong> — <code>Inc/</code> ve <code>Src/</code>: MAC'i, PHY'yi, ARP/ICMP/UDP protokollerini ve isteğe bağlı bir flash bootloader'ı (IAP) elle yazılmış C koduyla yönetir.</li>
+      <li><strong>Masaüstü taraf</strong> — <code>ethernet_test_gui.py</code>: karta UDP üzerinden bağlanıp kart keşfi, telemetri, performans testi, hata enjeksiyonu ve firmware güncelleme yapan bir Python/PyQt5 uygulaması.</li>
+    </ul>
+    <div class="note">
+      <span class="tag">Açılış cümlesi önerisi</span>
+      <p>"LwIP ya da bir RTOS kullanmadım; MAC register'larına, DMA descriptor ring'ine ve ARP/ICMP/UDP paket formatlarına doğrudan erişen bir Ethernet yığınını sıfırdan yazdım." Bu cümle, jürinin ilk sorusunu da genelde kendiliğinden davet eder: <em>"Neden HAL_ETH / LwIP / FreeRTOS kullanmadın?"</em> — §01'de tam cevap var.</p>
+    </div>
+    <p>Proje <strong>iki eksende taşınabilir</strong> tasarlandı: dört farklı MCU (STM32H563, H743, F407, F767) ve üç farklı PHY çipi (LAN8720A, LAN8742A, KSZ8081) arasında, kullanıcı sadece <code>eth_config.h</code>'yi değiştirerek geçiş yapabilir — çekirdek dosyalara dokunmadan.</p>
+  </section>
+
+  <!-- 01 -->
+  <section id="s01">
+    <div class="eyebrow"><span class="num">§01</span> TASARIM GEREKÇESİ</div>
+    <h2>HAL_ETH, LwIP, FreeRTOS: neden değil?</h2>
+    <p class="lead">Sunumda karşılaşılması neredeyse kesin olan sorudur — jüri "zaten hazır olan bunu neden kullanmadın" diye sorar. Kısa cevap: üç ayrı hazır bileşenin üçü de aynı ödünleşimi (trade-off) tekrar ediyor — hız/kolaylık karşılığında şeffaflık, denetlenebilirlik ve öngörülebilirlik kaybı. Bu proje ikincisini seçti; hem stajın hedefi hem de sistem gereksinimleri (Sistem_Gereksinimleri_Raporu.md, NFR1-NFR3: taşınabilirlik, sınırlı bellek, bloklamayan çalışma) bunu gerektirdi.</p>
+
+    <h3>STM32 HAL_ETH neden kullanılmadı</h3>
+    <ul>
+      <li><strong>Kendisi de taşınabilir değil.</strong> F4/F7'nin HAL Ethernet sürücüsü (klasik GMAC üzerine, <code>stm32f4xx_hal_eth.c</code>) ile H7/H5'in HAL Ethernet sürücüsü (EQOS üzerine tamamen yeniden yazılmış, <code>stm32h7xx_hal_eth.c</code>) API olarak birbirinden <strong>tamamen farklı</strong>. HAL kullansaydık bile dört MCU ailesini tek arayüzde toplamak için yine kendi soyutlama katmanımızı yazmamız gerekecekti — tam olarak <code>eth_port.h</code> sözleşmesinin çözdüğü problem.</li>
+      <li><strong>Descriptor/cache yönetimi bir kara kutu.</strong> Sahiplik biti, tail pointer, MPU/cache ayarları HAL içine gömülü; STM32H7 HAL_ETH'in ilk sürümlerinde bilinen cache-coherency sorunları da oldu. Bir sorun çıktığında kendi yazmadığınız bir kodun içine inmeniz gerekir.</li>
+      <li><strong>Tek başına yetmiyor.</strong> HAL_ETH yalnızca MAC/DMA seviyesinde çalışır; ARP/ICMP/UDP için hâlâ ayrı bir katman (kendi kodunuz ya da LwIP) gerekir — <code>eth_app.c</code>'nin yerini almaz.</li>
+    </ul>
+
+    <h3>LwIP neden kullanılmadı</h3>
+    <ul>
+      <li><strong>Kapsam uyumsuzluğu.</strong> LwIP; ARP+IP+ICMP+UDP+TCP+DHCP+DNS taşıyan genel amaçlı bir yığın. Bu proje yalnızca ARP/ICMP/UDP kullanıyor — kullanılmayan özelliklerin flash/RAM maliyeti yine de ödenirdi.</li>
+      <li><strong>Dinamik bellek.</strong> LwIP'in <code>pbuf</code> havuzu çalışma zamanında ayırma yapar. Bu projede tek bir <code>malloc</code> çağrısı yok — <code>rx_buf</code>/<code>tx_buf</code>/descriptor'lar dahil her şey derleme zamanında sabit boyutlu dizi; bu, her <code>ProcessEvents()</code> çağrısının en-kötü-durum süresini önceden hesaplanabilir kılıyor.</li>
+      <li><strong>Asıl zor kısmı çözmüyor.</strong> LwIP de altında bir "netif" sürücüsü ister — yani yine <code>eth_driver.c</code> + port dosyaları seviyesinde MAC/DMA'ya register erişimi gerekir. LwIP sadece <code>eth_app.c</code>'nin yerini alırdı; projenin en çok emek/öğrenme içeren kısmını (register seviyesi bring-up) değil.</li>
+      <li><strong>Denetlenebilirlik.</strong> <code>eth_app.c</code> tamamı elle yazıldığı ve "girdi düşmanca" ilkesiyle kurulduğu için tamamen okunabilir ve fuzz test edilebilir (§09). LwIP on binlerce satır; aynı derecede uçtan uca denetlemek bir stajın kapsamını aşar.</li>
+    </ul>
+
+    <h3>FreeRTOS neden kullanılmadı</h3>
+    <ul>
+      <li><strong>Gerçek bir eşzamanlılık ihtiyacı yok.</strong> Sistemde tek mantıksal iş var: gelen paketleri işle + kullanıcının kendi döngüsünü çalıştır. Bloklamayan <code>ETH_BSP_ProcessEvents()</code> ile kurulan "süper-döngü" (super-loop) bunun için yeterli ve embedded dünyada yaygın, kabul görmüş bir yaklaşım.</li>
+      <li><strong>RTOS'un maliyeti somut.</strong> Task başına ayrı yığın (stack) RAM'i, context-switch süresi, ve ARP cache / descriptor ring / telemetri tablosu gibi paylaşılan veriyi korumak için mutex/semaphore ihtiyacı doğar — hiçbiri şu an gerekmiyor çünkü tek bir yürütme bağlamı var.</li>
+      <li><strong>Jitter argümanı — GUI'nin kendi test sekmesiyle doğrudan bağlantılı.</strong> Görev önceliklendirmesi ve context-switch, gecikmeye kendi değişkenliğini (jitter) ekler. GUI'de zaten bir "Performans &amp; Jitter" sekmesi var (§09) — bir RTOS eklemek, tam olarak ölçmeye çalıştığınız şeye kendi gürültüsünü katma riski taşır.</li>
+    </ul>
+
+    <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>Bu proje (bare-metal, elle yazılmış)</th><th>HAL_ETH + LwIP + FreeRTOS</th></tr>
+      <tr><td>Şeffaflık</td><td>Her register erişimi, her ayrıştırma satırı görünür</td><td>Üç kütüphanenin içine inmeden davranış tam bilinmez</td></tr>
+      <tr><td>Bellek modeli</td><td>Tamamen statik, <code>malloc</code> yok, öngörülebilir footprint</td><td>pbuf havuzu (dinamik) + task başına stack</td></tr>
+      <tr><td>Zamanlama</td><td>Tek yürütme bağlamı, deterministik en-kötü-durum</td><td>Context-switch + önceliklendirme jitter'ı</td></tr>
+      <tr><td>Taşınabilirlik</td><td>Tek config dosyasıyla 4 MCU × 3 PHY</td><td>HAL'in kendisi ailelerde API olarak farklı</td></tr>
+      <tr><td>Özellik genişliği</td><td>Yalnızca ihtiyaç duyulan: ARP/ICMP/UDP</td><td><strong>Kazanan:</strong> TCP/DHCP/DNS hazır gelir</td></tr>
+      <tr><td>Olgunluk / topluluk testi</td><td>Kendi fuzz testimizle sınırlı</td><td><strong>Kazanan:</strong> yıllardır üretimde, geniş kullanım</td></tr>
+      <tr><td>Geliştirme hızı (yeni özellik)</td><td>Elle yazılmalı</td><td><strong>Kazanan:</strong> çoğu zaman bir config bayrağı</td></tr>
+    </table>
+    </div>
+
+    <div class="note">
+      <span class="tag">Dengeli kapanış cümlesi</span>
+      <p>"Bu, hazır bileşenlerin kötü olduğu anlamına gelmiyor — üretimde, çok protokollü, ölçekli bir üründe LwIP+FreeRTOS muhtemelen daha pragmatik bir seçim olurdu. Ama bu stajın hedefi bir ürünü en hızlı şekilde piyasaya sürmek değil, Ethernet'in MAC/PHY/DMA seviyesinde nasıl çalıştığını gösterebilmekti. O yüzden bilinçli olarak şeffaflığı ve öngörülebilirliği, hazır özellik genişliğine tercih ettim." Bu cümle hem dürüst hem de "bilmediği için değil, bilinçli seçtiği için yapmadı" mesajını net veriyor.</p>
+    </div>
+
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"LwIP yıllardır test edilmiş, sizin kodunuz test edilmemiş — buna neden güvenelim?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Haklı bir itiraz — bu yüzden proje kendi güvenilirlik kanıtını fuzz testiyle üretmeye çalışıyor (§09, Hata Enjeksiyonu sekmesi: parçalanma, kesik başlık, rastgele bayt testleri). Kapsam da kasıtlı dar tutuldu (TCP yok) — az kod, çok test, dar kapsam; LwIP'in genişliğiyle yarışmak değil, kapsadığı kısmı sağlam yapmak hedeflendi.</p>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"STM32Cube örnekleri zaten LwIP+FreeRTOS ile geliyor, neden onu temel almadınız?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Tam olarak bu yüzden — hazır bir örneği entegre etmek altındaki mekanizmayı göstermez. Stajın değerlendirilen kısmı "kütüphaneyi doğru yapılandırabildim mi" değil, "DMA descriptor ring'i, MAC/PHY bring-up'ı, checksum hesabını anlıyor muyum" sorusuna cevap.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="s02">
+    <div class="eyebrow"><span class="num">§02</span> MİMARİ</div>
+    <h2>Üç bağımsız eksen</h2>
+    <p>Projenin en çok soru alacak fikri budur: mimari, birbirini etkilemeyen üç eksen üzerine kurulu. Birinde yapılan değişiklik diğer ikisini etkilemez.</p>
+    <div class="diagram">
+<pre class="mermaid">
+flowchart TB
+  CFG["eth_config.h<br/>(kullanıcının dokunduğu TEK dosya)"] --> DEV["eth_device.h<br/>MCU → MAC ailesi + yetenek eşlemesi<br/>(derleme zamanı sağlık kontrolleri)"]
+  DEV --> PORTH["eth_port.h<br/>21 fonksiyonluk port sözleşmesi"]
+  DEV --> PHYH["eth_phy.h<br/>4 fonksiyonluk PHY sözleşmesi"]
+  PORTH --> EQOS["eth_port_eqos.c<br/>H5 / H7 (Synopsys DWC EQOS)"]
+  PORTH --> GMAC["eth_port_gmac.c<br/>F4 / F7 (klasik ST/DWC GMAC 3.x)"]
+  PHYH --> LAN["eth_phy_lan87xx.c<br/>LAN8720A / LAN8742A"]
+  PHYH --> KSZ["eth_phy_ksz80xx.c<br/>KSZ8081"]
+  EQOS --> DRV["eth_driver.c<br/>ring yönetimi, sahiplik protokolü, istatistik<br/>— TEK BİR register erişimi yok"]
+  GMAC --> DRV
+  LAN --> DRV
+  KSZ --> DRV
+  DRV --> APP["eth_app.c<br/>ARP / ICMP / UDP / E-AETIS komutları"]
+  APP --> IAP["eth_iap.c<br/>IAP bootloader (opsiyonel)"]
+</pre>
+    </div>
+    <h3>Neden bu ayrım önemli</h3>
+    <p><code>eth_driver.c</code> dosyasında <strong>tek bir donanım register'ına dokunulmaz</strong> — her donanım işlemi <code>ETH_Port_*</code> sözleşmesi üzerinden port dosyasına delege edilir. Bu sayede ring yönetimi, sahiplik protokolü ve istatistik biriktirme mantığı MAC ailesinden tamamen bağımsız kalır; H5'ten F4'e geçerken bu dosya <strong>hiç değişmez</strong>.</p>
+    <p>Aynı ilke PHY için de geçerli: <code>eth_phy.h</code> sadece 4 fonksiyon ister (<code>Bringup</code>, <code>GetSpeedDuplex</code>, <code>SetLoopback</code>, <code>GetName</code>). PHY, MAC ailesinden bağımsız bir eksendir — herhangi bir PHY çipi, herhangi bir MAC ailesiyle eşleşebilir.</p>
+    <div class="note">
+      <span class="tag">Somut kanıt — yeni MCU eklemek</span>
+      <p>STM32F429 desteği eklemek için tek yapılması gereken, <code>eth_device.h</code> içine yeni bir <code>#elif defined(ETH_TARGET_STM32F429)</code> bloğu eklemek. MAC ailesi (GMAC) zaten destekleniyorsa <strong>başka hiçbir dosya değişmez</strong> — bunu README'de iddia değil, gerçek bir tasarım kısıtı olarak sunmak sunumda güçlü bir nokta.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="s03">
+    <div class="eyebrow"><span class="num">§03</span> YAPILANDIRMA</div>
+    <h2>eth_config.h ve derleme-zamanı doğrulama</h2>
+    <p><code>eth_config.h</code>, kullanıcının elle düzenlediği <strong>tek dosya</strong> olma ilkesiyle sekiz gruba ayrılmış: hedef işlemci, PHY çipi, ağ kimliği (MAC/IP/netmask/gateway), PHY ayarları, RMII pin haritası, DMA/bellek, özellik anahtarları, hata ayıklama.</p>
+    <p><code>eth_device.h</code> ise bu ayarları derleme anında doğrular — çalışma zamanına hiçbir hata bırakmadan:</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Kontrol</th><th>Mekanizma</th></tr>
+      <tr><td>Tam olarak bir <code>ETH_TARGET_*</code> seçilmiş mi</td><td class="mono"><code>defined()</code> ifadelerinin toplamı 0 veya 1 değilse <code>#error</code></td></tr>
+      <tr><td>Tam olarak bir <code>ETH_PHY_*</code> seçilmiş mi</td><td class="mono">aynı teknik, PHY için</td></tr>
+      <tr><td>Descriptor sayıları 2'nin kuvveti mi</td><td class="mono"><code>(N &amp; (N-1)) != 0</code> bit hilesi</td></tr>
+      <tr><td>Buffer boyutu yeterli mi</td><td class="mono">&ge;1524 bayt ve 4'ün katı</td></tr>
+      <tr><td>Descriptor+buffer ayrılan bölgeye sığıyor mu</td><td class="mono">toplam alan hesaplanıp <code>ETH_DESC_REGION_SIZE</code> ile kıyaslanır</td></tr>
+      <tr><td>H7'de descriptor bölgesi DTCM'de mi (yasak)</td><td class="mono">adres aralığı kontrolü, <code>#error</code></td></tr>
+      <tr><td>D-Cache açık ama MPU non-cacheable kapalıysa</td><td class="mono"><code>#warning</code> — veri bozulması riski</td></tr>
+    </table>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"Bu kontroller <em>derleme zamanında</em> mı, <em>çalışma zamanında</em> mı çalışıyor? Aralarındaki fark ne?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Hepsi <code>#if</code>/<code>#error</code> ile derleme zamanında; yanlış bir yapılandırma kart üzerinde hiç çalıştırılmadan, derleyici aşamasında durur. Bu, hatanın maliyetini "kartı yakma" seviyesinden "derleme çıktısını okuma" seviyesine indirir.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="s04">
+    <div class="eyebrow"><span class="num">§04</span> ÇEKİRDEK SÜRÜCÜ</div>
+    <h2>eth_driver.c — ring, sahiplik protokolü, bellek</h2>
+    <p>Bu dosya projenin teknik ağırlık merkezi. Dört konuyu iyi anlatabilmek sunumun en güçlü kısmı olur.</p>
+
+    <h3>1) Zero-copy TX/RX</h3>
+    <p>Gönderim iki adıma bölünmüş: <code>ETH_ClaimTxBuffer()</code> DMA'nın sahip olduğu bir tampon işaretçisi verir, uygulama veriyi <strong>doğrudan o tampona</strong> yazar, <code>ETH_CommitTxBuffer()</code> descriptor'ı DMA'ya devreder. Aradan bir <code>memcpy</code> geçmez. Alım tarafında da aynı mantık: <code>ETH_ReceiveFrame()</code> DMA'nın doldurduğu tamponun işaretçisini verir, uygulama bitirince <code>ETH_ReleaseRxFrame()</code> ile descriptor'ı DMA'ya geri iade eder.</p>
+    <pre><code>ETH_Status_t ETH_CommitTxBuffer(uint16_t len)
+{
+    if (tx_len &lt; 60U) {                 /* min Ethernet frame */
+        memset(&amp;tx_buf[tx_idx][tx_len], 0, 60U - tx_len);
+        tx_len = 60U;
+    }
+    ETH_Port_DescArmTx(&amp;tx_desc[tx_idx], &amp;tx_buf[tx_idx][0], tx_len);
+    tx_idx = (tx_idx + 1U) &amp; TX_MASK;    /* güç-of-2 boyut → maskeyle sarma */
+    ETH_Port_KickTx(tx_idx);
+}</code></pre>
+
+    <h3>2) Descriptor sahiplik protokolü (OWN biti)</h3>
+    <p>CPU ve DMA aynı descriptor dizisini paylaşır; kimin ne zaman yazabileceğini <strong>OWN biti</strong> belirler. CPU bir tampon hazırlayıp OWN bitini DMA'ya devrettiğinde artık o descriptor'a dokunamaz; DMA işini bitirip OWN'u CPU'ya geri verene kadar bekler. Bu, kesme kullanılmadan (polling) bile veri yarışını (race condition) önleyen protokoldür.</p>
+
+    <h3>3) MPU ile cache coherency</h3>
+    <p>D-Cache'li hedeflerde (H5, H7, F7) DMA'nın yazdığı veriyi CPU'nun cache'ten değil doğrudan bellekten okuması gerekir — aksi halde CPU eski (bayat) veriyi görür. Çözüm: descriptor+buffer bölgesi MPU ile <strong>non-cacheable</strong> işaretlenir. Kod, iki farklı mimari için iki farklı register setiyle bunu yapıyor:</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Mimari</th><th>Hedefler</th><th>Kullanılan register</th></tr>
+      <tr><td>ARMv8-M</td><td>Cortex-M33 (STM32H563)</td><td class="mono"><code>MPU-&gt;MAIR0</code>, <code>RBAR</code>, <code>RLAR</code></td></tr>
+      <tr><td>ARMv7-M</td><td>Cortex-M7 (STM32H7, F7)</td><td class="mono"><code>MPU-&gt;RASR</code> (TEX/C/B alanları)</td></tr>
+    </table>
+    </div>
+
+    <h3>4) Kritik başlatma sırası</h3>
+    <p>Kod içinde açıkça yorumlanmış: <em>RMII seçimi, MAC clock'ları açılmadan önce yapılmalı — yoksa MAC yanlış arayüzle reset'ten çıkar.</em> Sıra: MPU config → GPIO → <strong>RMII seç</strong> → <strong>clock aç</strong> → core reset → MDC böl → PHY bringup → link kontrolü → hız/duplex ayarla → MAC adresi/filtre → ring kurulum → başlat.</p>
+
+    <h3>5) Link durumu okuma: latching-low biti</h3>
+    <p>PHY'nin BMSR register'ındaki link-up biti "latching low" — yani bağlantı bir kez bile düşmüşse bit düşük kalır, ta ki okunana kadar. Anlık durumu doğru almak için register <strong>iki kez</strong> okunuyor: ilk okuma geçmişi temizler, ikincisi gerçek anlık durumu verir.</p>
+    <pre><code>(void)ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMSR, &amp;bmsr);       /* geçmişi temizle */
+ETH_Port_SMI_Read(PHY_ADDRESS, PHY_REG_BMSR, &amp;bmsr);             /* anlık durum */</code></pre>
+
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"Zero-copy'nin somut kazancı ne — bir <code>memcpy</code> atlamak neden önemli?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> 1500 baytlık bir frame'i her paket için ekstra kopyalamak hem CPU döngüsü hem de bellek bant genişliği tüketir; sınırlı SRAM'de gereksiz bir kopya, aynı zamanda gereksiz bir tampon boyutu (bellek) anlamına da gelir. Bare-metal / non-blocking bir döngüde her mikrosaniye önemli.</p>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"Descriptor sayısının 2'nin kuvveti olması neden zorunlu?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Ring index'i ilerletirken <code>% count</code> yerine <code>&amp; (count-1)</code> bit maskesi kullanılıyor (<code>RX_MASK</code>/<code>TX_MASK</code>) — bölme işleminden çok daha ucuz ve donanım DMA tail-pointer semantiğiyle de uyumlu.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="s05">
+    <div class="eyebrow"><span class="num">§05</span> PORT KATMANI</div>
+    <h2>EQOS ile GMAC arasındaki fark</h2>
+    <p>Aynı 21 fonksiyonluk sözleşmeyi iki farklı donanım ailesi iki farklı şekilde dolduruyor:</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>eth_port_eqos.c (H5 / H7)</th><th>eth_port_gmac.c (F4 / F7)</th></tr>
+      <tr><td>Ring modeli</td><td>Taban adres + uzunluk + <strong>tail pointer</strong></td><td><strong>Next-pointer zinciri</strong> (her descriptor bir sonrakini işaret eder)</td></tr>
+      <tr><td>"Yeni veri var" bildirimi</td><td class="mono">DMACRXDTPR yazımı</td><td class="mono">Poll-demand: DMASR RBUS biti + DMARPDR yazımı</td></tr>
+      <tr><td>SMI/MDIO register</td><td class="mono">MACMDIOAR / MACMDIODR</td><td class="mono">MACMIIAR / MACMIIDR</td></tr>
+      <tr><td>RX uzunluğu</td><td>CRC hariç</td><td>CRC dahil — <strong>4 bayt manuel çıkarılır</strong></td></tr>
+      <tr><td>RMII seçim register'ı</td><td class="mono">SBS-&gt;PMCR (H5) / SYSCFG-&gt;PMCR (H7)</td><td class="mono">SYSCFG-&gt;PMC</td></tr>
+    </table>
+    </div>
+    <h3>Tail pointer'ın "bir öncekini" göstermesi</h3>
+    <p>EQOS'ta tail pointer "buraya kadar işle" anlamına geliyor; bu yüzden serbest bırakılan descriptor'ın <strong>bir öncesi</strong> gösteriliyor — ilk bakışta off-by-one hatası gibi görünen ama aslında donanımın beklediği kasıtlı davranış.</p>
+    <pre><code>void ETH_Port_KickRx(uint32_t next_index)
+{
+    uint32_t prev = (next_index + rx_ring_count - 1U) % rx_ring_count;
+    ETH-&gt;DMACRXDTPR = (uint32_t)(uintptr_t)&amp;rx_ring_base[prev];
+}</code></pre>
+    <h3>__DMB() bariyeri: OWN biti en son yazılmalı</h3>
+    <p>Bir descriptor'ı DMA'ya devrederken adres ve uzunluk alanları önce, OWN biti <strong>en son</strong> yazılır — aralarına bir bellek bariyeri (<code>__DMB()</code>) konur. Derleyici veya CPU sıralamayı değiştirirse, DMA henüz yarım kurulmuş bir descriptor'ı görüp bozuk veri gönderebilir.</p>
+    <pre><code>d-&gt;DES0 = (uint32_t)(uintptr_t)buf; d-&gt;DES2 = EQOS_TDES2_IOC | len;
+__DMB();                                   /* OWN bitini EN SON yaz */
+d-&gt;DES3 = EQOS_DESC_OWN | EQOS_TDES3_FD | EQOS_TDES3_LD | len;</code></pre>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"MDC böleni (<code>ETH_Port_ConfigureMDCClock</code>) neden HCLK frekansına göre değişiyor?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> MDIO/SMI hattının IEEE 802.3 spesifikasyonuna göre üst sınırı 2.5&nbsp;MHz; HCLK yükseldikçe daha büyük bir bölen seçilmesi gerekiyor (250&nbsp;MHz'de HCLK/124), yoksa PHY register erişimleri spesifikasyon dışına çıkar.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="s06">
+    <div class="eyebrow"><span class="num">§06</span> PHY KATMANI</div>
+    <h2>LAN87xx ve KSZ8081 sürücüleri</h2>
+    <p>PHY katmanı 4 fonksiyonluk küçük bir sözleşme: <code>Bringup</code>, <code>GetSpeedDuplex</code>, <code>SetLoopback</code>, <code>GetName</code>. Ortak olan kısım PHY ID doğrulaması — boş bir SMI hattı <code>0x0000</code> ya da <code>0xFFFF</code> döner, ikisi de geçersiz sayılır.</p>
+    <p>Hız/duplex bilgisini okumak için her vendor <strong>farklı bir register</strong> kullanıyor — bu, "standart bir MDIO register seti var, hepsi aynı" varsayımının yanlış olduğunu gösteren iyi bir örnek:</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>PHY</th><th>Register</th><th>Adres</th></tr>
+      <tr><td>LAN8720A / LAN8742A</td><td>SCSR (Special Control/Status)</td><td class="mono">0x1F</td></tr>
+      <tr><td>KSZ8081</td><td>PHYCTRL1</td><td class="mono">0x1E</td></tr>
+    </table>
+    </div>
+    <div class="note">
+      <span class="tag">Kavram netliği</span>
+      <p>MAC ↔ PHY arasında iki ayrı yol var: <strong>MDIO/SMI</strong> (2 telli, yönetim/registers) ve <strong>RMII</strong> (asıl veri hattı — TXD/RXD/CRS_DV/REF_CLK). <code>ETH_PHY_ScanAddress()</code> yalnızca MDIO üzerinden çalışır; RMII veri hattı çalışmasa bile PHY ID okunabilir. Bu ayrım README'deki "ilk test" önerisinin temelini oluşturuyor (bkz. §10).</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="s07">
+    <div class="eyebrow"><span class="num">§07</span> UYGULAMA KATMANI</div>
+    <h2>eth_app.c — protokoller ve E-AETIS komutları</h2>
+    <p>Bu dosyanın başındaki tasarım ilkesi kod içinde açıkça yazıyor: <em>"Her parser fonksiyonu, girdinin tamamen düşmanca olduğunu varsayar."</em> Bu, fuzzing testinin (§09, Hata Enjeksiyonu sekmesi) doğrudan hedefidir.</p>
+
+    <h3>Elle yazılmış paket yolu</h3>
+    <div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  A["ETH_ReceiveFrame\n(DMA'dan zero-copy)"] --> B{"EtherType?"}
+  B -->|ARP| C["arp_handle\ncache + reply"]
+  B -->|IPv4| D{"IP proto?"}
+  D -->|ICMP echo| E["icmp_handle\nreply hesapla"]
+  D -->|UDP| F{"hedef port?"}
+  F -->|"5000 (E-AETIS)"| G["eaetis_handle\nkomut dağıtımı"]
+  F -->|kullanıcı portu| H["ETH_BSP_RegisterUDPCallback"]
+  D -->|"MF=1 / offset≠0"| X["sessizce düşür\n(reassembly YOK)"]
+</pre>
+    </div>
+
+    <h3>Neden strlen/strtof kullanılmıyor</h3>
+    <p>E-AETIS komutları metin görünümlü ama IAP'in <code>FW_DATA</code> komutu içinde <strong>ham binary</strong> taşıyor — binary veri içinde rastgele <code>\0</code> baytı gelebilir. Standart string fonksiyonları <code>\0</code>'da durur; bu yüzden proje kendi <code>eaetis_parse_uint/float/str</code> fonksiyonlarını, her adımda uzunluk sınırını kontrol ederek yazmış. <code>FW_DATA</code> başlığı bile <code>strlen</code> değil, <code>'|'</code> karakterlerini sayarak ayrıştırılıyor.</p>
+
+    <h3>IP checksum (RFC 1071)</h3>
+    <pre><code>static uint16_t inet_checksum(const uint8_t *data, uint16_t len, uint32_t seed)
+{
+    uint32_t sum = seed;
+    for (i = 0; i+1 &lt; len; i += 2) sum += (data[i]&lt;&lt;8) | data[i+1];
+    if (i &lt; len) sum += data[i] &lt;&lt; 8;         /* tek bayt kaldıysa */
+    while (sum &gt;&gt; 16) sum = (sum &amp; 0xFFFF) + (sum &gt;&gt; 16);   /* end-around carry */
+    return ~sum;
+}</code></pre>
+
+    <h3>Telemetri: push ve pull — iki farklı model</h3>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Model</th><th>Kim başlatır</th><th>API</th><th>Kullanım senaryosu</th></tr>
+      <tr><td>Pull</td><td>Arayüz sorar</td><td class="mono">ETH_BSP_RegisterVar / GET_VARS / READ_ALL / WRITE</td><td>Sabit periyotta okunan sensör verisi</td></tr>
+      <tr><td>Push</td><td>Kart karar verir</td><td class="mono">ETH_BSP_SendTelemetry / TELEMETRY_SUB</td><td>Olay tabanlı, öngörülemeyen veri</td></tr>
+    </table>
+    </div>
+    <p><code>ETH_Var_t</code> yapısı iki erişim biçimini de destekliyor: sensör gibi yan etkisiz değerler için doğrudan <code>ptr</code>, GPIO gibi yan etkili işlemler için <code>getter</code>/<code>setter</code> fonksiyon çifti. Yapı <code>static const</code> olmalı çünkü BSP kopyasını almaz, sadece işaretçisini saklar.</p>
+
+    <h3>E-AETIS UDP protokol tablosu (özet)</h3>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>İstek</th><th>Yanıt / davranış</th></tr>
+      <tr><td class="mono">DISCOVER_STM32_REQ</td><td>broadcast keşif → <code>STM32_ACK|DEV:...|PHY:...</code></td></tr>
+      <tr><td class="mono">GET_PHY_DMA_STATS</td><td>BCR/BSR/LINK/SPEED/DUPLEX/DMA hata sayaçları</td></tr>
+      <tr><td class="mono">PHY_READ / PHY_WRITE / PHY_SCAN</td><td>ham MDIO register erişimi, adres tarama</td></tr>
+      <tr><td class="mono">GET_VARS / READ_ALL / READ / WRITE</td><td>telemetri değişken keşfi ve okuma/yazma</td></tr>
+      <tr><td class="mono">TELEMETRY_SUB|PORT:n</td><td>push telemetri aboneliği başlatır</td></tr>
+      <tr><td class="mono">LOOPBACK|EN:1</td><td>PHY dahili loopback aç/kapa — kablosuz TX/RX testi</td></tr>
+      <tr><td class="mono">START_IAP / FW_DATA / END_IAP</td><td>firmware güncelleme akışı (bkz. §08)</td></tr>
+      <tr><td>Tanınmayan komut</td><td><code>ETH_BSP_RegisterCommandHandler</code> ile kullanıcı işleyicisine yönlendirilir</td></tr>
+    </table>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"Neden UDP seçildi, TCP değil?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Protokol tamamen istek/yanıt (request/reply) ve telemetri gibi kayıp toleranslı; bağlantı kurma/el sıkışma yükü ve TCP'nin retransmit/pencere yönetimi karmaşıklığı, bare-metal + tek DMA kanallı bir sistemde gereksiz. Kayıp bir paket zaten timeout ile GUI tarafında yeniden denenir (bkz. IAP'de "en fazla 3 deneme").</p>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"IP fragment reassembly'yi neden desteklemediniz?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Bilinçli bir kapsam kararı — reassembly, ekstra tampon yönetimi ve zaman aşımı mantığı gerektirir; sınırlı SRAM'de karmaşıklık/fayda dengesi kurulmadı. Sistem bunu MF biti veya fragment offset'i sıfırdan farklıysa <strong>sessizce düşürerek</strong> yönetiyor; GUI'nin 2048 baytlık fault-injection paketinde timeout alması <strong>beklenen ve doğru davranış</strong> olarak test ediliyor.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="s08">
+    <div class="eyebrow"><span class="num">§08</span> IAP BOOTLOADER</div>
+    <h2>eth_iap.c — ağ üzerinden firmware güncelleme</h2>
+    <p>IAP (In-Application Programming), ayrı bir bootloader bölgesi yerine, <strong>hâlihazırda çalışan uygulamanın kendisi</strong> yeni bir firmware'i flash'a yazıp kendi üzerine atlıyor. Şu an yalnızca STM32H563 için yazılmış; başka hedefte <code>ETH_ENABLE_IAP</code> açılırsa derleme <code>#error</code> ile durur.</p>
+    <div class="diagram">
+<pre class="mermaid">
+sequenceDiagram
+  participant GUI as E-AETIS GUI
+  participant Kart as STM32 (eth_iap.c)
+  GUI->>Kart: START_IAP|SIZE:n|CRC:0x..
+  Kart->>Kart: flash_unlock + sektör(ler) sil
+  Kart-->>GUI: IAP_READY
+  loop 512B parça, en fazla 3 deneme
+    GUI->>Kart: FW_DATA|SEQ:i|LEN:n|<binary>
+    Kart->>Kart: CRC32 güncelle, 16B quad-word tamponla, dolunca flash'a yaz
+    Kart-->>GUI: ACK:i
+  end
+  GUI->>Kart: END_IAP
+  Kart->>Kart: CRC32 doğrula, VTOR taşı, MSP ayarla
+  Kart-->>GUI: FLASH_SUCCESS|JUMP_OK
+  Kart->>Kart: yeni uygulamaya atla
+</pre>
+    </div>
+    <h3>Flash yazma mekaniği</h3>
+    <ul>
+      <li><strong>Sektör:</strong> 8&nbsp;KB, tek banka.</li>
+      <li><strong>Yazma birimi:</strong> 128 bit (16 bayt, "quad-word") — STM32H5 flash denetleyicisinin zorunlu kıldığı en küçük programlama birimi. Gelen veri <code>iap_qw_buf</code>'ta biriktirilip 16 baytı dolunca tek seferde yazılıyor.</li>
+      <li><strong>CRC32:</strong> IEEE 802.3 polinomu (<code>0xEDB88320</code>) — Python <code>zlib.crc32</code> ile birebir aynı algoritma, bu yüzden GUI ve kart aynı sonucu üretiyor.</li>
+      <li><strong>Vektör tablosu taşıma:</strong> <code>END_IAP</code> başarılı olunca DMA/kesmeler kapatılır, <code>SCB-&gt;VTOR</code> yeni uygulamanın başına taşınır, <code>MSP</code> ayarlanır, reset vektörüne atlanır.</li>
+    </ul>
+    <div class="note">
+      <span class="tag">Gerçek bir debug hikayesi (staj günlüğünden)</span>
+      <p>Geliştirme sırasında karşılaşılan bir hata: önceki başarısız yazma denemesinden kalan hata bayrağı (<code>PGSERR</code>) temizlenmediği için, aslında sağlıklı olan bir sonraki yazma işlemi de hatalı görünüyordu. Çözüm, <code>flash_wait_ready()</code> içinde <code>FLASH-&gt;NSCCR</code> üzerinden bayrakların açıkça temizlenmesi oldu. Bu, "donanım hata bayrakları kalıcıdır, elle temizlenmezse yanıltır" dersinin somut bir örneği — sunumda anlatılmaya değer, çünkü gerçek bir hata ayıklama sürecini gösteriyor.</p>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski — muhtemelen en zor soru</span>
+      <p>"Yazma sırasında elektrik kesilirse ne olur?"</p>
+      <p class="answer"><b>Cevap ipucu (dürüst olun):</b> Şu anki tasarımda tek banka var; dual-bank/A-B imaj değişimi veya rollback mekanizması yok. Kesinti olursa uygulama bölgesi yarım yazılmış, tutarsız bir durumda kalabilir ve kart o firmware'e atlamayı denemez (<code>END_IAP</code>'a hiç ulaşılmamıştır) — ama <strong>kurtarma yolu da yok</strong>, kartın SWD/ST-Link ile yeniden programlanması gerekir. Bu, bilinen bir sınırlama olarak kabul edilmiş (NFR6, §10).</p>
+    </div>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"IAP'de neden kimlik doğrulama yok?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Kapsam dışı bırakıldı; CRC32 sadece <em>bütünlük</em> (veri bozulmadı mı) kontrol eder, <em>yetki</em> (bu isteği gönderen güvenilir mi) kontrol etmez. Bu yüzden README'de açıkça "yalnızca izole/güvenilir ağlarda kullanılmalı" uyarısı var — bilinçli, dokümante edilmiş bir güvenlik kısıtı.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="s09">
+    <div class="eyebrow"><span class="num">§09</span> MASAÜSTÜ ARAYÜZ</div>
+    <h2>ethernet_test_gui.py — E-AETIS GUI</h2>
+    <p>PyQt5 tabanlı, 7 sekmeli bir test/teşhis uygulaması. Tüm ağ trafiği <code>Protocol</code> sınıfı üzerinden geçer (<code>request</code> — yanıt bekler, <code>fire</code> — yanıt beklemeden gönderir/fuzzing için, <code>discover</code> — broadcast keşif). Ağ G/Ç'si arayüzü kilitlemesin diye her ağır işlem ayrı bir <code>QThread</code> worker'da çalışır.</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th>Sekme</th><th>Worker</th><th>İşlev</th></tr>
+      <tr><td>Kart G/Ç (Telemetri)</td><td>—</td><td><code>GET_VARS</code> ile otomatik değişken keşfi, oku/yaz</td></tr>
+      <tr><td>Ping (ICMP)</td><td>PingWorker</td><td>Echo tabanlı gecikme ölçümü</td></tr>
+      <tr><td>UDP Konsol</td><td>—</td><td>Serbest komut gönderimi/loglama</td></tr>
+      <tr><td>PHY / DMA Teşhis</td><td>—</td><td><code>GET_PHY_DMA_STATS</code>, <code>PHY_READ/WRITE/SCAN</code></td></tr>
+      <tr><td>Performans &amp; Jitter</td><td>BenchmarkWorker</td><td>min/ort/p95/max/jitter, donanım sayaçlarıyla kıyas</td></tr>
+      <tr><td>Hata Enjeksiyonu</td><td>FaultInjectionWorker</td><td>3 senaryo: parçalanma, kesik IAP başlığı, rastgele fuzz</td></tr>
+      <tr><td>Bootloader (IAP)</td><td>FirmwareUpdateWorker</td><td>512B parça + ACK döngüsü, en fazla 3 deneme</td></tr>
+    </table>
+    </div>
+    <h3>Jitter hesabı</h3>
+    <p>Gecikme örneklerinin varyansı hesaplanıp karekökü alınıyor — yani <strong>standart sapma</strong>. Yazılım kaybı (paket hiç yanıt almadı) ile donanımın kendi <code>RX_MISS</code> sayacı <strong>ayrı ayrı</strong> raporlanıyor; bu ayrım önemli çünkü ikisi farklı katmanlarda oluşan farklı hata türleri.</p>
+    <h3>Hata enjeksiyonu — üç senaryo</h3>
+    <ol>
+      <li><strong>IP parçalanması:</strong> 2048 baytlık paket gönderilir, kartın bunu sessizce düşürüp timeout vermesi beklenir (§07).</li>
+      <li><strong>Kesik/tutarsız IAP başlıkları:</strong> <code>START_IAP</code> (eksik alanlarla), aşırı büyük <code>LEN</code> değeri, sadece <code>|</code> karakterlerinden oluşan paket — hepsi <code>eaetis_parse_*</code> fonksiyonlarının sınır kontrolünü test eder.</li>
+      <li><strong>Rastgele fuzz:</strong> tamamen rastgele baytlardan oluşan paketler; test sonunda <code>GET_PHY_DMA_STATS</code> ile kartın hâlâ hayatta olup olmadığı (canlılık) kontrol edilir.</li>
+    </ol>
+    <div class="flag">
+      <span class="tag">Soru riski</span>
+      <p>"Fuzz testinde kart gerçekten çökebilir mi, nasıl garanti altına alındı?"</p>
+      <p class="answer"><b>Cevap ipucu:</b> Garanti mutlak değil — test bunu <em>doğrulamak için</em> var. <code>eth_app.c</code>'deki her parser, uzunluk kontrolünü ilk iş yapıyor (§07); crash olursa bu, testin bir hata bulduğu anlamına gelir ve düzeltilecek gerçek bir bug'dır. Bu dürüst cevap, "her şey mükemmel" demekten daha inandırıcıdır.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="s10">
+    <div class="eyebrow"><span class="num">§10</span> DÜRÜST DEĞERLENDİRME</div>
+    <h2>Bilinen sınırlar</h2>
+    <p>Bu listeyi sunumda erken, kendiniz açıklayın — jüri genelde bunları zaten fark eder; siz söylerseniz "kapsamı bilinçli çizdim" izlenimi bırakır, sizden çıkarsa "eksik" izlenimi bırakır.</p>
+    <ul class="limits">
+      <li><span><strong>IP fragment reassembly yok</strong> — tasarım kararı; büyük paketler sessizce düşürülür.</span></li>
+      <li><span><strong>TCP yok</strong> — yalnızca UDP/ICMP/ARP; bağlantı yönetimi karmaşıklığı kapsam dışı.</span></li>
+      <li><span><strong>Tek DMA kanalı, tek kuyruk</strong> — QoS veya VLAN önceliklendirme yok.</span></li>
+      <li><span><strong>IAP'de kimlik doğrulama yok</strong> — yalnızca CRC32 bütünlük kontrolü; izole ağ varsayımı.</span></li>
+      <li><span><strong>Kesme tabanlı değil, polling</strong> — gecikme <code>ProcessEvents()</code> çağrı sıklığına bağımlı; RTOS/kesme olmadığı için ana döngü tasarımı kritik.</span></li>
+    </ul>
+    <h3>İlk fonksiyonel test — bring-up sırası</h3>
+    <p>README'nin doğrulama listesi, kartı ilk kez ayağa kaldırırken izlenecek önceliği veriyor — bu, "projeyi baştan nasıl doğruladınız" sorusuna çok net bir cevap:</p>
+    <ol>
+      <li><code>eth_port_eqos.c</code> → MACMDIOAR alan yerleşimi (RM'den doğrula)</li>
+      <li>RMII seçim register kodu (SBS/SYSCFG)</li>
+      <li>DMA tail pointer semantiği</li>
+      <li>MPU RBAR/RLAR alan yerleşimi</li>
+      <li>Flash sektör numarası alanı (IAP kullanılıyorsa)</li>
+      <li>RMII pin haritası (kart şemasından)</li>
+    </ol>
+    <div class="note">
+      <span class="tag">Tek cümlelik özet</span>
+      <p><code>ETH_PHY_ScanAddress()</code> çağırıp PHY ID okuyabilmek, projenin <strong>ilk ve en kritik</strong> doğrulama adımı. Bu çalışıyorsa RMII saati, GPIO AF ayarları, clock enable ve SMI zamanlaması — hepsi doğru demektir. Geri kalan her şey bunun üzerine kurulur.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="s11">
+    <div class="eyebrow"><span class="num">§11</span> SORU BANKASI</div>
+    <h2>Sorulması muhtemel sorular ve cevap taslakları</h2>
+    <p class="lead">Aşağıdaki liste, sunum boyunca işaretlenen "soru riski" kutularının kategorilere göre toparlanmış hâli. Cevaplar taslak — kendi cümlelerinizle, staj günlüğündeki gerçek tarihlere/deneyimlere referans vererek anlatmanız daha inandırıcı olur.</p>
+
+    <div class="qcat">Tasarım kararları</div>
+    <div class="qa"><div class="q">Neden HAL_ETH / RTOS / LwIP kullanılmadı?</div><p class="a">Tam karşılaştırma ve tablo §01'de — özetle: HAL_ETH kendisi ailelerde taşınabilir değil ve tek başına ARP/ICMP/UDP'yi çözmüyor; LwIP kapsam ve dinamik bellek (pbuf) yönünden bu projenin ihtiyacına göre aşırı büyük ve asıl zor kısmı (MAC/PHY bring-up) zaten çözmüyor; FreeRTOS'a gerek duyacak kadar gerçek bir eşzamanlılık ihtiyacı yok, üstelik context-switch jitter'ı GUI'nin ölçtüğü performans metriğine gürültü katardı.</p></div>
+    <div class="qa"><div class="q">Bu üç-eksen mimarinin somut faydası ne, sadece "temiz kod" mu?</div><p class="a">Somut: yeni bir MCU eklemek tek bir dosyada birkaç satır; port veya PHY dosyasına dokunulmuyor. Bu, bakım/genişletme maliyetini doğrudan düşürüyor — bir hobi projesinden çok, gerçek bir BSP kütüphanesi gibi davranıyor.</p></div>
+    <div class="qa"><div class="q">Projeyi baştan yazsanız neyi farklı yapardınız?</div><p class="a">(Kendi değerlendirmenizi ekleyin — örn. kesme tabanlı RX, dual-bank IAP, TCP desteği gibi bilinen sınırlardan birini genişletme yönünde konuşmak iyi bir cevap olur.)</p></div>
+
+    <div class="qcat">Donanım / register seviyesi</div>
+    <div class="qa"><div class="q">RMII nedir, MII'den farkı ne?</div><p class="a">RMII (Reduced MII), MII'nin pin sayısını azaltılmış hâli — 7-9 sinyal yerine daha az hat kullanır (REF_CLK, MDIO, CRS_DV, MDC, RXD0-1, TX_EN, TXD0-1), 50 MHz referans saatiyle çalışır. Bu proje RMII'yi tercih etti çünkü daha az GPIO pini gerektiriyor.</p></div>
+    <div class="qa"><div class="q">MDIO/SMI ile RMII veri hattı arasındaki fark ne?</div><p class="a">MDIO, PHY'nin register'larına erişmek için kullanılan ayrı, yavaş, 2 telli bir yönetim hattı (MDC+MDIO). RMII ise gerçek Ethernet verisinin taşındığı hat. Biri PHY'yi <em>yapılandırmak</em>, diğeri veri <em>göndermek/almak</em> için.</p></div>
+    <div class="qa"><div class="q">50 MHz RMII referans saati nereden geliyor, neden bu kadar kritik?</div><p class="a">Genelde PHY'nin kendi kristalinden üretilir ve MAC ile PHY arasında paylaşılır. Bu saat yoksa <code>ETH_Port_ResetCore()</code> adımı takılır — kod içinde bu durum açıkça yorumlanmış, çünkü bring-up sırasında en sık karşılaşılan sorun budur.</p></div>
+
+    <div class="qcat">Bellek ve DMA</div>
+    <div class="qa"><div class="q">DMA descriptor ring nasıl çalışıyor, neden dairesel?</div><p class="a">Sabit sayıda descriptor (RX 8, TX 4) bir halka gibi sırayla kullanılıyor; her biri bir tampon adresi ve durum tutuyor. Dairesel yapı, sabit boyutlu ön-ayrılmış bellekle sürekli akan trafiği işlemeyi sağlıyor — dinamik bellek ayırma (malloc/free) yok.</p></div>
+    <div class="qa"><div class="q">Cache coherency sorunu tam olarak nedir, MPU nasıl çözüyor?</div><p class="a">DMA, CPU cache'inden habersiz doğrudan RAM'e yazar/okur. CPU aynı adresi cache üzerinden okursa, DMA'nın yazdığı yeni veriyi değil, cache'teki eski veriyi görebilir (ya da tam tersi, CPU'nun cache'te tuttuğu ama RAM'e henüz yazmadığı veriyi DMA hiç göremez). MPU, descriptor+buffer bölgesini "non-cacheable" işaretleyerek bu bölgede cache'i devre dışı bırakıyor; böylece CPU ve DMA her zaman aynı belleği görür.</p></div>
+
+    <div class="qcat">Ağ protokolleri</div>
+    <div class="qa"><div class="q">ARP cache neden sadece 4 girişlik, dolarsa ne olur?</div><p class="a">Kart tipik olarak tek bir GUI istemcisiyle ve belki gateway ile konuşuyor; 4 giriş bu senaryo için yeterli. Dolduğunda en eski görülen (<code>last_seen</code> en düşük) giriş üzerine yazılıyor — basit bir LRU yaklaşımı.</p></div>
+    <div class="qa"><div class="q">Checksum'ı UDP için hesaplamıyorsunuz, bu sorun yaratır mı?</div><p class="a">IPv4'te UDP checksum'ı opsiyoneldir (0 = hesaplanmadı anlamına gelir, alıcı zorunlu değilse kontrol etmez). IP header checksum'ı ise zorunlu ve hesaplanıyor. Bu bilinçli bir basitleştirme; üretim ortamı için UDP checksum'ı da eklenebilir.</p></div>
+
+    <div class="qcat">Güvenlik</div>
+    <div class="qa"><div class="q">Bu sistem internete açık bir ağda güvenli mi?</div><p class="a">Hayır ve bu açıkça dokümante edilmiş bir kısıt (NFR6). Kimlik doğrulama yok; IAP komutlarını gönderebilen herkes flash'a yazabilir. Sistem yalnızca izole/güvenilir bir laboratuvar ağında kullanılmak üzere tasarlandı.</p></div>
+    <div class="qa"><div class="q">Fuzzing testi güvenlik açığı bulmak için mi, yoksa dayanıklılık için mi?</div><p class="a">İkisi de örtüşüyor: dayanıksız bir parser (sınır kontrolü olmayan bir <code>memcpy</code>, mesela) hem bir çökme hem de potansiyel bir bellek bozulması güvenlik açığıdır. Test, kartın düşmanca girdi karşısında sessizce reddetmesini, çökmemesini doğruluyor.</p></div>
+
+    <div class="qcat">Genel / staj süreci</div>
+    <div class="qa"><div class="q">Bu projede en çok neyi öğrendiniz?</div><p class="a">(Kişisel cevap — staj günlüğünüzdeki somut bir dönüm noktasını seçin: örn. IAP flash hata bayrağı hikayesi (§08) çok iyi bir "gerçek debug deneyimi" anlatısı.)</p></div>
+    <div class="qa"><div class="q">Kod tabanının tamamı size mi ait, yoksa bir başlangıç noktası mı vardı?</div><p class="a">(Kendi durumunuza göre dürüstçe cevaplayın — staj_kod_ozetleri.md'deki gün gün ilerleme, geliştirme sürecinin size ait olduğunu gösteren somut bir kanıt.)</p></div>
+  </section>
+
+  <div class="pagefoot">
+    <span>E-AETIS / Ethernet_BSP — sunum hazırlık notu</span>
+    <span>Sunum biçimi/slayt tasarımı ayrı bir görüşmede ele alınacak</span>
+  </div>
+
+</div>
