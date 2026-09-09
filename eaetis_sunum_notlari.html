@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
 <title>E-AETIS Sunum Notları</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
 <style>
@@ -232,6 +233,30 @@ tr:last-child td{border-bottom:none}
   margin:0 0 1.1em;
   overflow-x:auto;
 }
+.diagram figure{margin:0}
+.diagram svg{display:block;width:100%;height:auto;min-width:640px}
+.diagram figcaption{
+  margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
+  font-family:"Source Serif 4",serif;font-style:italic;
+  font-size:12.5px;color:var(--muted);line-height:1.5;
+}
+
+/* ---------- architecture diagram (inline SVG) ---------- */
+.arch .node{fill:var(--paper-raised);stroke:var(--line);stroke-width:1.4}
+.arch .node-accent{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.arch .node-dim{fill:var(--paper-raised);stroke:var(--line);stroke-width:1.2;stroke-dasharray:3 3;opacity:.62}
+.arch .node-optional{fill:var(--copper-soft);stroke:var(--copper);stroke-width:1.4;stroke-dasharray:5 4}
+.arch .axis-band{fill:none;stroke:var(--line);stroke-dasharray:3 4;opacity:.75}
+.arch .edge{stroke:var(--muted);stroke-width:1.4;fill:none}
+.arch .edge-dashed{stroke:var(--muted);stroke-width:1.3;stroke-dasharray:4 3;fill:none;opacity:.85}
+.arch .t-title{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:12.5px;fill:var(--ink)}
+.arch .t-sub{font-family:"IBM Plex Mono",monospace;font-size:9.3px;fill:var(--muted)}
+.arch .t-band{font-family:"IBM Plex Sans",sans-serif;font-weight:700;font-size:10px;letter-spacing:.08em;fill:var(--accent-ink)}
+.arch .t-bandsub{font-family:"Source Serif 4",serif;font-style:italic;font-size:9.5px;fill:var(--muted)}
+.arch .t-edge{font-family:"IBM Plex Mono",monospace;font-size:9.5px;fill:var(--muted)}
+.arch .t-or{font-family:"Source Serif 4",serif;font-style:italic;font-size:10px;fill:var(--muted)}
+.arch .t-legend{font-family:"IBM Plex Mono",monospace;font-size:9.5px;fill:var(--muted)}
+.arch .swatch{stroke-width:1.4}
 
 /* ---------- Q&A bank ---------- */
 .qcat{
@@ -334,6 +359,11 @@ tr:last-child td{border-bottom:none}
     <h2>HAL_ETH, LwIP, FreeRTOS: neden değil?</h2>
     <p class="lead">Sunumda karşılaşılması neredeyse kesin olan sorudur — jüri "zaten hazır olan bunu neden kullanmadın" diye sorar. Kısa cevap: üç ayrı hazır bileşenin üçü de aynı ödünleşimi (trade-off) tekrar ediyor — hız/kolaylık karşılığında şeffaflık, denetlenebilirlik ve öngörülebilirlik kaybı. Bu proje ikincisini seçti; hem stajın hedefi hem de sistem gereksinimleri (Sistem_Gereksinimleri_Raporu.md, NFR1-NFR3: taşınabilirlik, sınırlı bellek, bloklamayan çalışma) bunu gerektirdi.</p>
 
+    <div class="note">
+      <span class="tag">Sunum açılışı — tek paragrafta okunacak metin</span>
+      <p>"Bu projede bilinçli olarak STM32 HAL_ETH, LwIP ve FreeRTOS kullanmadık. HAL_ETH, MAC ailesine göre farklı davranan, ST'nin kendi soyutlamasına bağımlı bir katman; biz ise BSP'yi EQOS (H5/H7) ve GMAC (F4/F7) gibi tamamen farklı iki MAC ailesini ve üç farklı PHY çipini tek bir ortak port sözleşmesi altında, yeni bir MCU eklerken mevcut hiçbir dosyaya dokunmadan destekleyebilecek şekilde tasarladık — bu seviyede taşınabilirlik ancak register'a doğrudan erişimle mümkün oldu. LwIP'i kullanmadık çünkü ihtiyacımız TCP değil, sadece ARP/ICMP/UDP'den oluşan hafif bir komut protokolüydü; tam bir TCP/IP yığınını dahil etmek hem gereksiz bellek/karmaşıklık getirecekti hem de zaten sınırlı olan DMA descriptor/buffer alanını (tipik 32&nbsp;KB) zorlayacaktı — bunun yerine bu protokolleri elle, ihtiyaç kadarıyla yazdık. FreeRTOS kullanmadık çünkü BSP'nin kendisi bir görev zamanlayıcı dayatmak yerine, entegre edileceği uygulamanın ana döngüsünden bloklamadan çağrılan (<code>ETH_BSP_ProcessEvents</code>) polling tabanlı, deterministik bir yapı olmasını istedik; böylece BSP, RTOS'lu ya da RTOS'suz her projeye aynı şekilde entegre edilebiliyor. Sonuç olarak bu üç katmanı çıkarmak bize hem donanımın MAC/DMA/PHY seviyesinde tam olarak ne yaptığını görme ve kontrol etme imkanı, hem çok daha küçük bir bellek ayak izi, hem de dört farklı MCU ve üç farklı PHY arasında gerçek anlamda taşınabilir bir mimari kazandırdı."</p>
+    </div>
+
     <h3>STM32 HAL_ETH neden kullanılmadı</h3>
     <ul>
       <li><strong>Kendisi de taşınabilir değil.</strong> F4/F7'nin HAL Ethernet sürücüsü (klasik GMAC üzerine, <code>stm32f4xx_hal_eth.c</code>) ile H7/H5'in HAL Ethernet sürücüsü (EQOS üzerine tamamen yeniden yazılmış, <code>stm32h7xx_hal_eth.c</code>) API olarak birbirinden <strong>tamamen farklı</strong>. HAL kullansaydık bile dört MCU ailesini tek arayüzde toplamak için yine kendi soyutlama katmanımızı yazmamız gerekecekti — tam olarak <code>eth_port.h</code> sözleşmesinin çözdüğü problem.</li>
@@ -392,22 +422,119 @@ tr:last-child td{border-bottom:none}
     <h2>Üç bağımsız eksen</h2>
     <p>Projenin en çok soru alacak fikri budur: mimari, birbirini etkilemeyen üç eksen üzerine kurulu. Birinde yapılan değişiklik diğer ikisini etkilemez.</p>
     <div class="diagram">
-<pre class="mermaid">
-flowchart TB
-  CFG["eth_config.h<br/>(kullanıcının dokunduğu TEK dosya)"] --> DEV["eth_device.h<br/>MCU → MAC ailesi + yetenek eşlemesi<br/>(derleme zamanı sağlık kontrolleri)"]
-  DEV --> PORTH["eth_port.h<br/>21 fonksiyonluk port sözleşmesi"]
-  DEV --> PHYH["eth_phy.h<br/>4 fonksiyonluk PHY sözleşmesi"]
-  PORTH --> EQOS["eth_port_eqos.c<br/>H5 / H7 (Synopsys DWC EQOS)"]
-  PORTH --> GMAC["eth_port_gmac.c<br/>F4 / F7 (klasik ST/DWC GMAC 3.x)"]
-  PHYH --> LAN["eth_phy_lan87xx.c<br/>LAN8720A / LAN8742A"]
-  PHYH --> KSZ["eth_phy_ksz80xx.c<br/>KSZ8081"]
-  EQOS --> DRV["eth_driver.c<br/>ring yönetimi, sahiplik protokolü, istatistik<br/>— TEK BİR register erişimi yok"]
-  GMAC --> DRV
-  LAN --> DRV
-  KSZ --> DRV
-  DRV --> APP["eth_app.c<br/>ARP / ICMP / UDP / E-AETIS komutları"]
-  APP --> IAP["eth_iap.c<br/>IAP bootloader (opsiyonel)"]
-</pre>
+    <figure>
+    <svg class="arch" viewBox="0 0 1000 800" role="img" aria-label="eth_config.h'den başlayıp iki bağımsız donanım ekseninden (MAC port ailesi, PHY çipi) geçen ve sabit bir çekirdek mantığa yakınsayan bağımlılık akışı; vurgulu kutular örnek derleme hedefini (H563 + EQOS + LAN8742A) gösterir.">
+      <defs>
+        <marker id="archArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+        </marker>
+      </defs>
+
+      <!-- level 1: config -->
+      <rect class="node" x="380" y="20" width="240" height="50" rx="6"/>
+      <text class="t-title" x="500" y="44" text-anchor="middle">eth_config.h</text>
+      <text class="t-sub" x="500" y="60" text-anchor="middle">tek dokunulan dosya</text>
+      <line class="edge" x1="500" y1="70" x2="500" y2="102" marker-end="url(#archArrow)"/>
+
+      <!-- level 2: device -->
+      <rect class="node" x="380" y="104" width="240" height="60" rx="6"/>
+      <text class="t-title" x="500" y="126" text-anchor="middle">eth_device.h</text>
+      <text class="t-sub" x="500" y="141" text-anchor="middle">MCU → yetenek eşlemesi</text>
+      <text class="t-sub" x="500" y="154" text-anchor="middle">derleme zamanı doğrulama</text>
+
+      <!-- fan-out to two axes -->
+      <line class="edge" x1="500" y1="164" x2="252" y2="198" marker-end="url(#archArrow)"/>
+      <line class="edge" x1="500" y1="164" x2="748" y2="198" marker-end="url(#archArrow)"/>
+      <text class="t-edge" x="345" y="176" text-anchor="middle">MAC ailesi seçimi</text>
+      <text class="t-edge" x="655" y="176" text-anchor="middle">PHY çipi seçimi</text>
+
+      <!-- axis bands -->
+      <rect class="axis-band" x="20" y="200" width="460" height="140" rx="10"/>
+      <text class="t-band" x="40" y="218">MAC PORT EKSENİ</text>
+      <text class="t-bandsub" x="40" y="231">derleme zamanında yalnızca biri seçilir</text>
+
+      <rect class="axis-band" x="520" y="200" width="460" height="140" rx="10"/>
+      <text class="t-band" x="540" y="218">PHY EKSENİ</text>
+      <text class="t-bandsub" x="540" y="231">derleme zamanında yalnızca biri seçilir</text>
+
+      <!-- impl boxes: port axis -->
+      <rect class="node-accent" x="40" y="250" width="180" height="56" rx="6"/>
+      <text class="t-title" x="130" y="271" text-anchor="middle">eth_port_eqos.c</text>
+      <text class="t-sub" x="130" y="286" text-anchor="middle">H5 / H7 · Synopsys EQOS</text>
+
+      <rect class="node-dim" x="280" y="250" width="180" height="56" rx="6"/>
+      <text class="t-title" x="370" y="271" text-anchor="middle">eth_port_gmac.c</text>
+      <text class="t-sub" x="370" y="286" text-anchor="middle">F4 / F7 · klasik GMAC</text>
+
+      <text class="t-or" x="250" y="282" text-anchor="middle">veya</text>
+
+      <!-- impl boxes: phy axis -->
+      <rect class="node-accent" x="540" y="250" width="180" height="56" rx="6"/>
+      <text class="t-title" x="630" y="271" text-anchor="middle">eth_phy_lan87xx.c</text>
+      <text class="t-sub" x="630" y="286" text-anchor="middle">LAN8720A / LAN8742A</text>
+
+      <rect class="node-dim" x="780" y="250" width="180" height="56" rx="6"/>
+      <text class="t-title" x="870" y="271" text-anchor="middle">eth_phy_ksz80xx.c</text>
+      <text class="t-sub" x="870" y="286" text-anchor="middle">KSZ8081</text>
+
+      <text class="t-or" x="750" y="282" text-anchor="middle">veya</text>
+
+      <!-- impl -> contract (implements, dashed) -->
+      <line class="edge-dashed" x1="130" y1="306" x2="192" y2="370" marker-end="url(#archArrow)"/>
+      <line class="edge-dashed" x1="370" y1="306" x2="308" y2="370" marker-end="url(#archArrow)"/>
+      <line class="edge-dashed" x1="630" y1="306" x2="692" y2="370" marker-end="url(#archArrow)"/>
+      <line class="edge-dashed" x1="870" y1="306" x2="808" y2="370" marker-end="url(#archArrow)"/>
+
+      <!-- contracts -->
+      <rect class="node" x="140" y="372" width="220" height="56" rx="6"/>
+      <text class="t-title" x="250" y="394" text-anchor="middle">eth_port.h</text>
+      <text class="t-sub" x="250" y="409" text-anchor="middle">21 fonksiyon · sabit sözleşme</text>
+
+      <rect class="node" x="640" y="372" width="220" height="56" rx="6"/>
+      <text class="t-title" x="750" y="394" text-anchor="middle">eth_phy.h</text>
+      <text class="t-sub" x="750" y="409" text-anchor="middle">4 fonksiyon · sabit sözleşme</text>
+
+      <!-- contracts -> driver (calls, solid, converging) -->
+      <line class="edge" x1="250" y1="428" x2="432" y2="492" marker-end="url(#archArrow)"/>
+      <line class="edge" x1="750" y1="428" x2="568" y2="492" marker-end="url(#archArrow)"/>
+      <text class="t-edge" x="300" y="464" text-anchor="middle">ring + register</text>
+      <text class="t-edge" x="700" y="464" text-anchor="middle">bringup + link durumu</text>
+
+      <!-- core: fixed logic, hardware-independent -->
+      <rect class="axis-band" x="330" y="478" width="340" height="270" rx="10"/>
+      <text class="t-band" x="350" y="496">ÇEKİRDEK — DONANIMDAN BAĞIMSIZ</text>
+
+      <rect class="node" x="350" y="510" width="300" height="56" rx="6"/>
+      <text class="t-title" x="500" y="532" text-anchor="middle">eth_driver.c</text>
+      <text class="t-sub" x="500" y="547" text-anchor="middle">ring + sahiplik protokolü — register erişimi yok</text>
+
+      <line class="edge" x1="500" y1="566" x2="500" y2="598" marker-end="url(#archArrow)"/>
+      <text class="t-edge" x="514" y="586" text-anchor="start">zero-copy TX/RX</text>
+
+      <rect class="node" x="350" y="600" width="300" height="56" rx="6"/>
+      <text class="t-title" x="500" y="622" text-anchor="middle">eth_app.c</text>
+      <text class="t-sub" x="500" y="637" text-anchor="middle">ARP / ICMP / UDP / E-AETIS komutları</text>
+
+      <line class="edge" x1="500" y1="656" x2="500" y2="688" marker-end="url(#archArrow)"/>
+      <text class="t-edge" x="514" y="676" text-anchor="start">opsiyonel</text>
+
+      <rect class="node-optional" x="350" y="690" width="300" height="52" rx="6"/>
+      <text class="t-title" x="500" y="711" text-anchor="middle">eth_iap.c</text>
+      <text class="t-sub" x="500" y="726" text-anchor="middle">IAP bootloader (ETH_ENABLE_IAP)</text>
+
+      <!-- legend -->
+      <line class="edge-dashed" x1="30" y1="768" x2="70" y2="768"/>
+      <text class="t-legend" x="78" y="772">gerçekler (implements) — derleme zamanı</text>
+      <line class="edge" x1="440" y1="768" x2="480" y2="768" marker-end="url(#archArrow)"/>
+      <text class="t-legend" x="488" y="772">kullanır (calls) — çalışma zamanı</text>
+
+      <rect class="node-accent swatch" x="30" y="784" width="16" height="12" rx="2"/>
+      <text class="t-legend" x="52" y="793">aktif seçim örneği: STM32H563 + EQOS + LAN8742A</text>
+      <rect class="node-dim swatch" x="560" y="784" width="16" height="12" rx="2"/>
+      <text class="t-legend" x="582" y="793">alternatif — aynı sözleşmeyi dolduran diğer seçenek</text>
+    </svg>
+    <figcaption>eth_config.h'den başlayan tek giriş noktası, iki bağımsız donanım eksenine (MAC port ailesi / PHY çipi) dallanır; her eksende derleme zamanında yalnızca bir uygulama seçilir (yeşil = bu projenin örnek hedefi). İkisi de aynı sabit sözleşmeyi (eth_port.h / eth_phy.h) doldurur, sözleşmenin kendisi donanımdan bağımsız çekirdek mantık (eth_driver.c → eth_app.c → eth_iap.c) tarafından kullanılır — bir ekseni değiştirmek çekirdeğe hiç dokunmaz.</figcaption>
+    </figure>
     </div>
     <h3>Neden bu ayrım önemli</h3>
     <p><code>eth_driver.c</code> dosyasında <strong>tek bir donanım register'ına dokunulmaz</strong> — her donanım işlemi <code>ETH_Port_*</code> sözleşmesi üzerinden port dosyasına delege edilir. Bu sayede ring yönetimi, sahiplik protokolü ve istatistik biriktirme mantığı MAC ailesinden tamamen bağımsız kalır; H5'ten F4'e geçerken bu dosya <strong>hiç değişmez</strong>.</p>
@@ -764,3 +891,82 @@ sequenceDiagram
   </div>
 
 </div>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="/_runtime/mermaid-11.16.1.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+
+</body></html>

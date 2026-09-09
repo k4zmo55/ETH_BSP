@@ -16,12 +16,13 @@ Projenin kritik teknik noktalarını, mimarisini ve olası soru/cevaplarını i�
 - §01: HAL_ETH / LwIP / FreeRTOS neden kullanılmadı — karşılaştırma tablosu
 - §11: kategorilere ayrılmış soru bankası (tasarım kararları, donanım, bellek/DMA, ağ protokolleri, güvenlik, genel)
 
-## Aşama 2 — Sırada
+## Aşama 2 — Tamamlandı ✅
 
-10 dakikalık sunumun kendisi (akış / slayt yapısı) hazırlanacak.
+10 dakikalık, 12 slaytlık gerçek bir slayt destesi hazırlandı: ok tuşları/trackpad ile gezilebilir, az metin + tablo + elle çizilmiş SVG diyagramlar (mimari, DMA ring, paket akışı, IAP sequence) ağırlıklı.
 
-- Hangi noktalara değinilmesi gerektiği bu aşamada ayrıca konuşulacak
-- 10 dakikaya sığacak şekilde Aşama 1'deki içerikten öncelik sırası belirlenecek
+- Dosya: [`eaetis_sunum_slaytlari.html`](eaetis_sunum_slaytlari.html)
+- Canlı sürüm: https://claude.ai/code/artifact/261833fd-11a1-4aa6-81e3-56b7a4f48254
+- Akış: Kapak → Proje ne yapıyor → Neden hazır yığın yok (tablo) → Taşınabilirlik (tablo) → Mimari (diyagram) → Çekirdek sürücü/ring (diyagram) → Paket akışı (diyagram) → IAP (sequence diyagramı) → GUI (ekran görüntüsü) → Doğrulama (tablo) → Bilinen sınırlar → Kapanış (rakamlar)
 
 ## Aşama 3 — Aşama 2'den sonra
 
