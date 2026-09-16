@@ -6,11 +6,13 @@ tutarlı bir arka plan/renk/tipografi sistemi kurar.
 Bu bir TASLAKTIR - kullanıcı gerçek sunumu PowerPoint'te elle üretecek.
 """
 import os
+import math
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE, MSO_CONNECTOR
+from pptx.enum.dml import MSO_LINE_DASH_STYLE
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -26,13 +28,17 @@ CYAN   = RGBColor(0x0e, 0x93, 0xb4)
 GREEN  = RGBColor(0x17, 0x93, 0x6b)
 AMBER  = RGBColor(0xb6, 0x72, 0x0f)
 WHITE  = RGBColor(0xff, 0xff, 0xff)
+NAVYDARK  = RGBColor(0x10, 0x23, 0x3f)   # diyagram/alıntı koyu zemin
+CYAN_SOFT = RGBColor(0xdf, 0xf1, 0xf5)
+GREEN_SOFT = RGBColor(0xdf, 0xf2, 0xea)
+AMBER_SOFT = RGBColor(0xf7, 0xec, 0xd9)
 
 FONT = "Calibri"
 
 SW, SH = Inches(13.333), Inches(7.5)
 MX = Inches(0.55)  # sol/sağ kenar boşluğu
 
-TOTAL = 18
+TOTAL = 14
 
 prs = Presentation()
 prs.slide_width = SW
@@ -41,9 +47,12 @@ BLANK = prs.slide_layouts[6]
 
 ICON = os.path.join(HERE, "assets", "ehsim_icon.png")
 COVER_PNG = os.path.join(HERE, "sunum_kapak.png")
+CONTENT_BG_PNG = os.path.join(HERE, "sunu_arka_plan.png")
 
 CONTENT_WEDGE = [(1.0, 0.86), (0.85, 0.90), (0.90, 0.955), (0.78, 0.975), (0.78, 1.0), (1.0, 1.0)]
 CONTENT_LINE = [(0.50, 0.0), (0.43, 0.055), (0.58, 0.15), (0.74, 0.30)]
+CONTENT_LINE2 = [(0.665, 0.80), (0.735, 0.845), (0.80, 0.90), (0.875, 0.955)]
+CONTENT_RINGS = (0.935, 0.075, [0.022, 0.036, 0.050])
 
 BIG_WEDGE = [(1.0, 0.646), (0.599, 0.731), (0.527, 0.940), (0.0, 0.994), (0.0, 1.0), (1.0, 1.0)]
 BIG_LINE1 = [(0.72, 0.0), (0.62, 0.065), (0.815, 0.21), (0.97, 0.46)]
@@ -184,10 +193,17 @@ def add_footer(slide, idx):
 
 def new_content_slide(idx, kicker, title, lead=None, title_size=27):
     slide = prs.slides.add_slide(BLANK)
-    add_bg_rect(slide, WHITE)
-    add_wedge(slide, CONTENT_WEDGE, NAVY)
-    add_gray_line(slide, CONTENT_LINE)
-    add_logo(slide, small=True)
+    if os.path.exists(CONTENT_BG_PNG):
+        slide.shapes.add_picture(CONTENT_BG_PNG, 0, 0, width=SW, height=SH)
+    else:
+        add_bg_rect(slide, WHITE)
+        add_wedge(slide, CONTENT_WEDGE, NAVY)
+        add_gray_line(slide, CONTENT_LINE)
+        add_gray_line(slide, CONTENT_LINE2)
+        cx_f, cy_f, radii = CONTENT_RINGS
+        for r_f in radii:
+            add_ring(slide, cx_f, cy_f, r_f)
+        add_logo(slide, small=True)
     body_y = add_kicker_title(slide, kicker, title, lead, title_size=title_size)
     add_footer(slide, idx)
     return slide, body_y
@@ -479,8 +495,115 @@ def add_caption(slide, x, y, w, text):
     rich_paragraph(p, text, 11.5, MUTED, italic=True)
 
 
+# ---------- kutu/ok diyagramları (HTML sunumdaki SVG şemalarının pptx karşılığı) ----------
+
+def svg_map(vb_w, vb_h, tx, ty, tw, th):
+    """SVG viewBox koordinatını (0..vb_w, 0..vb_h) slayt üzerindeki (tx,ty,tw,th) kutusuna eşler."""
+    def m(sx, sy):
+        return (tx + (sx / vb_w) * tw, ty + (sy / vb_h) * th)
+    return m
+
+
+_DG_STYLES = {
+    "node":     (CARDBG, CARDLN, 1.0, None),
+    "accent":   (CYAN_SOFT, CYAN, 1.5, None),
+    "green":    (GREEN_SOFT, GREEN, 1.5, None),
+    "dim":      (CARDBG, CARDLN, 1.0, MSO_LINE_DASH_STYLE.DASH),
+    "optional": (AMBER_SOFT, AMBER, 1.2, MSO_LINE_DASH_STYLE.DASH),
+    "navy":     (NAVYDARK, NAVYDARK, 1.0, None),
+}
+
+
+def dg_node(slide, m, x, y, w, h, style="node", title=None, sub=None, title_size=9, sub_size=7.5, pill=False, title_bold=True):
+    x0, y0 = m(x, y)
+    x1, y1 = m(x + w, y + h)
+    shp = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, int(x0), int(y0), int(x1 - x0), int(y1 - y0))
+    shp.adjustments[0] = 0.5 if pill else 0.14
+    fill_c, line_c, lw, dash = _DG_STYLES[style]
+    shp.fill.solid(); shp.fill.fore_color.rgb = fill_c
+    shp.line.color.rgb = line_c
+    shp.line.width = Pt(lw)
+    if dash:
+        shp.line.dash_style = dash
+    no_shadow(shp)
+    tf = shp.text_frame
+    tf.word_wrap = True
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    tf.margin_left = Inches(0.04); tf.margin_right = Inches(0.04)
+    tf.margin_top = Inches(0.01); tf.margin_bottom = Inches(0.01)
+    title_color = WHITE if style == "navy" else INK
+    sub_color = RGBColor(0xb9, 0xc6, 0xde) if style == "navy" else MUTED
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.CENTER
+    if title:
+        r = p.add_run(); set_run(r, title, title_size, title_color, bold=title_bold)
+    if sub:
+        p2 = tf.add_paragraph()
+        p2.alignment = PP_ALIGN.CENTER
+        r2 = p2.add_run(); set_run(r2, sub, sub_size, sub_color)
+    return shp
+
+
+def dg_band(slide, m, x, y, w, h, label=None, sub=None):
+    x0, y0 = m(x, y)
+    x1, y1 = m(x + w, y + h)
+    shp = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, int(x0), int(y0), int(x1 - x0), int(y1 - y0))
+    shp.adjustments[0] = 0.02
+    shp.fill.background()
+    shp.line.color.rgb = CARDLN
+    shp.line.width = Pt(1)
+    shp.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+    no_shadow(shp)
+    if label:
+        tb, tf = add_textbox(slide, x0 + Inches(0.1), y0 + Inches(0.04), (x1 - x0) - Inches(0.2), Inches(0.2))
+        p = tf.paragraphs[0]
+        r = p.add_run(); set_run(r, label.upper(), 8, CYAN, bold=True, mono=True)
+    if sub:
+        tb, tf = add_textbox(slide, x0 + Inches(0.1), y0 + Inches(0.20), (x1 - x0) - Inches(0.2), Inches(0.18))
+        p = tf.paragraphs[0]
+        r = p.add_run(); set_run(r, sub, 7, MUTED, italic=True)
+    return shp
+
+
+def dg_edge(slide, m, x1, y1, x2, y2, dashed=False, arrow=True, color=MUTED, width_pt=1.1):
+    p1x, p1y = m(x1, y1)
+    p2x, p2y = m(x2, y2)
+    conn = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, int(p1x), int(p1y), int(p2x), int(p2y))
+    conn.line.color.rgb = color
+    conn.line.width = Pt(width_pt)
+    if dashed:
+        conn.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+    if arrow and (int(p1x), int(p1y)) != (int(p2x), int(p2y)):
+        ang = math.degrees(math.atan2(p2y - p1y, p2x - p1x))
+        s = Inches(0.07)
+        tri = slide.shapes.add_shape(MSO_SHAPE.ISOSCELES_TRIANGLE, int(p2x - s / 2), int(p2y - s / 2), int(s), int(s))
+        tri.rotation = ang + 90
+        tri.fill.solid(); tri.fill.fore_color.rgb = color
+        tri.line.fill.background()
+        no_shadow(tri)
+    return conn
+
+
+def dg_lane(slide, m, x, y1, y2):
+    p1x, p1y = m(x, y1)
+    p2x, p2y = m(x, y2)
+    conn = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, int(p1x), int(p1y), int(p2x), int(p2y))
+    conn.line.color.rgb = CARDLN
+    conn.line.width = Pt(1.2)
+    conn.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+    no_shadow(conn)
+
+
+def dg_text(slide, m, x, y, text, size=7.5, color=MUTED, bold=False, mono=False, italic=False, w=2.4, align=PP_ALIGN.CENTER):
+    px, py = m(x, y)
+    tb, tf = add_textbox(slide, px - Inches(w) / 2, py - Inches(0.11), Inches(w), Inches(0.22))
+    p = tf.paragraphs[0]
+    p.alignment = align
+    r = p.add_run(); set_run(r, text, size, color, bold=bold, mono=mono, italic=italic)
+
+
 # ============================================================
-# 1/18 — KAPAK  (kullanıcının onayladığı gerçek görsel, birebir)
+# 1/14 — KAPAK  (kullanıcının onayladığı gerçek görsel, birebir)
 # ============================================================
 slide = prs.slides.add_slide(BLANK)
 if os.path.exists(COVER_PNG):
@@ -490,24 +613,49 @@ else:
     add_wedge(slide, BIG_WEDGE, NAVY)
 
 # ============================================================
-# 2/18 — PROBLEM
+# 2/14 — PROBLEM
 # ============================================================
 slide, y = new_content_slide(
     2, "01 · Problem",
     'Her elektronik cihazın bir "ağ dili" konuşması gerekir',
     "Bir kart ağa bağlanacaksa, veriyi doğru biçimde gönderip almasını sağlayan bir yazılım "
     "katmanına ihtiyacı vardır — buna **Ethernet sürücüsü** denir.")
-add_arrow_flow(slide, MX, y + Inches(0.5), SW - 2 * MX, Inches(1.7), [
+
+band_y, band_h = y + Inches(0.42), Inches(2.35)
+band = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, MX, band_y, SW - 2 * MX, band_h)
+band.adjustments[0] = 0.035
+band.fill.solid()
+band.fill.fore_color.rgb = CARDBG
+band.line.color.rgb = CARDLN
+band.line.width = Pt(1)
+no_shadow(band)
+
+tb, tf = add_textbox(slide, MX + Inches(0.28), band_y + Inches(0.2), Inches(8), Inches(0.24))
+p = tf.paragraphs[0]
+r = p.add_run()
+set_run(r, "AĞ İLETİŞİM ZİNCİRİ", 10.5, CYAN, bold=True, mono=True)
+
+add_arrow_flow(slide, MX + Inches(0.28), band_y + Inches(0.62), SW - 2 * MX - Inches(0.56), Inches(1.45), [
     ("Mikrodenetleyici", "sensör · motor · kamera…"),
     ("Ethernet Sürücüsü", "\"veriyi ağın anlayacağı pakete çeviren katman\""),
     ("Ağ / İnternet", None),
 ])
-add_caption(slide, MX, y + Inches(2.5), SW - 2 * MX,
-            "Hazır çözümler (işletim sistemi + ağ kütüphanesi) genelde ağırdır ve her karta doğrudan "
-            "taşınmaz. Görevim: hafif, taşınabilir bir sürücüyü **sıfırdan** yazmak.")
+
+quote_y = band_y + band_h + Inches(0.22)
+bar = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, MX, quote_y, Inches(0.05), Inches(0.62))
+bar.fill.solid()
+bar.fill.fore_color.rgb = NAVY
+bar.line.fill.background()
+no_shadow(bar)
+tb, tf = add_textbox(slide, MX + Inches(0.22), quote_y, SW - 2 * MX - Inches(0.22), Inches(0.7))
+tf.word_wrap = True
+tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+p = tf.paragraphs[0]
+rich_paragraph(p, "Hazır çözümler (işletim sistemi + ağ kütüphanesi) genelde ağırdır ve her karta doğrudan "
+                   "taşınmaz. Görevim: hafif, taşınabilir bir sürücüyü **sıfırdan** yazmak.", 13, MUTED)
 
 # ============================================================
-# 3/18 — NE YAPTIM
+# 3/14 — NE YAPTIM
 # ============================================================
 slide, y = new_content_slide(
     3, "02 · Ne Yaptım", "İki parçadan oluşan bir sistem geliştirdim",
@@ -529,7 +677,7 @@ add_cards_row(slide, y + Inches(0.15), Inches(3.6), [
 ])
 
 # ============================================================
-# 4/18 — TASARIM FELSEFESİ
+# 4/14 — TASARIM FELSEFESİ
 # ============================================================
 slide, y = new_content_slide(
     4, "03 · Tasarım Felsefesi", "HAL_ETH, LwIP, FreeRTOS — bilinçli olarak yok",
@@ -546,22 +694,63 @@ add_table(slide, MX, y + Inches(0.1), SW - 2 * MX, Inches(3.4),
           ], col_widths=[18, 41, 41])
 
 # ============================================================
-# 5/18 — MİMARİ
+# 5/14 — MİMARİ
 # ============================================================
 slide, y = new_content_slide(
     5, "04 · Mimari", "Üç bağımsız eksen",
     "Bir eksende yapılan değişiklik diğerlerini etkilemez — bu, yeni bir karta geçişi tek dosyalık "
-    "bir işe indirir.", title_size=27)
-add_numlist(slide, MX, y + Inches(0.05), SW - 2 * MX, Inches(4.3), [
-    ("eth_config.h — tek giriş noktası", "Hangi MCU/PHY seçili olduğu burada belirlenir"),
-    ("eth_device.h — MCU → yetenek eşlemesi", "MAC seçimi ve PHY seçimini iki ayrı eksene dallandırır"),
-    ("MAC Port Ekseni", "eth_port_eqos.c (H5/H7) veya eth_port_gmac.c (F4/F7) → sabit sözleşme: eth_port.h"),
-    ("PHY Ekseni", "eth_phy_lan87xx.c (LAN8720A/8742A) veya eth_phy_ksz80xx.c (KSZ8081) → sabit sözleşme: eth_phy.h"),
-    ("Çekirdek — donanımdan tamamen bağımsız", "eth_driver.c (ring + sahiplik) → eth_app.c (ARP/ICMP/UDP) → eth_iap.c (opsiyonel)"),
-])
+    "bir işe indirir.", title_size=24)
+
+dw = Inches(7.9)
+dh = dw * (700 / 1280)
+dtx = MX
+dty = y
+m5 = svg_map(1280, 700, dtx, dty, dw, dh)
+
+dg_node(slide, m5, 480, 10, 320, 44, "node", "eth_config.h")
+dg_edge(slide, m5, 640, 54, 640, 84)
+
+dg_node(slide, m5, 480, 86, 320, 50, "node", "eth_device.h", "MCU → yetenek eşlemesi")
+dg_edge(slide, m5, 640, 136, 322, 168)
+dg_edge(slide, m5, 640, 136, 958, 168)
+dg_text(slide, m5, 440, 148, "MAC seçimi", size=7, mono=True)
+dg_text(slide, m5, 840, 148, "PHY seçimi", size=7, mono=True)
+
+dg_band(slide, m5, 40, 170, 560, 190, "MAC Port Ekseni", "yalnızca biri derlenir")
+dg_band(slide, m5, 680, 170, 560, 190, "PHY Ekseni", "yalnızca biri derlenir")
+
+dg_node(slide, m5, 70, 214, 210, 54, "accent", "eth_port_eqos.c", "H5 / H7")
+dg_node(slide, m5, 360, 214, 210, 54, "dim", "eth_port_gmac.c", "F4 / F7")
+dg_text(slide, m5, 320, 245, "veya", size=7.5, italic=True)
+dg_node(slide, m5, 710, 214, 210, 54, "accent", "eth_phy_lan87xx.c", "LAN8720A / 8742A")
+dg_node(slide, m5, 1000, 214, 210, 54, "dim", "eth_phy_ksz80xx.c", "KSZ8081")
+dg_text(slide, m5, 960, 245, "veya", size=7.5, italic=True)
+
+dg_edge(slide, m5, 175, 268, 260, 302, dashed=True)
+dg_edge(slide, m5, 465, 268, 380, 302, dashed=True)
+dg_edge(slide, m5, 815, 268, 900, 302, dashed=True)
+dg_edge(slide, m5, 1105, 268, 1020, 302, dashed=True)
+
+dg_node(slide, m5, 220, 302, 200, 48, "node", "eth_port.h")
+dg_node(slide, m5, 860, 302, 200, 48, "node", "eth_phy.h")
+
+dg_edge(slide, m5, 320, 350, 320, 390, arrow=False)
+dg_edge(slide, m5, 960, 350, 960, 390, arrow=False)
+dg_edge(slide, m5, 300, 390, 960, 390, arrow=False)
+dg_edge(slide, m5, 300, 390, 300, 430)
+
+dg_band(slide, m5, 40, 420, 1200, 260, "Çekirdek — donanımdan bağımsız")
+dg_node(slide, m5, 110, 450, 380, 64, "node", "eth_driver.c", "ring + sahiplik protokolü", title_size=10, sub_size=8)
+dg_edge(slide, m5, 490, 482, 560, 482)
+dg_node(slide, m5, 560, 450, 380, 64, "node", "eth_app.c", "ARP / ICMP / UDP", title_size=10, sub_size=8)
+dg_edge(slide, m5, 940, 482, 1010, 482)
+dg_node(slide, m5, 1010, 450, 210, 64, "optional", "eth_iap.c", "opsiyonel", title_size=10, sub_size=8)
+
+add_caption(slide, MX, dty + dh + Inches(0.08), SW - 2 * MX,
+            "Kesikli ok = derleme zamanı seçimi · düz ok = çalışma zamanı kullanımı.")
 
 # ============================================================
-# 6/18 — TAŞINABİLİRLİK
+# 6/14 — TAŞINABİLİRLİK
 # ============================================================
 slide, y = new_content_slide(6, "05 · Taşınabilirlik", "Tek config dosyası, dört farklı işlemci")
 add_table(slide, MX, y + Inches(0.1), SW - 2 * MX, Inches(2.4),
@@ -578,7 +767,7 @@ add_caption(slide, MX, y + Inches(3.35), SW - 2 * MX,
             "**hiç dokunulmaz.**")
 
 # ============================================================
-# 7/18 — ÇEKİRDEK SÜRÜCÜ
+# 7/14 — ÇEKİRDEK SÜRÜCÜ
 # ============================================================
 slide, y = new_content_slide(7, "06 · Çekirdek Sürücü", "Paylaşılan halka, net kurallar",
                               "8 elemanlı RX descriptor halkası (ring) — her eleman ya DMA'nın ya CPU'nun "
@@ -591,47 +780,95 @@ add_cards_row(slide, y + Inches(0.2), Inches(3.5), [
 ])
 
 # ============================================================
-# 8/18 — PAKET İŞLEME AKIŞI
+# 8/14 — PAKET İŞLEME AKIŞI
 # ============================================================
 slide, y = new_content_slide(8, "07 · Uygulama Katmanı", "Paket işleme akışı")
-tb, tf = add_textbox(slide, MX, y + Inches(0.15), SW - 2 * MX, Inches(4.5))
-tf.word_wrap = True
-lines = [
-    (0, "Gelen çerçeve (zero-copy, DMA) → **EtherType?**"),
-    (1, "ARP  →  arp_handle  (cache güncelle + yanıt)"),
-    (1, "IPv4  →  **IP proto?**"),
-    (2, "parçalanmış (MF=1 / offset≠0)  →  sessizce düşür — reassembly yok, **bilinçli kısıt**"),
-    (2, "ICMP echo  →  icmp_handle  (yanıt hesapla)"),
-    (2, "UDP  →  **hedef port?**"),
-    (3, "5000  →  eaetis_handle  (komut dağıtımı)"),
-    (3, "diğer  →  kullanıcı callback  (RegisterUDPCallback)"),
-]
-for i, (lvl, text) in enumerate(lines):
-    p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
-    p.space_after = Pt(8)
-    p.level = 0
-    r = p.add_run()
-    set_run(r, "     " * lvl + ("└─ " if lvl else ""), 13, MUTED, mono=True)
-    rich_paragraph(p, text, 13, INK)
+
+dw8 = Inches(7.9)
+dh8 = dw8 * (620 / 1280)
+dtx8 = MX
+dty8 = y + Inches(0.1) + (Inches(5.3) - dh8) / 2
+m8 = svg_map(1280, 620, dtx8, dty8, dw8, dh8)
+
+dg_node(slide, m8, 20, 280, 180, 56, "node", "Gelen çerçeve", "zero-copy (DMA)")
+dg_edge(slide, m8, 200, 308, 240, 308)
+
+dg_node(slide, m8, 240, 280, 150, 56, "dim", "EtherType?", pill=True)
+
+dg_edge(slide, m8, 390, 292, 500, 150)
+dg_text(slide, m8, 420, 205, "ARP", size=7.5, mono=True)
+dg_node(slide, m8, 500, 120, 260, 58, "node", "arp_handle", "cache güncelle + yanıt")
+
+dg_edge(slide, m8, 390, 324, 500, 430)
+dg_text(slide, m8, 425, 390, "IPv4", size=7.5, mono=True)
+dg_node(slide, m8, 500, 400, 150, 56, "dim", "IP proto?", pill=True)
+
+dg_edge(slide, m8, 575, 400, 575, 340, dashed=True)
+dg_text(slide, m8, 588, 365, "MF=1 / offset≠0", size=6.5, mono=True, w=1.6)
+dg_node(slide, m8, 440, 290, 270, 46, "optional", "sessizce düşür", "reassembly yok — bilinçli kısıt",
+        title_size=8, sub_size=6.5)
+
+dg_edge(slide, m8, 650, 412, 800, 280)
+dg_text(slide, m8, 735, 335, "ICMP echo", size=7.5, mono=True)
+dg_node(slide, m8, 800, 250, 240, 56, "node", "icmp_handle", "yanıt hesapla")
+
+dg_edge(slide, m8, 650, 446, 800, 490)
+dg_text(slide, m8, 735, 480, "UDP", size=7.5, mono=True)
+dg_node(slide, m8, 800, 460, 150, 56, "dim", "hedef port?", pill=True)
+
+dg_edge(slide, m8, 950, 474, 1060, 400)
+dg_text(slide, m8, 1010, 435, "5000", size=7, mono=True, w=1.0)
+dg_node(slide, m8, 1060, 370, 200, 56, "node", "eaetis_handle", "komut dağıtımı")
+
+dg_edge(slide, m8, 950, 502, 1060, 560)
+dg_text(slide, m8, 1010, 545, "diğer", size=7, mono=True, w=1.0)
+dg_node(slide, m8, 1060, 530, 200, 56, "node", "kullanıcı callback", "RegisterUDPCallback")
 
 # ============================================================
-# 9/18 — IAP BOOTLOADER
+# 9/14 — IAP BOOTLOADER
 # ============================================================
 slide, y = new_content_slide(9, "08 · IAP Bootloader", "Ağ üzerinden firmware güncelleme")
-add_numlist(slide, MX, y + Inches(0.1), SW - 2 * MX, Inches(3.9), [
-    ("GUI → Kart: START_IAP | SIZE:n | CRC:0x..", None),
-    ("Kart → GUI: IAP_READY", None),
-    ("Döngü (512B parça, en fazla 3 deneme): FW_DATA | SEQ:i  →  ACK:i", None),
-    ("GUI → Kart: END_IAP", None),
-    ("Kart: CRC32 doğrula → VTOR taşı → MSP ayarla → yeni uygulamaya atla", None),
-    ("Kart → GUI: FLASH_SUCCESS | JUMP_OK", None),
-])
-add_caption(slide, MX, y + Inches(4.0), SW - 2 * MX,
+
+dw9 = Inches(7.9)
+dh9 = dw9 * (640 / 1280)
+dtx9 = MX
+dty9 = y + Inches(0.1) + (Inches(4.5) - dh9) / 2
+m9 = svg_map(1280, 640, dtx9, dty9, dw9, dh9)
+
+dg_node(slide, m9, 170, 50, 220, 50, "accent", "E-AETIS GUI", title_size=11)
+dg_lane(slide, m9, 280, 100, 600)
+dg_node(slide, m9, 890, 50, 220, 50, "accent", "STM32 Kart", title_size=11)
+dg_lane(slide, m9, 1000, 100, 600)
+
+dg_edge(slide, m9, 280, 150, 1000, 150)
+dg_text(slide, m9, 640, 140, "START_IAP | SIZE:n | CRC:0x..", size=7.5, mono=True, w=4.4)
+
+dg_edge(slide, m9, 1000, 200, 280, 200)
+dg_text(slide, m9, 640, 190, "IAP_READY", size=7.5, mono=True)
+
+dg_band(slide, m9, 230, 230, 820, 150, "Döngü · 512B parça · en fazla 3 deneme")
+
+dg_edge(slide, m9, 280, 300, 1000, 300)
+dg_text(slide, m9, 640, 290, "FW_DATA | SEQ:i | LEN:n | <binary>", size=7.5, mono=True, w=4.6)
+
+dg_edge(slide, m9, 1000, 350, 280, 350)
+dg_text(slide, m9, 640, 340, "ACK:i", size=7.5, mono=True)
+
+dg_edge(slide, m9, 280, 430, 1000, 430)
+dg_text(slide, m9, 640, 420, "END_IAP", size=7.5, mono=True)
+
+dg_node(slide, m9, 850, 450, 300, 52, "optional", "CRC32 doğrula → VTOR taşı → MSP ayarla",
+        "yeni uygulamaya atla", title_size=7.5, sub_size=7.5, title_bold=False)
+
+dg_edge(slide, m9, 1000, 530, 280, 530)
+dg_text(slide, m9, 640, 520, "FLASH_SUCCESS | JUMP_OK", size=7.5, mono=True, w=3.2)
+
+add_caption(slide, MX, dty9 + dh9 + Inches(0.1), SW - 2 * MX,
             "Tek banka, kimlik doğrulama yok — yalnızca CRC32 bütünlük kontrolü. Sadece izole/güvenilir "
             "ağlarda kullanılmalı.")
 
 # ============================================================
-# 10/18 — TEST ARAYÜZÜ (GUI)
+# 10/14 — TEST ARAYÜZÜ (GUI)
 # ============================================================
 slide, y = new_content_slide(
     10, "09 · Test Arayüzü", "Geliştirdiğim arayüzle kart canlı olarak izlenip test edilir",
@@ -651,7 +888,7 @@ add_table(slide, MX + Inches(6.9), y + Inches(0.1), SW - MX - (MX + Inches(6.9))
           ], col_widths=[45, 55], font_size=11)
 
 # ============================================================
-# 11/18 — GELİŞİM HİKAYESİ
+# 11/14 — GELİŞİM HİKAYESİ
 # ============================================================
 slide, y = new_content_slide(
     11, "10 · Süreç", "Boş bir pencereden, ölçüm yapan bir araca",
@@ -664,7 +901,7 @@ add_picture_framed(slide, os.path.join(ROOT, "arayuz_gelisim_ekran_goruntuleri",
                     SW - MX - imgw, y + Inches(0.1), imgw, Inches(3.1), caption="28 Ağustos · canlı performans testi")
 
 # ============================================================
-# 12/18 — DOĞRULAMA & SONUÇLAR
+# 12/14 — DOĞRULAMA & SONUÇLAR
 # ============================================================
 slide, y = new_content_slide(
     12, "11 · Doğrulama", "Kartın üzerinde çalıştırıp gerçek verilerle ölçtüm",
@@ -685,40 +922,10 @@ add_tags(slide, imgx, y + Inches(3.05), SW - MX - imgx,
          ["gecikme ort. 0.44 ms · kayıp %0 · FLASH_SUCCESS|JUMP_OK"])
 
 # ============================================================
-# 13/18 — KARŞILAŞILAN ZORLUK
-# ============================================================
-slide, y = new_content_slide(13, "12 · Karşılaşılan Zorluk",
-                              'En zorlayıcı an: yeni yazılıma "atlarken" kart kilitlendi')
-add_quote(slide, MX, y + Inches(0.15), SW - 2 * MX, Inches(2.5),
-          "Yeni yüklenen yazılıma geçiş anında kart her seferinde donuyordu. Debugger ile ilerleyerek "
-          "nedenini buldum: eski yazılımdan kalan bir kesme (arka planda çalışan ağ donanımı), işlemci "
-          "henüz yeni yazılıma tam geçmemişken devreye giriyor ve artık var olmayan bir adrese "
-          "yönleniyordu.",
-          "ÇÖZÜM → geçiş anından hemen önce donanımı durdurup tüm kesmeleri kapattım. "
-          "Sorun tamamen ortadan kalktı.")
-add_caption(slide, MX, y + Inches(2.9), SW - 2 * MX,
-            "Bu, staj boyunca karşılaştığım en somut hata ayıklama (debugging) deneyimiydi: belirti "
-            "donanımda görülüyor, kök neden kodda gizliydi.")
-
-# ============================================================
-# 14/18 — BİLİNEN SINIRLAR
-# ============================================================
-slide, y = new_content_slide(14, "13 · Dürüst Değerlendirme", "Bilinen sınırlar",
-                              "Kapsamı bilinçli çizdim — sorulmadan kendim söylüyorum.")
-add_limits(slide, MX, y + Inches(0.1), SW - 2 * MX, Inches(4), [
-    "**IP fragment reassembly yok** — tasarım kararı, büyük paketler sessizce düşürülür",
-    "**TCP yok** — yalnızca UDP / ICMP / ARP",
-    "**Tek DMA kanalı, tek kuyruk** — QoS / VLAN önceliklendirme yok",
-    "**IAP'de kimlik doğrulama yok** — yalnızca CRC32 bütünlük kontrolü",
-    "**Polling tabanlı** — kesme desteği yok, gecikme çağrı sıklığına bağımlı",
-    "**GMAC ailesi ve KSZ8081** — henüz ikinci bir kartta donanımda doğrulanmadı",
-])
-
-# ============================================================
-# 15/18 — ARAÇLAR & TEKNOLOJİLER
+# 13/14 — ARAÇLAR & TEKNOLOJİLER
 # ============================================================
 slide, y = new_content_slide(
-    15, "14 · Araçlar & Teknolojiler", "Tek projede birçok farklı teknolojiyi bir araya getirdim",
+    13, "12 · Araçlar & Teknolojiler", "Tek projede birçok farklı teknolojiyi bir araya getirdim",
     "Sadece C kodu yazmadım; geliştirme ortamından donanım protokollerine kadar birçok konuda "
     "uygulamalı pratik yaptım.")
 add_cards_row(slide, y + Inches(0.15), Inches(3.1), [
@@ -732,67 +939,33 @@ add_caption(slide, MX, y + Inches(3.45), SW - 2 * MX,
             "entegreleri tek bir projede bir araya getirme deneyimi.")
 
 # ============================================================
-# 16/18 — ÖĞRENDİKLERİM
-# ============================================================
-slide, y = new_content_slide(16, "15 · Öğrendiklerim", "Üç boyutta öğrenme: teknik, mühendislik disiplini, kişisel")
-add_cards_row(slide, y + Inches(0.15), Inches(3.6), [
-    dict(title="Teknik", text="Gömülü sistemlerde donanım-yazılım ilişkisi, ağ protokollerinin temelleri, "
-                               "C ile düşük seviyeli programlama, hata ayıklama disiplini."),
-    dict(title="Mühendislik Pratiği", text='Gereksinim yazma, mimariyi baştan tasarlama, "her girdi düşmanca '
-                                            'olabilir" ilkesiyle savunmacı kod yazma, sistemli test ve dokümantasyon.'),
-    dict(title="Kişisel", text="Bağımsız çalışıp mentörle doğru zamanda geri bildirim alma, zaman/kapsam "
-                                "yönetimi, teknik bir konuyu sade anlatabilme."),
-])
-
-# ============================================================
-# 17/18 — STAJIN BANA KATTIKLARI
+# 14/14 — BU STAJIN VE PROJENİN BANA KATTIKLARI
 # ============================================================
 slide, y = new_content_slide(
-    17, "16 · Stajın Bana Kattıkları", "Bir mühendislik sürecini baştan sona yaşadım",
-    "Eğitimle başlayıp gereksinimden teste uzanan tam bir döngüyü, tek bir projede kendi ellerimle "
-    "tamamladım.")
-add_stat_grid(slide, MX, y + Inches(0.1), SW - 2 * MX, Inches(2.7), [
-    (40, "staj günü"), (4, "desteklenen MCU"), (3, "PHY çipi"), (2, "MAC ailesi"),
-    (21, "port sözleşmesi fonksiyonu"), (7, "GUI test sekmesi"), (0, "malloc çağrısı"), (1, "dokunulan config dosyası"),
-], cols=4)
-add_tags(slide, MX, y + Inches(3.0), SW - 2 * MX, [
-    "Savunma sanayiini yakından tanıma", "Uçtan uca doğrulama disiplini",
-    "Sıfırdan bir kütüphane yazma özgüveni", "Karmaşık işi sade anlatma",
+    14, "13 · Kazanımlar", "Bu stajın ve projenin bana kattıkları",
+    "Eğitimle başlayıp gereksinimden teste uzanan tam bir mühendislik döngüsünü, tek bir projede kendi "
+    "ellerimle tamamladım — üç boyutta öğrenme ve somut bir çıktı.")
+add_cards_row(slide, y + Inches(0.12), Inches(1.9), [
+    dict(title="Teknik", text="Gömülü sistemlerde donanım-yazılım ilişkisi, ağ protokollerinin temelleri, "
+                               "C ile düşük seviyeli programlama ve hata ayıklama disiplini."),
+    dict(title="Mühendislik Pratiği", text='Gereksinim yazma, mimariyi baştan tasarlama, "her girdi '
+                                            'düşmanca olabilir" ilkesiyle savunmacı kod yazma, sistemli '
+                                            'test ve dokümantasyon.'),
+    dict(title="Kişisel", text="Bağımsız çalışıp doğru zamanda geri bildirim alma, zaman/kapsam "
+                                "yönetimi, teknik bir konuyu sade anlatabilme."),
 ])
-
-# ============================================================
-# 18/18 — KAPANIŞ
-# ============================================================
-slide = prs.slides.add_slide(BLANK)
-add_bg_rect(slide, WHITE)
-add_wedge(slide, BIG_WEDGE, NAVY)
-add_gray_line(slide, BIG_LINE1)
-add_gray_line(slide, BIG_LINE2)
-add_ring(slide, 0.90, 0.20, 0.055)
-add_ring(slide, 0.90, 0.20, 0.085)
-add_ring(slide, 0.90, 0.20, 0.115)
-add_logo(slide, small=False)
-
-tb, tf = add_textbox(slide, Inches(0.9), Inches(2.4), Inches(9), Inches(0.4))
-p = tf.paragraphs[0]
-r = p.add_run(); set_run(r, "TEŞEKKÜRLER", 13, CYAN, bold=True, mono=True)
-
-tb, tf = add_textbox(slide, Inches(0.9), Inches(2.85), Inches(10.5), Inches(1.1))
-tf.word_wrap = True
-p = tf.paragraphs[0]
-r = p.add_run(); set_run(r, "Sorularınızı dinliyorum", 40, INK, bold=True)
-
-tb, tf = add_textbox(slide, Inches(0.9), Inches(3.85), Inches(9.5), Inches(0.5))
-tf.word_wrap = True
-p = tf.paragraphs[0]
-r = p.add_run()
-set_run(r, "EHSİM'e ve mentörüme, staj boyunca gösterdikleri destek için teşekkür ederim.", 14, MUTED)
-
-tb, tf = add_textbox(slide, Inches(0.9), Inches(5.6), Inches(8), Inches(0.75))
-p = tf.paragraphs[0]
-r = p.add_run(); set_run(r, "Mehmet Akif Seçkin", 15, NAVY, bold=True)
-p2 = tf.add_paragraph()
-r2 = p2.add_run(); set_run(r2, "E-AETIS / Ethernet_BSP · Sistem ve Test Mühendisliği Stajı", 11, MUTED)
+stat_y = y + Inches(0.12) + Inches(1.9) + Inches(0.18)
+add_stat_grid(slide, MX, stat_y, SW - 2 * MX, Inches(1.05), [
+    (40, "staj günü"), (4, "desteklenen MCU"), (21, "port sözleşmesi fonksiyonu"), (0, "malloc çağrısı"),
+], cols=4)
+tags_y = stat_y + Inches(1.05) + Inches(0.16)
+add_tags(slide, MX, tags_y, SW - 2 * MX, [
+    "Savunma sanayiini yakından tanıma", "Uçtan uca doğrulama disiplini",
+    "Sıfırdan bir kütüphane yazma özgüveni",
+])
+add_caption(slide, MX, tags_y + Inches(0.55), SW - 2 * MX,
+            "Bir mühendislik sürecini baştan sona yaşadım: gereksinimden mimariye, uygulamadan "
+            "donanımda doğrulamaya.")
 
 out_path = os.path.join(HERE, "EAETIS_Staj_Sunumu_Taslak.pptx")
 prs.save(out_path)
