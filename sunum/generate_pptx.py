@@ -38,7 +38,7 @@ FONT = "Calibri"
 SW, SH = Inches(13.333), Inches(7.5)
 MX = Inches(0.55)  # sol/sağ kenar boşluğu
 
-TOTAL = 14
+TOTAL = 15
 
 prs = Presentation()
 prs.slide_width = SW
@@ -369,6 +369,31 @@ def add_quote(slide, x, y, w, h, quote, who):
     p2.space_before = Pt(14)
     r2 = p2.add_run()
     set_run(r2, who, 11, RGBColor(0xb9, 0xc6, 0xde), bold=True, mono=True)
+
+
+def add_code_block(slide, x, y, w, h, lines, size=9.5):
+    shp = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, h)
+    shp.adjustments[0] = 0.035
+    shp.fill.solid()
+    shp.fill.fore_color.rgb = NAVYDARK
+    shp.line.fill.background()
+    no_shadow(shp)
+    pad = Inches(0.22)
+    tb, tf = add_textbox(slide, x + pad, y + pad, w - 2 * pad, h - 2 * pad)
+    tf.word_wrap = True
+    for i, line in enumerate(lines):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.space_after = Pt(1)
+        r = p.add_run()
+        set_run(r, line if line else " ", size, RGBColor(0xdb, 0xe8, 0xfb), mono=True)
+
+
+def add_code_panel(slide, x, y, w, h, label, lines, size=9.0):
+    tb, tf = add_textbox(slide, x, y, w, Inches(0.22))
+    p = tf.paragraphs[0]
+    r = p.add_run()
+    set_run(r, label.upper(), 9.5, CYAN, bold=True, mono=True)
+    add_code_block(slide, x, y + Inches(0.26), w, h - Inches(0.26), lines, size=size)
 
 
 def add_stat_grid(slide, x, y, w, h, stats, cols=4):
@@ -922,10 +947,72 @@ add_tags(slide, imgx, y + Inches(3.05), SW - MX - imgx,
          ["gecikme ort. 0.44 ms · kayıp %0 · FLASH_SUCCESS|JUMP_OK"])
 
 # ============================================================
-# 13/14 — ARAÇLAR & TEKNOLOJİLER
+# 13/15 — BAŞKA BİR GELİŞTİRİCİ NASIL KULLANIR
 # ============================================================
 slide, y = new_content_slide(
-    13, "12 · Araçlar & Teknolojiler", "Tek projede birçok farklı teknolojiyi bir araya getirdim",
+    13, "12 · Entegrasyon", "Başka Bir Kullanıcı Bu Projeyi Nasıl Kullanır?")
+
+gap = Inches(0.28)
+col_w = (SW - 2 * MX - gap) / 2
+row_h = (Inches(5.35) - gap) / 2
+r1y = y + Inches(0.05)
+r2y = r1y + row_h + gap
+c1x = MX
+c2x = MX + col_w + gap
+
+add_code_panel(slide, c1x, r1y, col_w, row_h, "eth_config.h  ·  seçim", [
+    "/* 1) Hedef islemci (sadece birini birakin) */",
+    "#define ETH_TARGET_STM32H563",
+    "/* #define ETH_TARGET_STM32H743 */",
+    "/* #define ETH_TARGET_STM32F407 */",
+    "",
+    "/* 2) PHY cipi (sadece birini birakin) */",
+    "#define ETH_PHY_LAN8720A",
+    "/* #define ETH_PHY_LAN8742A */",
+    "/* #define ETH_PHY_KSZ8081  */",
+])
+
+add_code_panel(slide, c2x, r1y, col_w, row_h, "main.c  ·  başlatma", [
+    '#include "eth_app.h"',
+    "",
+    "int main(void) {",
+    "    HAL_Init();",
+    "    SystemClock_Config();",
+    "    ETH_BSP_Init();",
+    "",
+    "    while (1) {",
+    "        ETH_BSP_ProcessEvents();",
+    "    }",
+    "}",
+])
+
+add_code_panel(slide, c1x, r2y, col_w, row_h, "eth_device.h  ·  yeni MCU ekleme", [
+    "#elif defined(ETH_TARGET_STM32F429)",
+    '  #include "stm32f4xx.h"',
+    "  #define ETH_PORT_EQOS          0",
+    "  #define ETH_PORT_GMAC          1",
+    "  #define ETH_HAS_DCACHE         0",
+    "  #define ETH_RMII_VIA_SYSCFG_PMC 1",
+    '  #define ETH_DEVICE_NAME        "STM32F429"',
+])
+
+add_code_panel(slide, c2x, r2y, col_w, row_h, "eth_phy_yeni.c  ·  yeni PHY ekleme", [
+    "ETH_Status_t ETH_PHY_Bringup(uint8_t addr) {",
+    "    /* HW+SW reset, autoneg baslat */",
+    "}",
+    "ETH_Status_t ETH_PHY_GetSpeedDuplex(uint8_t addr,",
+    "        uint16_t *speed, bool *fd) { ... }",
+    "ETH_Status_t ETH_PHY_SetLoopback(uint8_t a, bool e) { ... }",
+    "const char *ETH_PHY_GetName(void) {",
+    '    return "YENI_PHY";',
+    "}",
+])
+
+# ============================================================
+# 14/15 — ARAÇLAR & TEKNOLOJİLER
+# ============================================================
+slide, y = new_content_slide(
+    14, "13 · Araçlar & Teknolojiler", "Tek projede birçok farklı teknolojiyi bir araya getirdim",
     "Sadece C kodu yazmadım; geliştirme ortamından donanım protokollerine kadar birçok konuda "
     "uygulamalı pratik yaptım.")
 add_cards_row(slide, y + Inches(0.15), Inches(3.1), [
@@ -939,10 +1026,10 @@ add_caption(slide, MX, y + Inches(3.45), SW - 2 * MX,
             "entegreleri tek bir projede bir araya getirme deneyimi.")
 
 # ============================================================
-# 14/14 — BU STAJIN VE PROJENİN BANA KATTIKLARI
+# 15/15 — BU STAJIN VE PROJENİN BANA KATTIKLARI
 # ============================================================
 slide, y = new_content_slide(
-    14, "13 · Kazanımlar", "Bu stajın ve projenin bana kattıkları",
+    15, "14 · Kazanımlar", "Bu stajın ve projenin bana kattıkları",
     "Eğitimle başlayıp gereksinimden teste uzanan tam bir mühendislik döngüsünü, tek bir projede kendi "
     "ellerimle tamamladım — üç boyutta öğrenme ve somut bir çıktı.")
 add_cards_row(slide, y + Inches(0.12), Inches(1.9), [

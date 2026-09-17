@@ -1,0 +1,639 @@
+<title>E-AETIS Terim Rehberi</title>
+<style>
+:root{
+  --bg:#f5f6f9; --surface:#ffffff; --surface-2:#eef1f6; --border:#dbe1ea;
+  --ink:#10182a; --muted:#5b6b80; --faint:#8996a8;
+  --navy:#004694; --navy-deep:#10233f; --cyan:#0e7c99; --green:#137a58; --amber:#96600d;
+  --navy-soft:#e7ecf7; --cyan-soft:#dff1f5; --green-soft:#dff2ea; --amber-soft:#f7ecd9;
+  --code-ink:#0d3a63;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1420; --surface:#101b2c; --surface-2:#16233a; --border:#22334a;
+    --ink:#eef2f8; --muted:#9fb0c6; --faint:#6d7f97;
+    --navy:#7fb1e8; --navy-deep:#dbe8fb; --cyan:#5fd3e8; --green:#5fdba3; --amber:#f2bd5c;
+    --navy-soft:#18263c; --cyan-soft:#123039; --green-soft:#123329; --amber-soft:#332711;
+    --code-ink:#bfe0ff;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1420; --surface:#101b2c; --surface-2:#16233a; --border:#22334a;
+  --ink:#eef2f8; --muted:#9fb0c6; --faint:#6d7f97;
+  --navy:#7fb1e8; --navy-deep:#dbe8fb; --cyan:#5fd3e8; --green:#5fdba3; --amber:#f2bd5c;
+  --navy-soft:#18263c; --cyan-soft:#123039; --green-soft:#123329; --amber-soft:#332711;
+  --code-ink:#bfe0ff;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;
+  padding-inline:16px;
+  line-height:1.55;
+}
+h1,h2,h3{font-family:"Manrope",system-ui,sans-serif; text-wrap:balance; margin:0;}
+code, .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
+
+a{color:var(--navy);}
+
+.wrap{max-width:820px; margin:0 auto; padding-block:28px 80px;}
+
+/* ---- masthead ---- */
+.masthead{padding-block:22px 26px; border-bottom:1px solid var(--border); margin-bottom:8px;}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.08em; color:var(--cyan); font-weight:600; text-transform:uppercase;}
+.masthead h1{font-size:clamp(26px,5vw,34px); font-weight:800; margin-top:6px; color:var(--ink);}
+.masthead p{color:var(--muted); font-size:15px; max-width:56ch; margin-top:10px;}
+.meta-row{display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; font-size:12.5px; color:var(--faint);}
+.meta-row b{color:var(--muted); font-weight:600;}
+
+/* ---- nav pills ---- */
+.nav{
+  position:sticky; top:0; z-index:5; background:var(--bg);
+  display:flex; gap:6px; overflow-x:auto; padding-block:10px;
+  margin-inline:-16px; padding-inline:16px;
+  border-bottom:1px solid var(--border);
+  scrollbar-width:thin;
+}
+.nav a{
+  flex:none; font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  color:var(--muted); text-decoration:none; background:var(--surface-2);
+  border:1px solid var(--border); border-radius:99px; padding:5px 11px;
+  white-space:nowrap;
+}
+.nav a:hover{color:var(--navy); border-color:var(--navy);}
+
+/* ---- sections ---- */
+section{padding-block:34px; border-bottom:1px solid var(--border); scroll-margin-top:52px;}
+section:last-of-type{border-bottom:none;}
+.sec-kicker{font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:700; letter-spacing:.06em; color:var(--cyan); text-transform:uppercase;}
+.sec-title{font-size:clamp(20px,3.6vw,25px); font-weight:800; margin-top:5px;}
+.sec-lead{color:var(--muted); font-size:14.5px; margin-top:9px; max-width:62ch;}
+
+/* ---- term entries ---- */
+.terms{margin-top:20px; display:flex; flex-direction:column; gap:16px;}
+.term{display:grid; grid-template-columns:190px 1fr; gap:4px 18px; align-items:start;}
+@media (max-width:620px){ .term{grid-template-columns:1fr;} }
+.term dt{
+  font-family:"IBM Plex Mono",monospace; font-weight:700; font-size:13px;
+  color:var(--code-ink); background:var(--navy-soft); border:1px solid var(--border);
+  border-radius:7px; padding:5px 9px; display:inline-block; width:fit-content; line-height:1.3;
+}
+.term dd{margin:0; font-size:14px; color:var(--ink); padding-top:2px;}
+.term dd b{font-weight:700;}
+.term dd .sub{display:block; color:var(--faint); font-size:12.5px; margin-top:3px;}
+
+/* ---- event callouts ---- */
+.event{
+  margin-top:20px; border-radius:12px; border:1px solid var(--border);
+  background:var(--surface); overflow:hidden;
+}
+.event-head{
+  display:flex; align-items:center; gap:10px; padding:12px 16px;
+  background:var(--surface-2); border-bottom:1px solid var(--border);
+}
+.event-tag{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:700; letter-spacing:.05em;
+  color:var(--surface); background:var(--navy-deep); padding:3px 8px; border-radius:5px; text-transform:uppercase;
+}
+.event-day{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted);}
+.event-body{padding:15px 16px 17px;}
+.event-body p{margin:0 0 10px; font-size:14px;}
+.event-body p:last-child{margin-bottom:0;}
+.event-body .fix{color:var(--green); font-weight:600;}
+.event-body .fail{color:var(--amber); font-weight:600;}
+
+/* ---- diagram-ish flow chip row (for protocol sequences) ---- */
+.seq{display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 6px; align-items:center;}
+.seq span{font-family:"IBM Plex Mono",monospace; font-size:11.5px; padding:4px 9px; border-radius:6px; background:var(--cyan-soft); color:var(--code-ink); border:1px solid var(--border);}
+.seq .arrow{color:var(--faint); font-size:13px; padding:0 1px; background:none; border:none;}
+
+/* ---- note / limit box ---- */
+.note{
+  margin-top:18px; border-left:3px solid var(--amber); background:var(--amber-soft);
+  border-radius:0 8px 8px 0; padding:12px 15px; font-size:13.5px; color:var(--ink);
+}
+.note b{color:var(--amber);}
+
+/* ---- file tree ---- */
+.folder-group{margin-top:22px;}
+.folder-group:first-child{margin-top:20px;}
+.folder-name{
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:700;
+  color:var(--muted); margin-bottom:8px; letter-spacing:.02em;
+}
+.file-row{
+  display:grid; grid-template-columns:230px 1fr; gap:3px 16px;
+  padding:9px 0; border-top:1px solid var(--border);
+}
+.folder-group .file-row:first-of-type{border-top:none;}
+@media (max-width:640px){ .file-row{grid-template-columns:1fr;} }
+.file-row .fname{
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; font-weight:600; color:var(--code-ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.file-row .fname .touch{
+  display:block; font-family:"Public Sans",sans-serif; font-weight:600; font-size:10px;
+  text-transform:uppercase; letter-spacing:.04em; margin-top:3px; white-space:normal;
+}
+.file-row .fname .touch.no{color:var(--amber);}
+.file-row .fname .touch.yes{color:var(--green);}
+.file-row .fdesc{font-size:13.5px; color:var(--ink); padding-top:1px;}
+
+/* ---- steps ---- */
+.steps{counter-reset:step; margin-top:20px; display:flex; flex-direction:column; gap:16px;}
+.step{display:grid; grid-template-columns:34px 1fr; gap:14px;}
+.step::before{
+  counter-increment:step; content:counter(step);
+  width:34px; height:34px; border-radius:50%; background:var(--navy-deep); color:var(--surface);
+  display:flex; align-items:center; justify-content:center; font-family:"IBM Plex Mono",monospace;
+  font-weight:700; font-size:14px; flex:none;
+}
+.step-body h4{font-size:14.5px; font-weight:700; margin:2px 0 5px;}
+.step-body p{font-size:13.5px; color:var(--muted); margin:0;}
+
+pre.code{
+  background:var(--navy-deep); color:#dbe8fb; border-radius:9px; padding:14px 16px;
+  overflow-x:auto; font-family:"IBM Plex Mono",monospace; font-size:12.3px; line-height:1.6;
+  margin-top:10px;
+}
+pre.code .cm{color:#8fa6c9;}
+
+.table-wrap{overflow-x:auto; margin-top:18px;}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:480px;}
+th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--border);}
+th{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.03em; color:var(--muted); text-transform:uppercase; font-weight:700;}
+td.mono{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--code-ink);}
+
+footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border); font-size:12px; color:var(--faint);}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="eyebrow">Hazırlık Notu</div>
+    <h1>E-AETIS Sunumu — Terim ve Olay Rehberi</h1>
+    <p>Bu rapor, <code>EAETIS_Staj_Sunumu_Taslak.pptx</code> içindeki 14 slaytta geçen tüm teknik terimlerin
+    tanımlarını ve slaytlarda kısaca değinilen olayların (IAP çökme hikâyesi, hata enjeksiyonu testleri vb.)
+    detaylı anlatımını içerir. Sıralama, slayt sırasıyla birebir aynıdır — sunum provası yaparken slayt
+    numarasına bakıp ilgili bölümü burada bulabilirsin.</p>
+    <div class="meta-row">
+      <span><b>Kaynak dosya:</b> generate_pptx.py</span>
+      <span><b>Slayt sayısı:</b> 14</span>
+      <span><b>Kapsam:</b> tüm slaytlar</span>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="#s2">02 · Problem</a>
+    <a href="#s3">03 · Ne Yaptım</a>
+    <a href="#s4">04 · Tasarım</a>
+    <a href="#s5">05 · Mimari</a>
+    <a href="#s6">06 · Taşınabilirlik</a>
+    <a href="#s7">07 · Sürücü</a>
+    <a href="#s8">08 · Paket Akışı</a>
+    <a href="#s9">09 · IAP</a>
+    <a href="#s10">10 · GUI</a>
+    <a href="#s12">12 · Doğrulama</a>
+    <a href="#s13">13 · Araçlar</a>
+    <a href="#s14">14 · Kazanımlar</a>
+    <a href="#dosyalar">Dosya Rehberi</a>
+    <a href="#kullanim">Nasıl Kullanılır</a>
+  </nav>
+
+  <!-- ================= SLAYT 2 — PROBLEM ================= -->
+  <section id="s2">
+    <div class="sec-kicker">Slayt 02 · Problem</div>
+    <h2 class="sec-title">"Her cihazın bir ağ dili konuşması gerekir"</h2>
+    <p class="sec-lead">Slaytta üç kutulu bir zincir var: Mikrodenetleyici → Ethernet Sürücüsü → Ağ/İnternet.
+    Bu bölüm o zincirdeki her parçayı ve "hazır yığın" ifadesinin ne anlama geldiğini açıklıyor.</p>
+
+    <dl class="terms">
+      <div class="term"><dt>Mikrodenetleyici (MCU)</dt><dd>Kartın üzerindeki, programı çalıştıran tek yongalı bilgisayar (örn. STM32). Sensör okuma, motor sürme gibi işlerin yanında, ağa bağlanma görevini de MCU üstlenir.</dd></div>
+      <div class="term"><dt>Ethernet sürücüsü</dt><dd>MCU'nun ürettiği veriyi, ağın anlayacağı elektriksel/protokol formatına (Ethernet çerçevesi) çeviren; gelen çerçeveleri de MCU'nun anlayacağı veriye çeviren yazılım katmanı. Bu proje sıfırdan yazılan böyle bir sürücüdür.</dd></div>
+      <div class="term"><dt>Hazır yığın <span class="sub" style="display:inline">(HAL_ETH + LwIP + FreeRTOS)</span></dt><dd>Endüstride yaygın kullanılan üçlü: <b>HAL_ETH</b> (ST'nin donanım soyutlama katmanı, register erişimini sarmalar), <b>LwIP</b> (küçük ayak izli TCP/IP protokol yığını — ARP/IP/TCP/UDP/DHCP/DNS'i hazır sağlar), <b>FreeRTOS</b> (gerçek zamanlı görev zamanlayıcı/RTOS). Üçü birlikte "tak-çalıştır" bir ağ desteği verir ama her katmanın içinde ne olduğu geliştiriciden gizlenir.</dd></div>
+      <div class="term"><dt>Taşınabilir olmama sorunu</dt><dd>HAL_ETH farklı STM32 ailelerinde (F4/F7 vs H5/H7) farklı register haritaları ve farklı API'ler kullanır; bir kart için yazılan kod doğrudan başka bir karta taşınmaz. Bu, projenin "sıfırdan yazma" kararının temel motivasyonu.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 3 — NE YAPTIM ================= -->
+  <section id="s3">
+    <div class="sec-kicker">Slayt 03 · Ne Yaptım</div>
+    <h2 class="sec-title">İki parçalı sistem: gömülü kütüphane + masaüstü arayüz</h2>
+    <p class="sec-lead">Slayt, projeyi iki karta ayırıyor: kartın içindeki <b>Ethernet_BSP</b> (C) ve bilgisayardaki
+    <b>E-AETIS GUI</b> (Python/PyQt5). İkisi aynı UDP tabanlı protokolle konuşur.</p>
+
+    <dl class="terms">
+      <div class="term"><dt>BSP <span class="sub" style="display:inline">(Board Support Package)</span></dt><dd>Bir donanım kartını, üzerine yazılan uygulama koduna soyutlayan alt seviye kütüphane katmanı. Burada "Ethernet BSP", karta özgü register detaylarını gizleyip uygulamaya <code>ETH_BSP_Init()</code> gibi sade bir API sunuyor.</dd></div>
+      <div class="term"><dt>Register seviyesi erişim</dt><dd>Donanımla, bir HAL kütüphanesi araya girmeden, doğrudan CMSIS üzerinden çip register'larına (ör. <code>MACMDIOAR</code>, <code>DMACRXDTPR</code>) okuma/yazma yaparak konuşmak. Ne olduğu her satırda görünür durumda kalır.</dd></div>
+      <div class="term"><dt>RTOS yok / LwIP yok</dt><dd>Proje bilinçli olarak bir gerçek-zamanlı işletim sistemi ve hazır bir TCP/IP yığını kullanmıyor; tüm ağ mantığı <code>ETH_BSP_ProcessEvents()</code> içinde, ana döngüde, tek bağlamda ("bare-metal") çalışıyor.</dd></div>
+      <div class="term"><dt>ARP / ICMP / UDP <span class="sub" style="display:inline">(elle yazılmış)</span></dt><dd><b>ARP</b>: IP adresini MAC adresine çeviren protokol (cache + otomatik yanıt). <b>ICMP</b>: "ping" komutunun temeli, echo request/reply. <b>UDP</b>: bağlantısız, hafif veri iletim protokolü — bu proje ağ üzerinden konuşmak için sadece bunu kullanıyor (TCP yok). Üçü de hazır kütüphaneden değil, bu projede satır satır yazıldı.</dd></div>
+      <div class="term"><dt>IAP <span class="sub" style="display:inline">(In-Application Programming)</span></dt><dd>Cihaz flaş belleğinin, harici bir programlayıcıya gerek kalmadan, çalışan uygulamanın kendisi tarafından (burada ağ üzerinden) güncellenmesi. Bkz. Slayt 08 için detaylı akış.</dd></div>
+      <div class="term"><dt>PyQt5</dt><dd>Python için Qt arayüz kütüphanesinin bağlayıcısı; masaüstü E-AETIS GUI'sinin pencere/sekme/grafik bileşenleri bununla yazıldı.</dd></div>
+      <div class="term"><dt>Hata enjeksiyonu <span class="sub" style="display:inline">(fault injection / fuzz testi)</span></dt><dd>Karta kasıtlı olarak bozuk, eksik veya aşırı büyük paketler göndererek sürücünün çökmeden, doğru şekilde reddettiğini doğrulama tekniği.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 4 — TASARIM FELSEFESİ ================= -->
+  <section id="s4">
+    <div class="sec-kicker">Slayt 04 · Tasarım Felsefesi</div>
+    <h2 class="sec-title">Neden HAL_ETH / LwIP / FreeRTOS kullanılmadı</h2>
+    <p class="sec-lead">Slayttaki karşılaştırma tablosunun (Şeffaflık / Bellek / Zamanlama / Taşınabilirlik / Kapsam) her satırındaki terimler:</p>
+
+    <dl class="terms">
+      <div class="term"><dt>Statik bellek / malloc yok</dt><dd>Program çalışırken dinamik bellek ayırma (<code>malloc</code>) hiç kullanılmıyor; tüm tamponlar ve descriptor'lar derleme zamanında sabit adreslerde ayrılıyor. Bellek parçalanması ve "bellek tükendi" riski ortadan kalkıyor.</dd></div>
+      <div class="term"><dt>pbuf havuzu</dt><dd>LwIP'in paket verisini tutmak için kullandığı dinamik "packet buffer" havuzu — havuz yönetimi ek karmaşıklık ve öngörülemezlik getirir; bu proje bunun yerine sabit boyutlu, statik tamponlar kullanır.</dd></div>
+      <div class="term"><dt>Context-switch jitter</dt><dd>Bir RTOS'ta görevler arası geçiş (context switch) her seferinde değişken süre alır; bu değişkenlik zamanlamaya "jitter" (titreşim/belirsizlik) katar. Tek bağlamlı (RTOS'suz) tasarım bunu tamamen eler — zamanlama deterministik olur.</dd></div>
+      <div class="term"><dt>Deterministik</dt><dd>Aynı girdi/koşullarda her zaman aynı zamanlama davranışını gösteren sistem; kesinti/context-switch gibi öngörülemez gecikme kaynakları olmadığında elde edilir.</dd></div>
+      <div class="term"><dt>Tek config, 4 MCU × 3 PHY</dt><dd>Tek bir <code>eth_config.h</code> dosyasındaki birkaç makro değişikliği ile 4 farklı MCU ailesi ve 3 farklı PHY çipi arasında geçiş yapılabiliyor — HAL ailelerinde bu geçiş genelde farklı API'lere uyum gerektirir.</dd></div>
+      <div class="term"><dt>Kapsam ödünü (TCP/DHCP/DNS yok)</dt><dd>Bilinçli bir sınırlama: proje yalnızca ARP/ICMP/UDP destekliyor. Hazır yığın bunları hazır getirir ama şeffaflık ve determinizmden ödün vererek.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 5 — MİMARİ ================= -->
+  <section id="s5">
+    <div class="sec-kicker">Slayt 05 · Mimari</div>
+    <h2 class="sec-title">Üç bağımsız eksen</h2>
+    <p class="sec-lead">Diyagramdaki her kutu, projenin dosya yapısındaki bir dosyaya karşılık geliyor. "Bağımsız eksen" derken kastedilen: MAC portu, PHY sürücüsü ve çekirdek mantığı birbirinin koduna dokunmadan değiştirilebiliyor.</dd></p>
+
+    <dl class="terms">
+      <div class="term"><dt>eth_config.h</dt><dd>Kullanıcının elle düzenlediği <b>tek</b> dosya: hedef MCU, PHY çipi, IP/MAC adresi, RMII pin haritası, DMA descriptor sayıları, özellik anahtarları (ARP/ICMP/UDP/IAP aç-kapa).</dd></div>
+      <div class="term"><dt>eth_device.h</dt><dd>"Dokunulmaz" dosya: seçilen MCU'yu (ör. <code>ETH_TARGET_STM32H563</code>) hangi MAC ailesine ve donanım yeteneklerine (D-Cache var mı, RMII pin yönlendirme şekli vb.) eşler. Ayrıca derleme zamanı sağlık kontrollerini (descriptor sayısı 2'nin kuvveti mi, buffer boyutu yeterli mi) burada yapar.</dd></div>
+      <div class="term"><dt>eth_port.h <span class="sub" style="display:inline">(Port Sözleşmesi — 21 fonksiyon)</span></dt><dd>MAC ailesine özgü (register seviyesi) 21 fonksiyonluk bir arayüz tanımı. Her MAC ailesi (EQOS, GMAC) bu 21 fonksiyonu kendi dosyasında implemente eder; çekirdek kod bu fonksiyonları çağırır, içini bilmez.</dd></div>
+      <div class="term"><dt>eth_phy.h <span class="sub" style="display:inline">(PHY Sözleşmesi — 4 fonksiyon)</span></dt><dd><code>Bringup</code>, <code>GetSpeedDuplex</code>, <code>SetLoopback</code>, <code>GetName</code> — her PHY çipinin implemente etmesi gereken minimal arayüz. PHY, MAC ailesinden tamamen bağımsız bir eksendir.</dd></div>
+      <div class="term"><dt>eth_port_eqos.c / eth_port_gmac.c</dt><dd>Port sözleşmesinin iki somut implementasyonu: <b>EQOS</b> (Synopsys DesignWare Core Ethernet QoS — H5/H7 serisinde kullanılan modern MAC IP çekirdeği) ve <b>GMAC</b> (klasik ST/Synopsys DWC GMAC 3.x — F4/F7 serisinde). Derleme zamanında yalnızca biri derlenir.</dd></div>
+      <div class="term"><dt>eth_driver.c</dt><dd>Çekirdek katman: DMA descriptor ring yönetimi, sahiplik protokolü, istatistik toplama. Donanımdan tamamen bağımsız — içinde tek bir register erişimi yoktur, tüm register işini port katmanına devreder.</dd></div>
+      <div class="term"><dt>eth_app.c</dt><dd>Uygulama katmanı: gelen paketleri ARP/ICMP/UDP/E-AETIS komutlarına göre ayrıştırıp yönlendirir (bkz. Slayt 08).</dd></div>
+      <div class="term"><dt>eth_iap.c <span class="sub" style="display:inline">(opsiyonel)</span></dt><dd>IAP bootloader mantığı; <code>ETH_ENABLE_IAP</code> ile açılıp kapatılabilir, kapalıyken hiç derlenmez.</dd></div>
+      <div class="term"><dt>Derleme zamanı vs. çalışma zamanı seçim</dt><dd>Diyagramdaki kesikli oklar "derleme zamanı seçimi"ni (hangi port/PHY dosyasının derleneceği), düz oklar ise "çalışma zamanı kullanımı"nı (fonksiyon çağrı akışı) gösterir.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 6 — TAŞINABİLİRLİK ================= -->
+  <section id="s6">
+    <div class="sec-kicker">Slayt 06 · Taşınabilirlik</div>
+    <h2 class="sec-title">Tek config dosyası, dört farklı işlemci</h2>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>MCU</th><th>Çekirdek</th><th>MAC ailesi</th></tr>
+        <tr><td class="mono">STM32H563</td><td>Cortex-M33</td><td>Synopsys EQOS</td></tr>
+        <tr><td class="mono">STM32H743</td><td>Cortex-M7</td><td>Synopsys EQOS</td></tr>
+        <tr><td class="mono">STM32F407</td><td>Cortex-M4</td><td>Klasik GMAC</td></tr>
+        <tr><td class="mono">STM32F767</td><td>Cortex-M7</td><td>Klasik GMAC</td></tr>
+      </table>
+    </div>
+
+    <dl class="terms" style="margin-top:22px;">
+      <div class="term"><dt>Cortex-M4 / M7 / M33</dt><dd>ARM'ın gömülü sistemler için ürettiği çekirdek mimarileri. M4 en temel, M7 daha yüksek performanslı (D-Cache dahil), M33 ise TrustZone güvenlik uzantılarına sahip daha yeni bir nesil. Bu proje hepsinde aynı çekirdek mantığı ile çalışabiliyor.</dd></div>
+      <div class="term"><dt>MAC <span class="sub" style="display:inline">(Media Access Control)</span></dt><dd>Ethernet çerçevelerini oluşturup çözen, adresleme/CRC kurallarını uygulayan, MCU'nun içinde (veya ayrı bir çipte) yaşayan sayısal mantık bloğu. Bir tarafıyla DMA üzerinden sisteme belleğine, diğer tarafıyla RMII üzerinden PHY çipine bağlanır. Bu proje MAC ile <b>register seviyesinde</b> doğrudan konuşuyor — HAL_ETH gibi bir sarmalayıcı yok.</dd></div>
+      <div class="term"><dt>PHY <span class="sub" style="display:inline">(Physical Layer — LAN8720A, LAN8742A, KSZ8081)</span></dt><dd>MAC'in ürettiği sayısal (dijital) sinyali, bakır kablo üzerinden gidebilecek fiziksel/analog hat sinyaline çeviren (ve gelen hat sinyalini sayısala geri çeviren) ayrı bir çip. Ayrıca hat kodlamasını (100BASE-TX için MLT-3), karşı uçla hız/duplex anlaşmasını (auto-negotiation) ve kablo bağlantı algılamasını yürütür. MAC, PHY'nin durumunu ve register'larını <b>MDIO/MDC</b> hattı üzerinden okur/yazar (bkz. Slayt 12 — <code>MACMDIOAR</code>). Bu üçü, projede desteklenen farklı PHY çipleri; hangisinin kullanılacağı <code>eth_config.h</code>'de seçilir.</dd></div>
+      <div class="term"><dt>GMAC <span class="sub" style="display:inline">(Klasik ST/Synopsys DWC MAC 3.x — F4/F7)</span></dt><dd>STM32F407/F767 serisinde bulunan, Synopsys DesignWare Core Ethernet MAC IP'sinin daha eski nesli. "GMAC" (Gigabit MAC) adı, IP çekirdeğinin kökeninden gelir — bu STM32'lerdeki gerçek uygulaması yalnızca 10/100 Mbps'i destekler. Kendi register haritası ve DMA descriptor formatı vardır; bu proje bunu <code>eth_port_gmac.c</code> içinde register seviyesinde implemente eder.</dd></div>
+      <div class="term"><dt>EQOS <span class="sub" style="display:inline">(Synopsys DWC EQoS — H5/H7)</span></dt><dd>"Ethernet Quality-of-Service" — STM32H563/H743 serisinde bulunan, Synopsys DesignWare Core Ethernet QoS IP'si. GMAC'e göre daha yeni nesildir; farklı bir register haritasına ve (bu projede kullanılmayan) çoklu DMA kanalı/kuyruk önceliklendirme yeteneğine sahiptir. <code>eth_port_eqos.c</code> içinde implemente edilir. <b>Önemli:</b> GMAC ve EQOS, aynı işi yapan ama birbirinden tamamen farklı register arayüzlerine sahip iki ayrı donanım IP'sidir — projenin "port sözleşmesi" (<code>eth_port.h</code>) tam olarak bu farkı gizlemek için var.</dd></div>
+      <div class="term"><dt>RMII <span class="sub" style="display:inline">(Reduced Media Independent Interface)</span></dt><dd>MAC (MCU içi) ile PHY çipi arasındaki, orijinal <b>MII</b> standardına göre pin sayısını (16-18'den ~7-9'a) azaltan indirgenmiş dijital arayüz. Bunu başarmak için MII'nin saat başına 4 bitlik veri yolunu 2 bite düşürür ve TX/RX için ayrı saatler yerine <b>tek, ortak bir referans saati</b> kullanır. Pin haritası (hangi sinyalin hangi porta/pine bağlı olduğu) karttan karta değişir, bu yüzden <code>eth_config.h</code>'de elle doğrulanması gerekir.</dd></div>
+    </dl>
+
+    <div class="note">
+      <b>Neden RMII referans saati tam 50 MHz olmalı?</b><br>
+      RMII, veriyi her saat kenarında yalnızca <b>2 bit</b> (bir "dibit") taşır. 100 Mbps'lik bir bağlantıyı sürdürmek için gereken saat hızı buradan çıkar: <span class="mono">2 bit × 50.000.000 saat/sn = 100.000.000 bit/sn</span>. Yani 50 MHz, keyfi bir seçim değil — RMII'nin veri kodlama şeklinin 100 Mbps'te matematiksel zorunluluğudur (10 Mbps'te de aynı 50 MHz saat kullanılır, sadece her bit 10 saat darbesi boyunca tekrarlanır). Ayrıca bu saat, <b>MAC ve PHY'nin ortak referansıdır</b>: her iki çip de pinlerini bu saatin kenarına göre sürer/örnekler; tek bir kristal/osilatörden (ya PHY'den MCU'ya, ya MCU'dan PHY'ye, ya da harici bir osilatörden her ikisine) beslenmesi gerekir. Saat gelmiyorsa ya da yanlış frekanstaysa, iki çip birbirini örnekleyemez — bu da <code>ETH_BSP_Init()</code>'in <code>ETH_ERR_TIMEOUT</code> ile başarısız olmasının birincil nedenidir (bkz. README'deki hata kodu tablosu).
+    </div>
+
+    <dl class="terms" style="margin-top:18px;">
+      <div class="term"><dt>Auto-negotiation</dt><dd>PHY çipinin karşı uçla otomatik olarak hız (10/100 Mbps) ve duplex (yarı/tam) modunu belirlediği süreç; bir zaman aşımı (timeout) değeriyle sınırlandırılır.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 7 — ÇEKİRDEK SÜRÜCÜ ================= -->
+  <section id="s7">
+    <div class="sec-kicker">Slayt 07 · Çekirdek Sürücü</div>
+    <h2 class="sec-title">Paylaşılan halka, net kurallar</h2>
+    <p class="sec-lead">8 elemanlı DMA RX descriptor halkası (ring) ve üç güvenlik kartı: Zero-copy, OWN biti, MPU + non-cacheable.</p>
+
+    <dl class="terms">
+      <div class="term"><dt>DMA <span class="sub" style="display:inline">(Direct Memory Access)</span></dt><dd>İşlemciyi meşgul etmeden, çevre birimi (burada Ethernet MAC) ile bellek arasında doğrudan veri taşıyan donanım birimi. Gelen/giden Ethernet çerçevelerini CPU müdahalesi olmadan belleğe yazar/okur.</dd></div>
+      <div class="term"><dt>Descriptor ring (halka)</dt><dd>DMA'nın hangi bellek adresine yazacağını/hangi adresten okuyacağını tanımlayan, dairesel (ring) şekilde zincirlenmiş küçük yapı dizisi. Bu projede 8 elemanlı bir RX halkası kullanılıyor.</dd></div>
+      <div class="term"><dt>Zero-copy</dt><dd>Gelen verinin, DMA'nın yazdığı tampon üzerinden doğrudan işlenmesi; ara bir kopyalama adımı (<code>memcpy</code>) yok. Bu, hem hız hem de öngörülebilirlik kazandırır.</dd></div>
+      <div class="term"><dt>OWN biti <span class="sub" style="display:inline">(sahiplik protokolü)</span></dt><dd>Her descriptor'da bulunan, "bu elemanın şu anda kimin (DMA'nın mı CPU'nun mu) sahipliğinde olduğunu" belirten tek bir bit. İkisi asla aynı anda aynı elemanı kullanamaz — bu, kesme (interrupt) olmasa bile veri yarışını (race condition) engeller.</dd></div>
+      <div class="term"><dt>Veri yarışı <span class="sub" style="display:inline">(race condition)</span></dt><dd>İki farklı birimin (burada CPU ve DMA) aynı belleğe eşzamanlı erişip tutarsız/öngörülemez sonuç üretmesi riski. OWN biti bunu önlüyor.</dd></div>
+      <div class="term"><dt>MPU <span class="sub" style="display:inline">(Memory Protection Unit)</span></dt><dd>ARM çekirdeğinin, belirli bellek bölgelerine erişim kurallarını (ör. "cache'lenemez" işaretini) donanımsal olarak tanımlamasını sağlayan birim. Descriptor/tampon bölgesi burada non-cacheable olarak işaretlenir.</dd></div>
+      <div class="term"><dt>Non-cacheable / D-Cache</dt><dd><b>D-Cache</b>, CPU'nun veri erişimini hızlandıran önbellek; ama DMA'nın yazdığı veriyi CPU cache üzerinden değil doğrudan bellekten okumazsa, CPU eski (bayat) veriyi cache'ten okuyabilir. Bu yüzden DMA'nın kullandığı bölge MPU ile <b>non-cacheable</b> (önbelleklenemez) işaretlenir.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 8 — PAKET İŞLEME AKIŞI ================= -->
+  <section id="s8">
+    <div class="sec-kicker">Slayt 08 · Uygulama Katmanı</div>
+    <h2 class="sec-title">Paket işleme akışı (karar ağacı)</h2>
+    <p class="sec-lead">Diyagram, gelen bir Ethernet çerçevesinin sırayla hangi kontrollerden geçip nereye yönlendirildiğini gösteriyor.</p>
+
+    <div class="seq">
+      <span>Gelen çerçeve</span><span class="arrow">→</span><span>EtherType?</span><span class="arrow">→</span><span>ARP / IPv4</span>
+    </div>
+    <div class="seq">
+      <span>IPv4</span><span class="arrow">→</span><span>IP proto?</span><span class="arrow">→</span><span>ICMP / UDP</span>
+    </div>
+    <div class="seq">
+      <span>UDP</span><span class="arrow">→</span><span>hedef port?</span><span class="arrow">→</span><span>5000 → eaetis_handle / diğer → callback</span>
+    </div>
+
+    <dl class="terms">
+      <div class="term"><dt>EtherType</dt><dd>Ethernet çerçevesinin başlığındaki, çerçeve içeriğinin hangi üst-katman protokolüne (ARP mı, IPv4 mü) ait olduğunu belirten alan. Karar ağacındaki ilk dallanma noktası budur.</dd></div>
+      <div class="term"><dt>IP proto <span class="sub" style="display:inline">(protokol alanı)</span></dt><dd>IPv4 başlığındaki, veri kısmının ICMP mi yoksa UDP mi olduğunu belirten alan.</dd></div>
+      <div class="term"><dt>UDP port (hedef port)</dt><dd>UDP paketindeki hedef port numarası. 5000 numaralı port (<code>ETH_EAETIS_PORT</code>) E-AETIS komutlarına ayrılmış; diğer portlara gelen veri, uygulamanın <code>RegisterUDPCallback</code> ile kaydettiği kendi işleyicisine yönlendirilir.</dd></div>
+      <div class="term"><dt>eaetis_handle</dt><dd>5000 portuna gelen E-AETIS protokol komutlarını (GET_VARS, START_IAP, PERF_TEST_... vb.) ayrıştırıp ilgili işleve dağıtan fonksiyon.</dd></div>
+      <div class="term"><dt>IP fragmentation / reassembly</dt><dd><b>Fragmentation</b>: büyük bir IP paketinin, ağın izin verdiği en büyük çerçeve boyutunu (MTU) aşması durumunda daha küçük parçalara bölünmesi. <b>Reassembly</b>: alıcı tarafta bu parçaların yeniden birleştirilmesi. Bu proje reassembly yapmıyor — tasarım kararı.</dd></div>
+      <div class="term"><dt>MF biti / offset ≠ 0</dt><dd>Bir IP paketinin parçalanmış olduğunu gösteren işaretler: <b>MF (More Fragments)</b> biti 1 ise daha fazla parça geliyor demektir; <b>offset</b> sıfırdan farklıysa bu paket ilk parça değildir. Sürücü bu işaretleri görünce paketi <b>sessizce düşürür</b>.</dd></div>
+      <div class="term"><dt>Sessiz düşürme (silent drop)</dt><dd>Parçalanmış paketlerin hiçbir hata mesajı üretmeden yok sayılması. GUI tarafında bu paketlerin zaman aşımına (timeout) uğraması, hata değil <b>beklenen ve doğru davranıştır</b> — README bunu açıkça "bilinçli kısıt" olarak belirtir.</dd></div>
+    </dl>
+
+    <div class="event">
+      <div class="event-head"><span class="event-tag">Olay</span><span class="event-day">Hata enjeksiyonu testi</span></div>
+      <div class="event-body">
+        <p>GUI'nin "Hata Enjeksiyonu" sekibinden gönderilen <b>2048 baytlık</b> bir test paketi, ağ katmanında MTU'yu aştığı için IP seviyesinde otomatik olarak parçalanıyor. Sürücü reassembly yapmadığından bu parçaları <span class="fail">sessizce düşürüyor</span> ve GUI zaman aşımı alıyor — bu, bir hata değil, <span class="fix">tasarımın öngördüğü doğru davranış.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SLAYT 9 — IAP BOOTLOADER ================= -->
+  <section id="s9">
+    <div class="sec-kicker">Slayt 09 · IAP Bootloader</div>
+    <h2 class="sec-title">Ağ üzerinden firmware güncelleme</h2>
+    <p class="sec-lead">GUI ile kart arasındaki protokol adımları ve altında yatan mekanizma. Bu, staj boyunca en çok zorlanılan ve en fazla hikâyesi olan parça.</p>
+
+    <div class="seq">
+      <span>START_IAP|SIZE:n|CRC:0x..</span><span class="arrow">→</span><span>IAP_READY</span>
+    </div>
+    <div class="seq">
+      <span>FW_DATA|SEQ:i|LEN:n|&lt;binary&gt;</span><span class="arrow">→</span><span>ACK:i</span><span class="arrow">×n</span>
+    </div>
+    <div class="seq">
+      <span>END_IAP</span><span class="arrow">→</span><span>FLASH_SUCCESS|JUMP_OK</span>
+    </div>
+
+    <dl class="terms">
+      <div class="term"><dt>IAP protokolü</dt><dd>GUI, önce boyut ve CRC32 bilgisiyle <code>START_IAP</code> gönderir; kart ilgili flash sektörlerini silip <code>IAP_READY</code> ile yanıt verir. Ardından yeni firmware 512 baytlık parçalar (<code>FW_DATA|SEQ:i</code>) hâlinde, her biri <code>ACK:i</code> ile onaylanarak gönderilir (en fazla 3 deneme hakkı ile). Son olarak <code>END_IAP</code> ile bütünlük kontrolü tetiklenir.</dd></div>
+      <div class="term"><dt>CRC32</dt><dd>Bir veri bloğunun bütünlüğünü doğrulamak için hesaplanan 32-bitlik bir sağlama (checksum) değeri. Gönderilen firmware'in beklenen CRC32'si <code>START_IAP</code>'de bildirilir; <code>END_IAP</code>'de kart bunu yazdığı veriyle karşılaştırır.</dd></div>
+      <div class="term"><dt>VTOR <span class="sub" style="display:inline">(Vector Table Offset Register)</span></dt><dd>ARM Cortex-M çekirdeğinde, kesme/istisna vektör tablosunun bellekte nerede başladığını tutan özel register (<code>SCB->VTOR</code>). Yeni yüklenen uygulamaya atlarken bu, yeni uygulamanın kendi vektör tablosunu göstermesi için güncellenir.</dd></div>
+      <div class="term"><dt>MSP <span class="sub" style="display:inline">(Main Stack Pointer)</span></dt><dd>Ana yığının (stack) tepe adresini tutan işlemci register'ı. Yeni uygulamaya atlarken, o uygulamanın vektör tablosunun ilk kelimesinden okunan değerle güncellenir.</dd></div>
+      <div class="term"><dt>HardFault</dt><dd>Cortex-M çekirdeğinde, işlemcinin kurtarılamaz bir hatayla (geçersiz bellek erişimi, geçersiz komut, geçersiz vektör tablosu vb.) karşılaştığında düştüğü istisna (exception) durumu — pratikte "çökme" anlamına gelir.</dd></div>
+      <div class="term"><dt>SysTick</dt><dd>Cortex-M çekirdeğine gömülü, periyodik kesme üreten donanım zamanlayıcısı; genelde sistem tik sayacı/zamanlama için kullanılır.</dd></div>
+      <div class="term"><dt>__disable_irq()</dt><dd>Tüm kesmeleri (interrupt) global olarak kapatan CMSIS fonksiyonu.</dd></div>
+      <div class="term"><dt>ETH_Driver_DeInit()</dt><dd>Ethernet DMA/MAC donanımını güvenli şekilde durdurup sıfırlayan fonksiyon.</dd></div>
+    </dl>
+
+    <div class="event">
+      <div class="event-head"><span class="event-tag">Olay</span><span class="event-day">Staj 31. gün — 7 Eylül</span></div>
+      <div class="event-body">
+        <p><b>Ne oldu:</b> Flash'a yazma tarafı çalıştıktan sonra, yeni yüklenen firmware'e atlama (<code>ETH_IAP_JumpToApplication</code>) mekanizması yazıldı: yeni uygulamanın vektör tablosunun ilk iki kelimesi (MSP + reset vektörü) okunuyor, <code>SCB->VTOR</code> yeni adrese taşınıyor, MSP güncelleniyor ve reset fonksiyonuna atlanıyor.</p>
+        <p><span class="fail">İlk denemede kart atlama anında hemen HardFault'a düştü.</span> Debugger ile araştırma sonucu bulunan neden: atlama anında hâlâ çalışmakta olan <b>Ethernet DMA'sı</b> ve <b>SysTick zamanlayıcısının kesmeleri</b> devrede kalmıştı. Yeni uygulama henüz kendi çevre birimi yapılandırmasını yapmadan, eski yapılandırmadan kalan bir kesme tetiklenince işlemci artık geçersiz olan eski vektör tablosuna bakıyordu.</p>
+        <p><span class="fix">Çözüm:</span> Atlamadan hemen önce <code>ETH_Driver_DeInit()</code> ile Ethernet donanımı durduruldu, <code>__disable_irq()</code> ile tüm kesmeler kapatıldı, <code>SysTick->CTRL</code> register'ı sıfırlandı. Bu düzeltmeden sonra flash'a yazılan basit bir LED test programı başarıyla çalıştı.</p>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-head"><span class="event-tag">Olay</span><span class="event-day">Staj 32. gün — 8 Eylül</span></div>
+      <div class="event-body">
+        <p>Flash yazma ve atlama mekanizmaları ayrı ayrı çalıştığına göre, bu gün ikisi <b>E-AETIS protokolü üzerinden uçtan uca</b> test edildi: GUI'nin "Bootloader (IAP)" sekmesinden LED yakıp söndüren küçük bir <code>.bin</code> seçilip yükleme başlatıldı. GUI dosya boyutu ve CRC32'sini hesaplayıp <code>START_IAP</code> gönderdi, kart sektörleri silip <code>IAP_READY</code> döndürdü, 512 baytlık parçalar sırayla <code>ACK</code>'lendi, son olarak <code>END_IAP</code>'e <code>FLASH_SUCCESS|JUMP_OK</code> yanıtı verilip yeni uygulamaya atlandı — <span class="fix">kart üzerindeki LED beklendiği gibi yanıp sönmeye başladı.</span> Bu, firmware güncelleme özelliğinin ilk başarılı uçtan uca testiydi.</p>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="event-head"><span class="event-tag">Olay</span><span class="event-day">Staj 33. gün — 9 Eylül</span></div>
+      <div class="event-body">
+        <p>Bu gün IAP'nin <b>hatalı senaryolar</b> karşısındaki davranışı doğrulandı:</p>
+        <p>1) Bilerek bozuk bir CRC32 ile yükleme denendi: kart tüm parçaları yazdıktan sonra <code>END_IAP</code> aşamasında uyuşmazlığı yakalayıp <code class="mono">IAP_ERR|CRC_MISMATCH</code> döndürdü ve yeni uygulamaya <b>atlamadı</b>.</p>
+        <p>2) <code>ETH_IAP_MAX_SIZE</code> sınırının üzerinde bir boyut bildirilerek <code>START_IAP</code> gönderildi: <code>ETH_IAP_Begin</code> bunu <code class="mono">ETH_ERR_PARAM</code> ile reddedip <b>hiçbir sektörü silmeden</b> çıktı.</p>
+        <p>3) GUI'nin "Hata Enjeksiyonu" sekmesinden kesik/tutarsız <code>START_IAP</code>/<code>FW_DATA</code> paketleri gönderildi: kart bu paketler karşısında da <span class="fix">çökmedi</span>, sadece ilgili <code>IAP_ERR</code> yanıtlarını döndürdü.</p>
+      </div>
+    </div>
+
+    <div class="note"><b>Bilinçli güvenlik kısıtı:</b> IAP mekanizmasında kimlik doğrulama yok, yalnızca CRC32 bütünlük kontrolü var. Bu yüzden <code>ETH_ENABLE_IAP</code> varsayılan olarak kapalı (0) tutuluyor ve yalnızca izole/güvenilir test ağlarında geçici olarak açılıyor.</div>
+  </section>
+
+  <!-- ================= SLAYT 10 — GUI ================= -->
+  <section id="s10">
+    <div class="sec-kicker">Slayt 10 · Test Arayüzü</div>
+    <h2 class="sec-title">E-AETIS GUI'nin yedi sekmesi</h2>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Sekme</th><th>İşlev</th></tr>
+        <tr><td>Kart G/Ç</td><td>Kartın <code>ETH_BSP_RegisterVar()</code> ile kaydettiği değişkenlerin <code>GET_VARS</code> komutuyla otomatik keşfi ve izlenmesi</td></tr>
+        <tr><td>Ping (ICMP)</td><td>ICMP echo request/reply ile gecikme (round-trip time) ölçümü</td></tr>
+        <tr><td>UDP Konsol</td><td>Serbest metin komutu gönderip loglama</td></tr>
+        <tr><td>PHY / DMA Teşhis</td><td><code>GET_PHY_DMA_STATS</code> ile register ve istatistik okuma (BCR/BSR/LINK/SPEED/DUPLEX/DMA hata sayaçları)</td></tr>
+        <tr><td>Performans & Jitter</td><td>min / ortalama / p95 / maksimum gecikme ölçümü</td></tr>
+        <tr><td>Hata Enjeksiyonu</td><td>Fuzz testi ve kasıtlı parçalanma (fragmentation) senaryoları</td></tr>
+        <tr><td>Bootloader (IAP)</td><td>Ağdan firmware güncelleme akışını başlatma</td></tr>
+      </table>
+    </div>
+
+    <dl class="terms" style="margin-top:22px;">
+      <div class="term"><dt>DISCOVER_STM32_REQ</dt><dd>GUI'nin ağa broadcast olarak gönderdiği, karttan <code class="mono">STM32_ACK|DEV:...|PHY:...</code> yanıtı isteyen otomatik keşif komutu.</dd></div>
+      <div class="term"><dt>Otomatik değişken keşfi</dt><dd>GUI'nin, kartın kaydettiği tüm telemetri değişkenlerini <code>GET_VARS</code> komutuyla sorup elle tanımlama yapmadan listeleyebilmesi.</dd></div>
+      <div class="term"><dt>Jitter / p95</dt><dd><b>Jitter</b>: ardışık ölçümler arasındaki gecikme değişkenliği. <b>p95</b>: ölçümlerin %95'inin altında kaldığı gecikme değeri — ortalamadan daha güvenilir bir "kötü durum" göstergesi.</dd></div>
+      <div class="term"><dt>Push vs. pull telemetri</dt><dd><b>Pull</b>: GUI'nin <code>GET_VARS</code> ile sorup kartın cevapladığı model. <b>Push</b>: kartın <code>ETH_BSP_SendTelemetry()</code> ile, GUI <code>TELEMETRY_SUB</code> ile abone olduktan sonra kendiliğinden veri göndermesi.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 12 — DOĞRULAMA ================= -->
+  <section id="s12">
+    <div class="sec-kicker">Slayt 12 · Doğrulama</div>
+    <h2 class="sec-title">Register seviyesinde doğrulama sırası</h2>
+    <p class="sec-lead">Slayttaki numaralı liste, karta yüklemeden önce referans kılavuzundan (RM) doğrulanması gereken kritik register alanlarını sıralıyor.</p>
+
+    <dl class="terms">
+      <div class="term"><dt>MDIO / MACMDIOAR</dt><dd><b>MDIO (Management Data I/O)</b>, MAC'in PHY register'larını okuyup yazdığı iki telli seri yönetim arayüzü. <code>MACMDIOAR</code> bu işlemleri tetikleyen register'dır; içindeki <b>PA/RDA/CR/MOC/MB</b> alanları sırasıyla PHY adresi, register adresi, saat bölme oranı, işlem tipi ve meşguliyet bitini taşır.</dd></div>
+      <div class="term"><dt>SBS→PMCR / ETH_SEL_PHY</dt><dd>Sistem yapılandırma register'ındaki, MAC'in PHY ile hangi arayüz üzerinden (RMII/MII) konuşacağını seçen bit alanı.</dd></div>
+      <div class="term"><dt>DMACRXDTPR <span class="sub" style="display:inline">(tail pointer)</span></dt><dd>DMA'ya, RX descriptor halkasında "en son doldurduğum/serbest bıraktığım descriptor burası" bilgisini veren kuyruk-sonu (tail pointer) register'ı. Yanlış ayarlanırsa DMA halkanın neresinde olduğunu şaşırır.</dd></div>
+      <div class="term"><dt>MPU RBAR / RLAR</dt><dd>ARMv8-M MPU'da bir bellek bölgesinin başlangıcını (<b>RBAR — Region Base Address Register</b>) ve bitişini + özniteliklerini (<b>RLAR — Region Limit Address Register</b>) tanımlayan register çifti.</dd></div>
+      <div class="term"><dt>FLASH_NSCR <span class="sub" style="display:inline">(sadece IAP kullanılıyorsa)</span></dt><dd>Flash bellek denetleyicisinin, sektör silme/yazma işlemlerini kontrol eden register'ı; içindeki sektör numarası alanının doğru MCU ailesine göre ayarlanması gerekir.</dd></div>
+      <div class="term"><dt>ETH_PHY_ScanAddress()</dt><dd>README'nin önerdiği "ilk test": PHY adresini tarayıp PHY ID'sini okuyabilme testi. Bu çalışıyorsa RMII saati, GPIO alternatif fonksiyon ayarları, saat etkinleştirme ve MDIO zamanlaması doğru demektir — geri kalan her şey bunun üzerine kurulur.</dd></div>
+    </dl>
+
+    <div class="event">
+      <div class="event-head"><span class="event-tag">Sonuç</span><span class="event-day">Doğrulama disiplini</span></div>
+      <div class="event-body">
+        <p>Slaytın alt mesajı: "çalışıyor gibi görünüyor" yeterli değil — her iddia (gecikme, kayıp oranı, IAP başarısı) donanımda ölçülüp kaydedildi. Ölçülen sonuç: <b>ortalama gecikme 0.44 ms, paket kaybı %0</b>, ve hata enjeksiyonu sırasında kart hiç çökmedi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SLAYT 13 — ARAÇLAR ================= -->
+  <section id="s13">
+    <div class="sec-kicker">Slayt 13 · Araçlar & Teknolojiler</div>
+    <h2 class="sec-title">Geliştirme ortamı ve donanım protokolleri</h2>
+    <p class="sec-lead">Bu slayttaki bazı öğeler (FreeRTOS temelleri, I2C, SPI) projenin kendisinde <b>kullanılmıyor</b> — staj boyunca ayrıca öğrenilen/pratik yapılan konular olarak eklendi, projenin teknik iddialarıyla karıştırılmamalı.</p>
+
+    <dl class="terms">
+      <div class="term"><dt>CMake</dt><dd>Platformdan bağımsız, derleme sürecini tanımlayan yapı sistemi üreteci (build system generator).</dd></div>
+      <div class="term"><dt>GCC / Ninja</dt><dd><b>GCC</b>: C kodunu makine koduna çeviren derleyici. <b>Ninja</b>: CMake'in ürettiği yapı dosyalarını hızlı şekilde işleyen küçük bir build sistemi.</dd></div>
+      <div class="term"><dt>STM32CubeMX</dt><dd>STM32 çevre birimlerinin (saat ağacı, pin yönlendirme vb.) grafik arayüzle yapılandırılıp başlangıç kodu üretildiği ST aracı.</dd></div>
+      <div class="term"><dt>I2C / SPI / UART</dt><dd>Üç farklı seri haberleşme protokolü: <b>I2C</b> (iki telli, çok cihazlı, adresli), <b>SPI</b> (dört telli, yüksek hızlı, tek efendi-çok köle), <b>UART</b> (asenkron, nokta-noktan, saat sinyali olmadan).</dd></div>
+      <div class="term"><dt>NVIC / Interrupt</dt><dd><b>Interrupt (kesme)</b>: bir donanım olayının işlemciyi anlık olarak normal akıştan çekip bir işleyiciye yönlendirmesi. <b>NVIC (Nested Vectored Interrupt Controller)</b>, Cortex-M çekirdeğindeki kesmeleri önceliklendirip yöneten donanım birimi.</dd></div>
+      <div class="term"><dt>FreeRTOS temelleri</dt><dd>Görev (task) oluşturma, zamanlayıcı (scheduler), kuyruk/semafor gibi RTOS kavramlarının öğrenilmesi — bu proje RTOS'suz olsa da, kavramlar staj kapsamında ayrıca çalışıldı.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= SLAYT 14 — KAZANIMLAR ================= -->
+  <section id="s14">
+    <div class="sec-kicker">Slayt 14 · Kazanımlar</div>
+    <h2 class="sec-title">Rakamların anlamı</h2>
+    <dl class="terms">
+      <div class="term"><dt>40 staj günü</dt><dd>Projenin toplam süresi.</dd></div>
+      <div class="term"><dt>4 desteklenen MCU</dt><dd>STM32H563, STM32H743, STM32F407, STM32F767.</dd></div>
+      <div class="term"><dt>21 port sözleşmesi fonksiyonu</dt><dd><code>eth_port.h</code>'de tanımlı, her MAC ailesinin implemente etmesi gereken fonksiyon sayısı.</dd></div>
+      <div class="term"><dt>0 malloc çağrısı</dt><dd>Projenin tamamında dinamik bellek ayırma kullanılmadığının somut kanıtı — "statik bellek" tasarım kararının rakamsal karşılığı.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ================= DOSYA REHBERİ ================= -->
+  <section id="dosyalar">
+    <div class="sec-kicker">Ek Bölüm</div>
+    <h2 class="sec-title">Proje Dosya Rehberi</h2>
+    <p class="sec-lead">Ethernet_BSP deposundaki her dosyanın görevi. <span style="color:var(--green); font-weight:600;">Yeşil "düzenlenir"</span> etiketi kullanıcının elleceği dosyaları, <span style="color:var(--amber); font-weight:600;">turuncu "dokunulmaz"</span> etiketi kütüphanenin kendi iç dosyalarını gösterir.</p>
+
+    <div class="folder-group">
+      <div class="folder-name">Inc/ — başlık (.h) dosyaları</div>
+      <div class="file-row"><div class="fname">eth_config.h<span class="touch yes">düzenlenir</span></div><div class="fdesc">Kullanıcının elle düzenlediği <b>tek</b> ayar dosyası: hedef MCU, PHY çipi, MAC/IP adresi, RMII pin haritası, DMA descriptor/buffer boyutları, hangi özelliklerin (ARP/ICMP/UDP/IAP…) açık olacağı, debug anahtarı.</div></div>
+      <div class="file-row"><div class="fname">eth_app.h<span class="touch yes">include edilir</span></div><div class="fdesc">Uygulama kodunun include ettiği <b>tek</b> başlık. <code>ETH_BSP_Init</code>, <code>ProcessEvents</code>, <code>SendUDP</code>, <code>RegisterVar</code>, <code>RegisterUDPCallback</code>, <code>RegisterCommandHandler</code> gibi tüm kullanıcı API'sini tanımlar.</div></div>
+      <div class="file-row"><div class="fname">eth_device.h<span class="touch no">dokunulmaz</span></div><div class="fdesc">Seçilen MCU'yu MAC ailesine ve donanım yeteneklerine (D-Cache var mı, RMII yönlendirme şekli vb.) eşler; descriptor sayısı/buffer boyutu gibi ayarları derleme zamanında sağlık kontrolünden geçirir.</div></div>
+      <div class="file-row"><div class="fname">eth_driver.h<span class="touch no">dokunulmaz</span></div><div class="fdesc">Ortak tipler: <code>ETH_Status_t</code> (hata kodları), <code>ETH_Desc_t</code> (DMA descriptor), <code>ETH_LinkState_t</code>, <code>ETH_Stats_t</code> — ve çekirdek driver fonksiyon bildirimleri.</div></div>
+      <div class="file-row"><div class="fname">eth_port.h<span class="touch no">dokunulmaz</span></div><div class="fdesc">MAC ailesi port sözleşmesi — her port dosyasının implemente etmesi gereken 21 fonksiyonun imzası.</div></div>
+      <div class="file-row"><div class="fname">eth_phy.h<span class="touch no">dokunulmaz</span></div><div class="fdesc">PHY sözleşmesi — <code>Bringup</code>, <code>GetSpeedDuplex</code>, <code>SetLoopback</code>, <code>GetName</code> imzaları.</div></div>
+      <div class="file-row"><div class="fname">eth_iap.h<span class="touch no">dokunulmaz</span></div><div class="fdesc">IAP bootloader sözleşmesi (opsiyonel) — 4 fonksiyon imzası.</div></div>
+    </div>
+
+    <div class="folder-group">
+      <div class="folder-name">Src/ — çekirdek kaynak (.c) dosyaları</div>
+      <div class="file-row"><div class="fname">eth_driver.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">DMA descriptor ring yönetimi, OWN biti sahiplik protokolü, istatistik toplama. Donanımdan bağımsız — tek bir register erişimi içermez.</div></div>
+      <div class="file-row"><div class="fname">eth_app.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">Gelen paketleri EtherType/IP proto/UDP port'a göre ayrıştırıp ARP/ICMP/UDP/E-AETIS işleyicilerine yönlendirir.</div></div>
+      <div class="file-row"><div class="fname">eth_iap.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">IAP bootloader implementasyonu (opsiyonel, <code>ETH_ENABLE_IAP</code> ile açılır): flash silme/yazma, CRC32 doğrulama, VTOR/MSP güncelleyip yeni uygulamaya atlama.</div></div>
+    </div>
+
+    <div class="folder-group">
+      <div class="folder-name">Src/port/ — MAC ailesine özgü register erişimi</div>
+      <div class="file-row"><div class="fname">eth_port_eqos.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">STM32H5/H7 (Synopsys DWC EQOS) için port sözleşmesinin somut implementasyonu.</div></div>
+      <div class="file-row"><div class="fname">eth_port_gmac.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">STM32F4/F7 (klasik ST/DWC GMAC 3.x) için port sözleşmesinin somut implementasyonu.</div></div>
+    </div>
+
+    <div class="folder-group">
+      <div class="folder-name">Src/phy/ — PHY çipine özgü sürücüler</div>
+      <div class="file-row"><div class="fname">eth_phy_lan87xx.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">LAN8720A / LAN8742A PHY çipleri için sözleşme implementasyonu.</div></div>
+      <div class="file-row"><div class="fname">eth_phy_ksz80xx.c<span class="touch no">dokunulmaz</span></div><div class="fdesc">KSZ8081 PHY çipi için sözleşme implementasyonu.</div></div>
+    </div>
+
+    <div class="folder-group">
+      <div class="folder-name">Examples/, Docs/, PDF/ — örnek ve destek dosyaları</div>
+      <div class="file-row"><div class="fname">Examples/main.c<span class="touch yes">referans</span></div><div class="fdesc">Uçtan uca entegrasyon örneği: sıcaklık/besleme/I2C nem sensörü telemetrisi (pull, <code>ptr</code>) + arayüzden kontrol edilen LED (push-pull, <code>getter</code>/<code>setter</code>), hata kodlarının nasıl yorumlanacağı.</div></div>
+      <div class="file-row"><div class="fname">Docs/linker_snippet.ld<span class="touch yes">uygulanır</span></div><div class="fdesc"><code>.eth_desc</code> section'ının linker script'e nasıl ekleneceğini gösteren şablon; STM32H563 ve STM32H743 (DTCM yerine D2 domain SRAM uyarısı dahil) örnekleriyle.</div></div>
+      <div class="file-row"><div class="fname">Docs/gui.png</div><div class="fdesc">README'de gösterilen E-AETIS GUI ekran görüntüsü.</div></div>
+      <div class="file-row"><div class="fname">PDF/EthernetPDF.pdf, ethernet_device_info.pdf</div><div class="fdesc">Register alan yerleşimlerini doğrulamak için kullanılan MCU/PHY referans kılavuzları (RM).</div></div>
+    </div>
+
+    <div class="folder-group">
+      <div class="folder-name">Depo kökü — araç ve dokümantasyon</div>
+      <div class="file-row"><div class="fname">ethernet_test_gui.py<span class="touch yes">ayrı çalıştırılır</span></div><div class="fdesc">E-AETIS masaüstü test/teşhis arayüzünün tüm kaynak kodu (PyQt5) — bkz. Slayt 10.</div></div>
+      <div class="file-row"><div class="fname">README.md</div><div class="fdesc">Projenin ana dokümantasyonu: entegrasyon adımları, yapılandırma tablosu, API tablosu, E-AETIS protokol tablosu, doğrulama listesi, bilinen sınırlar.</div></div>
+      <div class="file-row"><div class="fname">Sistem_Gereksinimleri_Raporu.md</div><div class="fdesc">Projenin gereksinim/test-doğrulama tablosunun tutulduğu mühendislik dokümanı (staj boyunca güncellendi).</div></div>
+      <div class="file-row"><div class="fname">staj_kod_ozetleri.md</div><div class="fdesc">Kod tabanının modül modül özetlendiği kişisel çalışma notu.</div></div>
+      <div class="file-row"><div class="fname">staj_defteri_final.txt / staj_günlüğü.txt</div><div class="fdesc">Gün gün tutulan staj günlüğü — bu rapordaki IAP/HardFault gibi olay anlatıları buradan alındı.</div></div>
+      <div class="file-row"><div class="fname">sunum/</div><div class="fdesc">Bu klasör: sunum üretim betikleri (<code>generate_pptx*.py</code>), üretilen <code>.pptx</code> dosyaları, görseller ve şu an okuduğun bu terim rehberi.</div></div>
+      <div class="file-row"><div class="fname">arayuz_gelisim_ekran_goruntuleri/</div><div class="fdesc">GUI'nin gün gün gelişimini gösteren ekran görüntüleri + o günlere ait örnek veri üreten yardımcı Python betikleri (bkz. Slayt 11).</div></div>
+    </div>
+  </section>
+
+  <!-- ================= NASIL KULLANILIR ================= -->
+  <section id="kullanim">
+    <div class="sec-kicker">Ek Bölüm</div>
+    <h2 class="sec-title">Başka Bir Kullanıcı Bu Projeyi Nasıl Kullanır?</h2>
+    <p class="sec-lead">README'deki "Entegrasyon (3 Adım)" bölümünün genişletilmiş hâli — bir mühendisin bu kütüphaneyi kendi kartına entegre etmek için izleyeceği gerçek sıra.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <h4>1. Kütüphaneyi projeye kopyala</h4>
+          <p><code>Ethernet_BSP/</code> klasörünü hedef projeye kopyala. <code>Src/</code> altındaki <b>tüm</b> <code>.c</code> dosyalarını derleme yoluna ekle — seçilmeyen port/PHY dosyaları otomatik boş derlenir, elle çıkarmaya gerek yok. <code>Inc/</code> klasörünü include path'e tanıt.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>2. Tek dosyayı düzenle: eth_config.h</h4>
+          <p>Sekiz grup ayar burada toplanır: (1) hedef MCU — <code>ETH_TARGET_STM32H563/H743/F407/F767</code>'den sadece biri, (2) PHY çipi — <code>LAN8720A/LAN8742A/KSZ8081</code>'den sadece biri, (3) MAC adresi/IP/netmask/gateway, (4) PHY adresi + reset pini + auto-negotiation zaman aşımı, (5) RMII pin haritası (karta özgü, şemadan doğrulanmalı), (6) DMA/bellek — descriptor sayıları (2'nin kuvveti) ve buffer boyutu, (7) özellik anahtarları — ARP/ICMP/UDP/istatistik/E-AETIS komut/telemetri/IAP aç-kapa, (8) <code>ETH_DEBUG_ENABLE</code>. Yanlış/eksik seçimde <code>eth_device.h</code> derlemeyi <code>#error</code> ile durdurur.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>3. Linker script'e .eth_desc section'ı ekle</h4>
+          <p><code>Docs/linker_snippet.ld</code>'deki şablonu kullanarak DMA'nın erişebildiği, MPU ile non-cacheable işaretlenecek bir bellek bölgesi ayır ve adresini <code>eth_config.h</code>'deki <code>ETH_DESC_REGION_BASE</code> ile eşleştir. <b>H7'de dikkat:</b> bu bölge DTCM (<code>0x20000000</code>) olamaz, D2 domain SRAM (<code>0x30000000</code>) kullanılmalı — ETH DMA DTCM'ye erişemez.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>4. main.c'de başlat ve ana döngüde çağır</h4>
+          <p>Tek başlık include edilir, <code>ETH_BSP_Init()</code> ile başlatılır, <code>ETH_BSP_ProcessEvents()</code> ana döngüde bloklamadan çağrılır:</p>
+          <pre class="code"><span class="cm">#include</span> "eth_app.h"
+
+<span class="cm">int</span> main(void) {
+    HAL_Init();
+    SystemClock_Config();          <span class="cm">// 50 MHz RMII referans saati aktif olmalı</span>
+
+    <span class="cm">if</span> (ETH_BSP_Init() != ETH_OK) { <span class="cm">/* hata kodu nedeni söyler */</span> }
+
+    <span class="cm">while</span> (1) {
+        ETH_BSP_ProcessEvents();   <span class="cm">// bloklamaz</span>
+        <span class="cm">// kendi uygulama kodun</span>
+    }
+}</pre>
+          <p style="margin-top:8px;">Hata kodları doğrudan nedeni söyler: <code>ETH_ERR_TIMEOUT</code> → 50 MHz RMII saati gelmiyor, <code>ETH_ERR_PHY</code> → <code>PHY_ADDRESS</code> yanlış (<code>ETH_PHY_ScanAddress()</code> ile taranabilir), <code>ETH_ERR_LINK_DOWN</code> → kablo takılı değil.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>5. Kendi değişkenlerini ve komutlarını arayüze aç</h4>
+          <p>Bir sensör değeri için doğrudan bellek işaretçisi, bir GPIO gibi yan etkisi olan şey için <code>getter</code>/<code>setter</code> fonksiyon çifti kullanılır. Yapı ömrü boyunca geçerli kalmalı, bu yüzden <code>static const</code> tanımlanır (BSP işaretçisini saklar, kopyalamaz):</p>
+          <pre class="code"><span class="cm">// sensör değeri: doğrudan bellek (ptr)</span>
+<span class="cm">static const</span> ETH_Var_t var_temp = {
+    .name = "sicaklik", .unit = "C", .type = ETH_VAR_F32,
+    .writable = <span class="cm">false</span>, .ptr = &g_temperature_c
+};
+
+<span class="cm">// GPIO: yan etkili, fonksiyon üzerinden (getter/setter)</span>
+<span class="cm">static const</span> ETH_Var_t var_led = {
+    .name = "led", .type = ETH_VAR_U8, .writable = <span class="cm">true</span>,
+    .ptr = <span class="cm">NULL</span>, .getter = led_get, .setter = led_set
+};
+
+ETH_BSP_RegisterVar(&var_temp);
+ETH_BSP_RegisterVar(&var_led);</pre>
+          <p style="margin-top:8px;">Kendi UDP portuna gelen veriyi almak için <code>ETH_BSP_RegisterUDPCallback()</code>, BSP'nin tanımadığı komutları (LED, sensör vb.) kendi donanımına yönlendirmek için <code>ETH_BSP_RegisterCommandHandler()</code> kullanılır.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>6. Karta yüklemeden önce doğrula</h4>
+          <p>İlk test olarak <code>ETH_PHY_ScanAddress()</code> çağrılıp PHY ID okunabildiği doğrulanır — bu çalışıyorsa RMII saati, GPIO alternatif fonksiyon ayarları, saat etkinleştirme ve MDIO zamanlaması doğrudur. Ardından Slayt 12 bölümündeki register doğrulama sırası (MACMDIOAR, SBS→PMCR, DMACRXDTPR, MPU RBAR/RLAR, gerekirse FLASH_NSCR) referans kılavuzundan (RM) teyit edilir.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>7. E-AETIS GUI ile test et</h4>
+          <p><code>pip install PyQt5</code> ile bağımlılık kurulur, <code>python ethernet_test_gui.py</code> ile arayüz açılır. Varsayılan hedef <code>192.168.1.50:5000</code> — kartın IP'si <code>eth_config.h</code> ile eşleşmeli. Arayüz <code>DISCOVER_STM32_REQ</code> broadcast'i ile kartı otomatik bulabilir, <code>GET_VARS</code> ile 5. adımda kaydedilen değişkenleri otomatik listeler. Sonrasında Slayt 10'daki yedi sekme (Ping, Performans & Jitter, Hata Enjeksiyonu, Bootloader…) ile test edilir.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h4>8. (Opsiyonel) Yeni donanım eklemek</h4>
+          <p><b>Yeni MCU:</b> yalnızca <code>eth_device.h</code>'ye bir <code>#elif</code> bloğu eklenir; MAC ailesi (EQOS/GMAC) zaten destekleniyorsa başka hiçbir dosya değişmez. <b>Yeni MAC ailesi:</b> <code>eth_port.h</code>'deki 21 fonksiyon yeni bir <code>.c</code> dosyasında implemente edilir. <b>Yeni PHY:</b> <code>eth_phy.h</code>'deki 4 fonksiyon yeni bir dosyada implemente edilir — PHY, MAC ailesinden bağımsız bir eksen olduğu için port dosyalarına dokunulmaz.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><b>Sınırları unutma:</b> TCP/DHCP/DNS yok (yalnızca ARP/ICMP/UDP), IP fragment reassembly yok, tek DMA kanalı/tek kuyruk (QoS/VLAN yok), IAP'de kimlik doğrulama yok (yalnızca CRC32), polling tabanlı (kesme desteği yok — davranış <code>ProcessEvents</code> çağrı sıklığına bağlıdır).</div>
+  </section>
+
+  <footer>E-AETIS staj sunumu hazırlık materyali · slayt sırasına göre derlendi · generate_pptx.py, README.md ve staj_defteri_final.txt kaynak alınarak hazırlandı.</footer>
+
+</div>
