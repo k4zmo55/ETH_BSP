@@ -888,6 +888,12 @@ dg_node(slide, m9, 850, 450, 300, 52, "optional", "CRC32 doğrula → VTOR taş�
 dg_edge(slide, m9, 1000, 530, 280, 530)
 dg_text(slide, m9, 640, 520, "FLASH_SUCCESS | JUMP_OK", size=7.5, mono=True, w=3.2)
 
+img9x = dtx9 + dw9 + Inches(0.3)
+img9w = SW - MX - img9x
+add_picture_framed(slide, os.path.join(ROOT, "arayuz_gelisim_ekran_goruntuleri", "08_eylul.png"),
+                    img9x, dty9, img9w, Inches(2.55),
+                    caption="GUI · Bootloader (IAP) — gerçek başarılı yükleme")
+
 add_caption(slide, MX, dty9 + dh9 + Inches(0.1), SW - 2 * MX,
             "Tek banka, kimlik doğrulama yok — yalnızca CRC32 bütünlük kontrolü. Sadece izole/güvenilir "
             "ağlarda kullanılmalı.")
@@ -899,7 +905,10 @@ slide, y = new_content_slide(
     10, "09 · Test Arayüzü", "Geliştirdiğim arayüzle kart canlı olarak izlenip test edilir",
     "Yedi ayrı sekme: kart verilerini izleme, bağlantı testi, performans ölçümü, arıza testi ve "
     "yazılım güncelleme.")
-add_picture_framed(slide, os.path.join(ROOT, "Docs", "gui.png"), MX, y + Inches(0.1), Inches(6.6), Inches(3.6))
+add_picture_framed(slide, os.path.join(ROOT, "arayuz_gelisim_ekran_goruntuleri", "27_agustos.png"),
+                    MX, y + Inches(0.1), Inches(6.6), Inches(3.6),
+                    caption="Kart G/Ç sekmesi — 5 değişken otomatik keşfedildi, canlı izleniyor "
+                            "(yanıt süresi 0.39 ms)")
 add_table(slide, MX + Inches(6.9), y + Inches(0.1), SW - MX - (MX + Inches(6.9)), Inches(3.6),
           ["Sekme", "İşlev"],
           [

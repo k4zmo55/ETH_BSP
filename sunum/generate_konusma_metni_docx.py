@@ -87,14 +87,20 @@ SLIDES = [
      "çalışan Ethernet DMA'sı ve SysTick kesmeleri, yeni uygulamanın henüz kurmadığı bir vektör "
      "tablosuna düşüyordu. Çözüm, atlamadan hemen önce Ethernet'i durdurup tüm kesmeleri kapatmak "
      "oldu. Önemli bir güvenlik notu: bu mekanizmada kimlik doğrulama yok, sadece bütünlük kontrolü "
-     "var, bu yüzden varsayılan olarak kapalı tutuyorum."),
+     "var, bu yüzden varsayılan olarak kapalı tutuyorum. Sağdaki ekran görüntüsü bunun gerçek bir "
+     "çalıştırmasını gösteriyor: küçük bir LED test firmware'i yüklendi, kart tüm parçaları alıp "
+     "CRC32'yi doğruladı ve FLASH_SUCCESS|JUMP_OK ile yeni uygulamaya atladı — LED beklendiği gibi "
+     "yanıp söndü."),
 
     (10, "Test Arayüzü (GUI)",
      "Geliştirdiğim arayüzün yedi sekmesi var: kart değişkenlerini otomatik keşfedip izleyen bir "
      "sekme, ping ile gecikme ölçen bir sekme, serbest komut için bir UDP konsolu, PHY/DMA "
      "register'larını gösteren bir teşhis ekranı, performans ve jitter ölçen bir sekme, hata "
      "enjeksiyonu ve bootloader sekmesi. Kart yeni bir değişken kaydettiğinde arayüz onu elle "
-     "tanımlamaya gerek kalmadan otomatik buluyor."),
+     "tanımlamaya gerek kalmadan otomatik buluyor. Soldaki ekran görüntüsü gerçek bir kayıttan: "
+     "kart açılınca beş değişkeni (sıcaklık, besleme gerilimi, çalışma süresi, nem, led) kendisi "
+     "keşfetti, değerleri canlı grafikte izliyorum ve olay günlüğünde kartın 0.39 milisaniyede "
+     "yanıt verdiğini görüyorum — yani bu, gerçekten karttan canlı veri okuyan çalışan bir sistem."),
 
     (11, "Süreç",
      "Arayüz de sürücü gibi gün gün büyüdü; ilk günlerdeki boş pencereden, bugünkü canlı performans "
