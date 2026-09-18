@@ -1,0 +1,25 @@
+# Build outputs
+build/
+Debug/
+Release/
+cmake-build-*/
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# IDE / editor
+.vscode/
+.settings/
+.cproject
+.project
+*.launch
+.~lock.*#
+*.swp
+
+# Python
+__pycache__/
+*.pyc
